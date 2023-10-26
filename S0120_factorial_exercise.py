@@ -33,11 +33,6 @@ Fortsæt derefter med den næste fil.
 """
 
 #  Write your function below this line.
-def factorial2(number):
-    faculty_number = number * (number - 1) * (number - 2) * (number - 3) * (number - 4)
-    return faculty_number
-
-
 def factorial(number):
     faculty_number = 1
     factor = number
