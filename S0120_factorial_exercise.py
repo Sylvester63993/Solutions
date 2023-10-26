@@ -41,7 +41,7 @@ def factorial2(number):
 def factorial(number):
     faculty_number = 1
     factor = number
-    while factor > 0:
+    while factor > 1:
         faculty_number = faculty_number * factor
         print(f' {factor=}   {faculty_number=}')
         factor -= 1 #factor = factor - 1
