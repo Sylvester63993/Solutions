@@ -22,11 +22,22 @@ Fortsæt derefter med den næste fil.
 
 myfile = "S0165_input.txt" # the name of the file. Note the / (slash) instead of a \ (backslash) in the file path!
 
-# Reading from a file (method 1)
-with open(myfile) as file:  # when the program exits the with-block, the file is automatically closed
-    lines = file.readlines()  # reads the whole file at once
-line_number = 0
+# Åbn filen i læsetilstand
+with open(myfile, 'r') as file:
+    # Læs alle linjer fra filen og gem dem i en liste
+    lines = file.readlines()
+
+# Gennemgå hver linje i listen
 for line in lines:
-    line_number += 1
-    print(f"Line {line_number}: {line.strip()}")  # .strip cleans the row from spaces, carriage returns and similar characters
-print()
+    # Split linjen i navn og alder ved at bruge mellemrum som adskillelse
+    parts = line.split()
+
+    # Hvis linjen er tom, spring over til næste iteration
+    if not parts:
+        continue
+
+    # Udpak navn og alder fra listen af dele
+    name, age = parts[0], parts[1]
+
+    # Udskriv resultatet
+    print(f"{name} er {age} år gammel.")
