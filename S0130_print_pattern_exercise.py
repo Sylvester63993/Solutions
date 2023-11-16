@@ -46,14 +46,15 @@ Fortsæt derefter med den næste fil.
 def print_repeatedly(string, repetitions):
     print(string * repetitions, end="\n")
 
+
 def print_pattern(string, repetition_list):
     for repetitions in repetition_list:
         print_repeatedly(string, repetitions)
         print()  # Tilføj en ny linje efter hver udskrivning
+
 
 # Here starts the main program. From the main program you can call your functions.
 
 print_repeatedly("xy", 3)
 
 print_pattern("abc", [4, 2, 1])
-
