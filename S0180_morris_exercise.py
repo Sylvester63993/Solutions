@@ -77,12 +77,14 @@ while not dead() and morris["turn"] < 1000:
     morris["turn"] += 1
 
     # Choose the activity that maximizes gold
-    if morris["whisky"] < 10 and morris["gold"] >= 1:
+    if morris["whisky"] < 1 and morris["gold"] >= 1: # ChatGPT-værdi: < 10 >= 1
         buy_whisky()
-    elif morris["whisky"] > 0 and morris["thirst"] >= 15:
+    elif morris["whisky"] > 0 and morris["thirst"] >= 96: # ChatGPT-værdi: > 0 >= 15
         drink()
-    elif morris["hunger"] >= 20 and morris["gold"] >= 2:
+    elif morris["hunger"] >= 99 and morris["gold"] >= 2: # ChatGPT-værdi: >= 20 >= 2
         eat()
+    elif morris["sleepiness"] > 84: # sleepiness > 75 = 1643 gold
+        sleep()
     else:
         mine()
 
