@@ -29,7 +29,7 @@ car1_max_speed = 100  # define maximum speed for car1
 car2_wheels = 6  # define number of wheels for car2
 car2_max_speed = 120  # define maximum speed for car2
 
-print("wheels", car1_wheels, "max speed", car1_max_speed)  # print out the properties of car1
-print("wheels", car2_wheels, "max speed", car2_max_speed)  # print out the properties of car2
+print("Number of wheels:", car1_wheels, "Max speed:", car1_max_speed, "km/h")  # print out the properties of car1
+print("Number of wheels:", car2_wheels, "Max speed:", car2_max_speed, "km/h")  # print out the properties of car2
 
 drive_car()  # call drive_car
