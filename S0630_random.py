@@ -23,6 +23,7 @@ first_seed = 5
 random.seed(first_seed)  # use seed() to create reproducible random numbers
 for i in range(3):
     print(f"A random number between 0 and 1 with seed {first_seed}: {random.random()}")
+
 print()
 
 second_seed = 7  # another seed
