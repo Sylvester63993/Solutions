@@ -35,6 +35,7 @@ class Vehicle:
 
 
 car1 = Vehicle(4, 160)
+print(car1)
 car1.drive()
 car1._top_secret()  # this is NOT ok! Metoden er kaldt uden for klassen Vehicle
 
