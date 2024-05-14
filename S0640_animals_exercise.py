@@ -67,5 +67,6 @@ class Animal:
         self.legs = legs
         self.female = female
 
+
     def __repr__(self):
         return f'name: {self.name}, sound: {self.sound}, height: {self}, weight: {self}, legs: {self.legs}, female: {self}'
