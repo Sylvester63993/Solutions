@@ -43,7 +43,7 @@ def mine():
     morris["gold"] += 5
     morris["sleepiness"] += 5
     morris["thirst"] += 5
-    morris["whisky"] += 0
+    # morris["whisky"] += 0 #
 
 
 def eat():
