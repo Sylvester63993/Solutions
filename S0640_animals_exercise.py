@@ -77,10 +77,21 @@ class Animal:
 class Dog(Animal):
     def __init__(self, name, sound, height, weight, legs, female, tail_length, hunts_sheep):
         super().__init__(name, sound, height, weight, legs, female)
+        self.tail_length = tail_length
+        self.hunts_sheep = hunts_sheep
 
+    def __repr__(self):
+        return f'name: {self.name}, sound: {self.sound}, height: {self.height} cm, weight: {self.weight} kg, legs: {self.legs}, female: {self.female}, tail_length: {self.tail_length} cm, hunts_sheep: {self.hunts_sheep}'
+
+    def wag_tail(self):
+        print(f'Hunden {self.name} logrer med sin {self.tail_length} cm lange hale {self.weight}')
 
 def main():
-    animal = Animal('dog', sound='bark', height=12, weight=48.5, legs=4, female=True,)
-
+    animal = Animal('Ko', sound='Moooo!', height=140, weight=700, legs=4, female=True)
     animal.make_noise()
+
+    dog = Dog('Snoopy', sound='Vov!', height=12, weight=32, legs=4, female=False, tail_length=12, hunts_sheep=True)
+    dog.wag_tail()
+
+    print(dog)
 main()
