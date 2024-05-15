@@ -86,6 +86,8 @@ class Dog(Animal):
     def wag_tail(self):
         print(f'Hunden {self.name} logrer med sin {self.tail_length} cm lange hale')
 
+    def mate():
+        return
 def main():
     animal = Animal('Ko', sound='Moooo!', height=140, weight=700, legs=4, female=True)
     animal.make_noise()
