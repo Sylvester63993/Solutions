@@ -58,6 +58,7 @@ Når dit program er færdigt, skal du skubbe det til dit github-repository.
 Send derefter denne Teams-meddelelse til din lærer: <filename> færdig
 Fortsæt derefter med den næste fil."""
 
+
 class Animal:
     def __init__(self, name, sound, height, weight, legs, female):
         self.name = name
@@ -67,6 +68,19 @@ class Animal:
         self.legs = legs
         self.female = female
 
-
     def __repr__(self):
         return f'name: {self.name}, sound: {self.sound}, height: {self}, weight: {self}, legs: {self.legs}, female: {self}'
+
+    def make_noise(self):
+        print(self.sound)
+
+class Dog(Animal):
+    def __init__(self, name, sound, height, weight, legs, female, tail_length, hunts_sheep):
+        super().__init__(name, sound, height, weight, legs, female)
+
+
+def main():
+    animal = Animal('dog', sound='bark', height=12, weight=48.5, legs=4, female=True,)
+
+    animal.make_noise()
+main()
