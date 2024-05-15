@@ -84,7 +84,7 @@ class Dog(Animal):
         return f'name: {self.name}, sound: {self.sound}, height: {self.height} cm, weight: {self.weight} kg, legs: {self.legs}, female: {self.female}, tail_length: {self.tail_length} cm, hunts_sheep: {self.hunts_sheep}'
 
     def wag_tail(self):
-        print(f'Hunden {self.name} logrer med sin {self.tail_length} cm lange hale {self.weight}')
+        print(f'Hunden {self.name} logrer med sin {self.tail_length} cm lange hale')
 
 def main():
     animal = Animal('Ko', sound='Moooo!', height=140, weight=700, legs=4, female=True)
