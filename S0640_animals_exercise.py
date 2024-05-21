@@ -71,7 +71,7 @@ class Animal:
         self.female = female
 
     def __repr__(self):
-        return f'name: {self.name}, sound: {self.sound}, height: {self}, weight: {self}, legs: {self.legs}, female: {self}'
+        return f'name: {self.name}, sound: {self.sound}, height: {self.height}, weight: {self.weight}, legs: {self.legs}, female: {self.female}'
 
     def make_noise(self):
         print(self.sound)
@@ -80,13 +80,14 @@ class Dog(Animal):
     def __init__(self, name, sound, height, weight, legs, female, tail_length, hunts_sheep):
         super().__init__(name, sound, height, weight, legs, female)
         self.tail_length = tail_length
+        self.tail_length_unit = "cm"
         self.hunts_sheep = hunts_sheep
 
     def __repr__(self):
-        return f'name: {self.name}, sound: {self.sound}, height: {self.height} cm, weight: {self.weight} kg, legs: {self.legs}, female: {self.female}, tail_length: {self.tail_length}, hunts_sheep: {self.hunts_sheep}'
+        return f'name: {self.name}, sound: {self.sound}, height: {self.height}, weight: {self.weight} kg, legs: {self.legs}, female: {self.female}, tail_length: {self.tail_length} {self.tail_length_unit}, hunts_sheep: {self.hunts_sheep}'
 
     def wag_tail(self):
-        print(f'Hunden {self.name} logrer med sin {self.tail_length} cm lange hale')
+        print(f'Hunden {self.name} logrer med sin {self.tail_length} {self.tail_length_unit} lange hale')
 
     def mate(self, other):
         if self.female != other.female:
@@ -97,27 +98,18 @@ class Dog(Animal):
                 puppy_female = False
             # puppy_female = random_number > 0.5 # kortere version
 
-            other.female
             puppy_gender = other.female
             if puppy_gender:
                 puppy_sound = "Vuuvuvuvuv!"
-            else:
-                puppy_sound = "Vovovovoov!"
-
-            if puppy_female:
                 puppy_height = ((other.height+self.height) / 2) * 0.8
-            else:
-                puppy_height = ((other.height+self.height) / 2) * 1.2
-
-            if puppy_female:
                 puppy_weight = ((other.weight+self.weight) / 2) * 0.9
-            else:
-                puppy_weight = ((other.weight+self.weight) / 2) * 1.1
-
-            if puppy_female:
                 puppy_tail_length = ((other.tail_length+self.tail_length) / 2) * 0.95
             else:
+                puppy_sound = "Vovovovoov!"
+                puppy_height = ((other.height+self.height) / 2) * 1.2
+                puppy_weight = ((other.weight+self.weight) / 2) * 1.1
                 puppy_tail_length = ((other.tail_length+self.tail_length) / 2) * 1.05
+
 
             random_number = random.random()
             puppy_hunts_sheep = random_number > 0.5
@@ -133,6 +125,7 @@ class Dog(Animal):
             return puppy
 
 
+# def mate2():
 
 
 def main():
@@ -141,9 +134,11 @@ def main():
 
     dog = Dog('Snoopy', sound='Vov!', height=15, weight=36, legs=4, female=False, tail_length=15, hunts_sheep=True)
     dog.wag_tail()
+
     dog2 = Dog('Snoopette', sound='Vuf!', height=12, weight=32, legs=4, female=True, tail_length=12, hunts_sheep=True)
     new_dog = dog2.mate(dog)
 
+    print(animal)
     print(new_dog)
     print(dog)
     print(dog2)
