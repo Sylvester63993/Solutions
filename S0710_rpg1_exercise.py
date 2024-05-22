@@ -45,4 +45,21 @@ class Character:
         self._current_health = _current_health
         self.attackpower = attackpower
 
+    def __repr__(self):
+        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}'
 
+    def hit(self):
+        0
+
+def main():
+    new_character = Character('John', 100, 100, 10)
+    new_character2 = Character('Mogens', 200, 200, 20)
+
+class Healer(Character):
+    def __init__(self, healpower, attackpower):
+        super().__init__(healpower, attackpower)
+        self.healpower = healpower
+        self.attackpower = attackpower
+
+    def heal(self):
+main()
