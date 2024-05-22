@@ -86,6 +86,8 @@ class Dog(Animal):
     def __repr__(self):
         return f'name: {self.name}, sound: {self.sound}, height: {self.height}, weight: {self.weight} kg, legs: {self.legs}, female: {self.female}, tail_length: {self.tail_length} {self.tail_length_unit}, hunts_sheep: {self.hunts_sheep}'
 
+    def __add__(self, other):
+        return self.mate(other)
     def wag_tail(self):
         print(f'Hunden {self.name} logrer med sin {self.tail_length} {self.tail_length_unit} lange hale')
 
@@ -139,9 +141,10 @@ def main():
 
     dog2 = Dog('Snoopette', sound='Vuf!', height=12, weight=32, legs=4, female=True, tail_length=12, hunts_sheep=True)
     new_dog = dog2.mate(dog)
-
+    new_dog2 = dog+dog2
     print(animal)
     print(new_dog)
+    print(new_dog2)
     print(dog)
     print(dog2)
 main()
