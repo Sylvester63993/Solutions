@@ -118,14 +118,16 @@ class Dog(Animal):
             minimum = 3
             for i in range(5):
                 puppy_legs = random.randint(minimum, maximum)
-            # puppy_sound = "aaa" if puppy_gender else "bbb" # Kortere version af det for oven
+            # puppy_sound = "aaa" if puppy_gender else "bbb" # Kortere version af den for oven
             puppy = Dog('Puppy', sound=puppy_sound, height=puppy_height, weight=puppy_weight, legs=puppy_legs, female=puppy_female, tail_length=puppy_tail_length, hunts_sheep=puppy_hunts_sheep)
             print(puppy.sound)
             # print(puppy.legs)
             return puppy
 
 
-# def mate2():
+    def mate2(self):
+        0
+
 
 
 def main():
