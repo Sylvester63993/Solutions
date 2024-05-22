@@ -127,11 +127,6 @@ class Dog(Animal):
             return puppy
 
 
-    def mate2(self):
-        0
-
-
-
 def main():
     animal = Animal('Ko', sound='Muuuh!', height=140, weight=700, legs=4, female=True)
     animal.make_noise()
@@ -148,3 +143,4 @@ def main():
     print(dog)
     print(dog2)
 main()
+
