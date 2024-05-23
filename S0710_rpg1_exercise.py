@@ -44,22 +44,62 @@ class Character:
         self.max_health = max_health
         self._current_health = _current_health
         self.attackpower = attackpower
+        self.dmg_unit = "dmg"
 
     def __repr__(self):
         return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}'
 
-    def hit(self):
-        0
+    def get_hit(self, attackpower):
+        if self._current_health <= 0:
+            print("Cannot attack", self.name, "because character already is dead")
+        else:
+            self._current_health -= attackpower
 
-def main():
-    new_character = Character('John', 100, 100, 10)
-    new_character2 = Character('Mogens', 200, 200, 20)
+    def get_hit2(self, other):
+        if self._current_health <= 0:
+            print("Cannot attack", self.name, "because character already is dead")
+        else:
+            self._current_health -= other.attackpower
+
+    def get_healed(self):
+        self._current_health += self.healpower
+        if self._current_health > self.max_health:
+            self._current_health = self.max_health
+            # print("Cannot heal because ", self.name, " already is at max health")
+
+    def hit(self, other):
+        print(self.name, "giver", other.name, self.attackpower, self.dmg_unit)
+        other.get_hit(self.attackpower)
+
+    def hit2(self, other):
+        print(self.name, "giver", other.name, self.attackpower, self.dmg_unit)
+        other.get_hit2(self)
 
 class Healer(Character):
-    def __init__(self, healpower, attackpower):
-        super().__init__(healpower, attackpower)
+    def __init__(self, name, max_health, _current_health, healpower):
+        super().__init__(name, max_health, _current_health, attackpower=0)
         self.healpower = healpower
-        self.attackpower = attackpower
+        self.hp_unit = "hp"
 
-    def heal(self):
+    def __repr__(self):
+        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Healpower: {self.healpower}'
+
+    def heal(self, other):
+        print(self.name, "giver", other.name, self.healpower, self.hp_unit)
+        other.get_healed(self.healpower)
+def main():
+    char1 = Character('Warrior', 150, 100, 15)
+    char2 = Character('Mage', 125, 100, 20)
+    healer1 = Healer("Priest", max_health=100, _current_health=100, healpower=25)
+
+    print(char1)
+    print(char2)
+    print(healer1)
+
+    char1.hit(char2)
+    print(char2)
+
+    healer1.heal(char2)
+    print(char2)
+
 main()
