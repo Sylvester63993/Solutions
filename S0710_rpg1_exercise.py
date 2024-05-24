@@ -133,12 +133,15 @@ class Hunter(Character):
     def __repr__(self):
         return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Manalevel: {self.manalevel}'
 
-    def multi_attack(self, other, fatigue_increment):
-        minimum = 2
-        maximum = 4
-        for i in range(random.randint(minimum, maximum)):
-            other.get_hit(self.attackpower)
-        self.
+    def multi_attack(self, other, fatigue_increment=30):
+        if self._current_fatigue >= self.max_fatigue or (self.max_fatigue - self._current_fatigue) < fatigue_increment:
+            print(self.name, "cannot multiattack", other.name, " because fatigue level is too high")
+        else:
+            minimum = 2
+            maximum = 4
+            for i in range(random.randint(minimum, maximum)):
+                other.get_hit(self.attackpower)
+            self._current_fatigue += fatigue_increment
 
 def main():
     char1 = Character('Warrior', 150, 100, 15)
