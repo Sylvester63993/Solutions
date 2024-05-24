@@ -38,6 +38,9 @@ og sammenlign det med lærerens løsning i S0730_rpg1_solution.py
 Send derefter denne Teams-besked til din lærer: <filename> færdig
 Fortsæt derefter med den næste fil."""
 
+import random
+
+
 class Character:
     def __init__(self, name, max_health, _current_health, attackpower):
         self.name = name
@@ -65,8 +68,23 @@ class Character:
         self._current_health += self.healpower
         if self._current_health > self.max_health:
             self._current_health = self.max_health
-            # print("Cannot heal because ", self.name, " already is at max health")
 
+    def get_fireballed(self, spellpower):
+        if self._current_health <= 0:
+            print("Cannot spellattack ", self.name, " because character already is dead")
+        random.random()
+        if random.random() > .7:
+            self._current_health -= spellpower * 2
+            print("Critcal strike on ", self.name, " for 2x damage")
+        else:
+            self._current_health -= spellpower
+
+    def get_multi_attacked(self, multi_attack_amount, attackpower):
+        if self._current_health <= 0:
+            print("Cannot multiattack ", self.name, " because character already is dead")
+        minimum = 2
+        maximum = 4
+        multi_attack_amount = random.randint(minimum, maximum) *
     def hit(self, other):
         print(self.name, "giver", other.name, self.attackpower, self.dmg_unit)
         other.get_hit(self.attackpower)
@@ -74,6 +92,7 @@ class Character:
     def hit2(self, other):
         print(self.name, "giver", other.name, self.attackpower, self.dmg_unit)
         other.get_hit2(self)
+
 
 class Healer(Character):
     def __init__(self, name, max_health, _current_health, healpower):
@@ -87,6 +106,40 @@ class Healer(Character):
     def heal(self, other):
         print(self.name, "giver", other.name, self.healpower, self.hp_unit)
         other.get_healed(self.healpower)
+
+
+class Magician(Character):
+    def __init__(self, name, max_health, _current_health, attackpower, max_mana_level, _current_mana_level, spellpower):
+        super().__init__(name, max_health, _current_health, attackpower)
+        self.max_mana_level = max_mana_level
+        self._current_mana_level = _current_mana_level
+        self.spellpower = spellpower
+
+    def __repr__(self):
+        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Manalevel: {self.manalevel}'
+
+    def throw_fireball(self, other, mana_cost=20):
+        other.get_fireballed(self.spellpower)
+        self._current_mana_level -= mana_cost
+
+
+class Hunter(Character):
+    def __init__(self, name, max_health, _current_health, attackpower, max_fatigue, _current_fatigue, multi_attack_amount):
+        super().__init__(name, max_health, _current_health, attackpower)
+        self.max_fatigue = max_fatigue
+        self._current_fatigue = _current_fatigue
+        self.multi_attack_amount = multi_attack_amount
+
+    def __repr__(self):
+        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Manalevel: {self.manalevel}'
+
+    def multi_attack(self, other, fatigue_increment):
+        minimum = 2
+        maximum = 4
+        for i in range(random.randint(minimum, maximum)):
+            other.get_hit(self.attackpower)
+        self.
+
 def main():
     char1 = Character('Warrior', 150, 100, 15)
     char2 = Character('Mage', 125, 100, 20)
@@ -101,5 +154,6 @@ def main():
 
     healer1.heal(char2)
     print(char2)
+
 
 main()
