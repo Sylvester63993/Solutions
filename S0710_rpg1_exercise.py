@@ -64,35 +64,48 @@ class Character:
         else:
             self._current_health -= other.attackpower
 
-    def get_healed(self):
-        self._current_health += self.healpower
+    def get_healed(self, healpower):
+        self._current_health += healpower
         if self._current_health > self.max_health:
             self._current_health = self.max_health
 
-    def get_fireballed(self, spellpower):
+    def get_fireballed(self, other):
         if self._current_health <= 0:
             print("Cannot spellattack ", self.name, " because character already is dead")
         random.random()
         if random.random() > .7:
-            self._current_health -= spellpower * 2
-            print("Critcal strike on ", self.name, " for 2x damage")
+            self._current_health -= other.spellpower * 2
+            print ("Critical strike on", self.name, "for", (other.spellpower * 2), "damage (2x damage)")
         else:
-            self._current_health -= spellpower
+            self._current_health -= other.spellpower
+            print (other.name, "hit with a fireball for", other.spellpower, "damage")
 
-    def get_multi_attacked(self, multi_attack_amount, attackpower):
-        if self._current_health <= 0:
-            print("Cannot multiattack ", self.name, " because character already is dead")
-        minimum = 2
-        maximum = 4
-        multi_attack_amount = random.randint(minimum, maximum) *
+    def regenerate_health(self):
+        self._current_health += 10
+        if self._current_health > self.max_health:
+            self._current_health = self.max_health
+
+    def regenerate_mana(self):
+        pass
+
+    def decrease_fatigue(self):
+        pass
+
+    def regenerate(self):
+        self.regenerate_mana()
+        self.regenerate_health()
+        self.decrease_fatigue()
+
     def hit(self, other):
         print(self.name, "giver", other.name, self.attackpower, self.dmg_unit)
         other.get_hit(self.attackpower)
 
     def hit2(self, other):
-        print(self.name, "giver", other.name, self.attackpower, self.dmg_unit)
+        print(self.name, "gives", other.name, self.attackpower, self.dmg_unit)
         other.get_hit2(self)
 
+    def dead(self):
+        return self._current_health <= 0 #True hvis død
 
 class Healer(Character):
     def __init__(self, name, max_health, _current_health, healpower):
@@ -104,7 +117,7 @@ class Healer(Character):
         return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Healpower: {self.healpower}'
 
     def heal(self, other):
-        print(self.name, "giver", other.name, self.healpower, self.hp_unit)
+        print(self.name, "heals", other.name, self.healpower, self.hp_unit)
         other.get_healed(self.healpower)
 
 
@@ -116,47 +129,84 @@ class Magician(Character):
         self.spellpower = spellpower
 
     def __repr__(self):
-        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Manalevel: {self.manalevel}'
+        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Mana level: {self._current_mana_level}'
 
     def throw_fireball(self, other, mana_cost=20):
-        other.get_fireballed(self.spellpower)
         self._current_mana_level -= mana_cost
+        other.get_fireballed(self.spellpower)
+        if self._current_mana_level < mana_cost:
+            print(self.name, "doesn't have enough mana to throw fireball at", other.name)
+        else:
+            other.get_fireballed(self.spellpower)
+            print(self.name, "throws fireball at", other.name, "for", other.spellpower, "damage")
+
+    def regenerate_mana(self):
+        self._current_mana_level += 10
+        if self._current_mana_level > self.max_mana_level:
+            self._current_mana_level = self.max_mana_level
 
 
 class Hunter(Character):
-    def __init__(self, name, max_health, _current_health, attackpower, max_fatigue, _current_fatigue, multi_attack_amount):
+    def __init__(self, name, max_health, _current_health, attackpower, max_fatigue, _current_fatigue):
         super().__init__(name, max_health, _current_health, attackpower)
         self.max_fatigue = max_fatigue
         self._current_fatigue = _current_fatigue
-        self.multi_attack_amount = multi_attack_amount
 
     def __repr__(self):
-        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Manalevel: {self.manalevel}'
+        return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Fatigue level: {self._current_fatigue}'
 
     def multi_attack(self, other, fatigue_increment=30):
-        if self._current_fatigue >= self.max_fatigue or (self.max_fatigue - self._current_fatigue) < fatigue_increment:
+        self._current_fatigue += fatigue_increment
+        if self._current_fatigue >= self.max_fatigue:
+            self._current_fatigue = self.max_fatigue
             print(self.name, "cannot multiattack", other.name, " because fatigue level is too high")
         else:
             minimum = 2
             maximum = 4
             for i in range(random.randint(minimum, maximum)):
                 other.get_hit(self.attackpower)
-            self._current_fatigue += fatigue_increment
+                print(self.name, "multiattacks ", other.name, "for ", self.attackpower, "damage")
+
+    def decrease_fatigue(self):
+        self._current_fatigue -= 20
+        if self._current_fatigue < 0:
+            self._current_fatigue = 0
 
 def main():
-    char1 = Character('Warrior', 150, 100, 15)
-    char2 = Character('Mage', 125, 100, 20)
+    char1 = Character('Warrior', 100, 100, 15)
+    char2 = Character('Warlock', 100, 100, 20)
     healer1 = Healer("Priest", max_health=100, _current_health=100, healpower=25)
+    magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
+    hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=25,_current_fatigue=0, max_fatigue=100)
 
-    print(char1)
-    print(char2)
-    print(healer1)
+    # print(char1)
+    # print(char2)
+    # print(healer1)
+    print(magician1)
+    print(hunter1)
 
-    char1.hit(char2)
-    print(char2)
+    # char1.hit(char2)
+    # print(char2)
 
-    healer1.heal(char2)
-    print(char2)
+    # healer1.heal(char2)
+    # print(char2)
 
+    # hunter1.multi_attack(magician1)
+    # hunter1.multi_attack(magician1)
+    # print(magician1)
+    # magician1.regenerate()
+    # print(magician1)
+    # print(hunter1)
+    # magician1.throw_fireball(hunter1)
+    # print(hunter1)
+
+    print(magician1, hunter1)
+    for i in range(2):
+        while not hunter1.dead() and not magician1.dead():
+            magician1.throw_fireball(hunter1)
+            print(hunter1)
+        else:
+            hunter1.multi_attack(magician1)
+            print(magician1)
 
 main()
