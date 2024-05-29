@@ -69,7 +69,18 @@ class Character:
         if self._current_health > self.max_health:
             self._current_health = self.max_health
 
-    def get_fireballed(self, other):
+    def get_fireballed(self, spellpower):
+        if self._current_health <= 0:
+            print("Cannot spellattack ", self.name, " because character already is dead")
+        random.random()
+        if random.random() > .7:
+            self._current_health -= spellpower * 2
+            print ("Critical strike on", self.name, "for", (spellpower * 2), "damage (2x damage)")
+        else:
+            self._current_health -= spellpower
+            print("Someone hit with a fireball for", spellpower, "damage")
+
+    def get_fireballed2(self, other):
         if self._current_health <= 0:
             print("Cannot spellattack ", self.name, " because character already is dead")
         random.random()
@@ -78,7 +89,7 @@ class Character:
             print ("Critical strike on", self.name, "for", (other.spellpower * 2), "damage (2x damage)")
         else:
             self._current_health -= other.spellpower
-            print (other.name, "hit with a fireball for", other.spellpower, "damage")
+            print(other.name, "hit with a fireball for", other.spellpower, "damage")
 
     def regenerate_health(self):
         self._current_health += 10
@@ -132,12 +143,12 @@ class Magician(Character):
         return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Mana level: {self._current_mana_level}'
 
     def throw_fireball(self, other, mana_cost=20):
-        self._current_mana_level -= mana_cost
-        other.get_fireballed(self.spellpower)
         if self._current_mana_level < mana_cost:
             print(self.name, "doesn't have enough mana to throw fireball at", other.name)
         else:
-            other.get_fireballed(self.spellpower)
+            self._current_mana_level -= mana_cost
+            # other.get_fireballed(self.spellpower)
+            other.get_fireballed2(self)
             print(self.name, "throws fireball at", other.name, "for", other.spellpower, "damage")
 
     def regenerate_mana(self):
