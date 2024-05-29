@@ -86,10 +86,10 @@ class Character:
         random.random()
         if random.random() > .7:
             self._current_health -= other.spellpower * 2
-            print ("Critical strike on", self.name, "for", (other.spellpower * 2), "damage (2x damage)")
+            print(other.name, "has hit a critical strike on", self.name, "for", (other.spellpower * 2), "damage (2x damage)")
         else:
             self._current_health -= other.spellpower
-            print(other.name, "hit with a fireball for", other.spellpower, "damage")
+            print(other.name, "has hit", self.name, " with a fireball for", other.spellpower, "damage")
 
     def regenerate_health(self):
         self._current_health += 10
@@ -149,7 +149,7 @@ class Magician(Character):
             self._current_mana_level -= mana_cost
             # other.get_fireballed(self.spellpower)
             other.get_fireballed2(self)
-            print(self.name, "throws fireball at", other.name, "for", other.spellpower, "damage")
+            print(self.name, "throws fireball at", other.name, "for", self.spellpower, "damage")
 
     def regenerate_mana(self):
         self._current_mana_level += 10
@@ -167,16 +167,17 @@ class Hunter(Character):
         return f'name: {self.name}, Max health: {self.max_health}, Current health: {self._current_health}, Attackpower: {self.attackpower}, Fatigue level: {self._current_fatigue}'
 
     def multi_attack(self, other, fatigue_increment=30):
-        self._current_fatigue += fatigue_increment
+        # self._current_fatigue += fatigue_increment
         if self._current_fatigue >= self.max_fatigue:
             self._current_fatigue = self.max_fatigue
-            print(self.name, "cannot multiattack", other.name, " because fatigue level is too high")
+            print(self.name, "cannot multiattack ", other.name, " because fatigue level is too high")
         else:
             minimum = 2
             maximum = 4
             for i in range(random.randint(minimum, maximum)):
                 other.get_hit(self.attackpower)
                 print(self.name, "multiattacks ", other.name, "for ", self.attackpower, "damage")
+        self._current_fatigue += fatigue_increment
 
     def decrease_fatigue(self):
         self._current_fatigue -= 20
