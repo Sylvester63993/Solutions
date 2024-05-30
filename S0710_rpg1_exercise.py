@@ -89,7 +89,7 @@ class Character:
             print(other.name, "has hit a critical strike on", self.name, "for", (other.spellpower * 2), "damage (2x damage)")
         else:
             self._current_health -= other.spellpower
-            # print(other.name, "has hit", self.name, " with a fireball for", other.spellpower, "damage")
+            print(other.name, "has hit", self.name, " with a fireball for", other.spellpower, "damage")
 
     def battle(self, other):
         0
@@ -152,7 +152,7 @@ class Magician(Character):
             self._current_mana_level -= mana_cost
             # other.get_fireballed(self.spellpower)
             other.get_fireballed2(self)
-            print(self.name, "throws fireball at", other.name, "for", self.spellpower, "damage")
+            # print(self.name, "throws fireball at", other.name, "for", self.spellpower, "damage")
 
     def regenerate_mana(self):
         self._current_mana_level += 10
@@ -176,7 +176,7 @@ class Hunter(Character):
             print(self.name, "cannot multiattack ", other.name, " because fatigue level is too high")
         else:
             minimum = 2
-            maximum = 4
+            maximum = 3
             for i in range(random.randint(minimum, maximum)):
                 other.get_hit(self.attackpower)
                 print(self.name, "multiattacks ", other.name, "for ", self.attackpower, "damage")
@@ -219,7 +219,7 @@ def main():
     hunter_wins_counter = 0
     for i in range(50):
         magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
-        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=12, _current_fatigue=0, max_fatigue=100)
+        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=12, _current_fatigue=0, max_fatigue=120)
         while not hunter1.dead() and not magician1.dead():
             magician1.throw_fireball(hunter1)
             magician1.regenerate()
@@ -230,9 +230,9 @@ def main():
             magician_wins_counter += 1
         else:
             hunter_wins_counter += 1
-        print(f'------{hunter1.dead()=}  {magician1.dead()=}')
+        print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
         magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
-        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=15, _current_fatigue=0, max_fatigue=100)
+        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=12, _current_fatigue=0, max_fatigue=120)
         while not hunter1.dead() and not magician1.dead():
             hunter1.multi_attack(magician1)
             hunter1.regenerate()
@@ -243,7 +243,7 @@ def main():
             magician_wins_counter += 1
         else:
             hunter_wins_counter += 1
-        print(f'------{hunter1.dead()=}  {magician1.dead()=}')
+        print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
     print("Magician wins: ", magician_wins_counter, "Hunter wins: ", hunter_wins_counter)
 
     print(magician1)
