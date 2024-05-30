@@ -216,7 +216,6 @@ def main():
         while not hunter1.dead() and not magician1.dead():
             magician1.throw_fireball(hunter1)
             print(hunter1)
-        else:
             hunter1.multi_attack(magician1)
             print(magician1)
 
