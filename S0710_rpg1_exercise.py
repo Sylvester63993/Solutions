@@ -213,11 +213,12 @@ def main():
     # magician1.throw_fireball(hunter1)
     # print(hunter1)
 
-
     # print(magician1, hunter1)
     magician_wins_counter = 0
     hunter_wins_counter = 0
+    rounds_counter = 0
     for i in range(50):
+        rounds_counter += 2
         magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
         hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=12, _current_fatigue=0, max_fatigue=120)
         while not hunter1.dead() and not magician1.dead():
@@ -228,8 +229,10 @@ def main():
                 hunter1.regenerate()
         if hunter1.dead():
             magician_wins_counter += 1
+            print(magician1.name, "has won round no. ", rounds_counter, "!")
         else:
             hunter_wins_counter += 1
+            print(hunter1.name, "has won round no.", rounds_counter, "!")
         print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
         magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
         hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=12, _current_fatigue=0, max_fatigue=120)
@@ -241,13 +244,15 @@ def main():
                 magician1.regenerate()
         if hunter1.dead():
             magician_wins_counter += 1
+            print(magician1.name, "has won round no. ", rounds_counter, "!")
         else:
             hunter_wins_counter += 1
-        print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
-    print("Magician wins: ", magician_wins_counter, "Hunter wins: ", hunter_wins_counter)
+            print(hunter1.name, "has won round no.", rounds_counter, "!")
+        # print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
+        print("End of Battle: ", magician1)
+        print("End of Battle: ", hunter1)
 
-    print(magician1)
-    print(hunter1)
+    print("Magician wins: ", magician_wins_counter, "Hunter wins: ", hunter_wins_counter)
 
 
 main()
