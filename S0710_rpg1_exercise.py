@@ -84,7 +84,7 @@ class Character:
         if self._current_health <= 0:
             print("Cannot spellattack ", self.name, " because character already is dead")
         random.random()
-        if random.random() > .7:
+        if random.random() > .5:
             self._current_health -= other.spellpower * 2
             print(other.name, "has hit a critical strike on", self.name, "for", (other.spellpower * 2), "damage (2x damage)")
         else:
@@ -217,9 +217,9 @@ def main():
     # print(magician1, hunter1)
     magician_wins_counter = 0
     hunter_wins_counter = 0
-    for i in range(2):
+    for i in range(50):
         magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
-        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=15, _current_fatigue=0, max_fatigue=100)
+        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=12, _current_fatigue=0, max_fatigue=100)
         while not hunter1.dead() and not magician1.dead():
             magician1.throw_fireball(hunter1)
             magician1.regenerate()
@@ -244,7 +244,7 @@ def main():
         else:
             hunter_wins_counter += 1
         print(f'------{hunter1.dead()=}  {magician1.dead()=}')
-    print(magician_wins_counter, magician_wins_counter)
+    print("Magician wins: ", magician_wins_counter, "Hunter wins: ", hunter_wins_counter)
 
     print(magician1)
     print(hunter1)
