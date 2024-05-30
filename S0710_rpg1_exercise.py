@@ -91,6 +91,9 @@ class Character:
             self._current_health -= other.spellpower
             # print(other.name, "has hit", self.name, " with a fireball for", other.spellpower, "damage")
 
+    def battle(self, other):
+        0
+
     def regenerate_health(self):
         self._current_health += 10
         if self._current_health > self.max_health:
@@ -188,14 +191,12 @@ def main():
     char1 = Character('Warrior', 100, 100, 15)
     char2 = Character('Warlock', 100, 100, 20)
     healer1 = Healer("Priest", max_health=100, _current_health=100, healpower=25)
-    magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
-    hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=15, _current_fatigue=0, max_fatigue=100)
 
     # print(char1)
     # print(char2)
     # print(healer1)
-    print(magician1)
-    print(hunter1)
+    # print(magician1)
+    # print(hunter1)
 
     # char1.hit(char2)
     # print(char2)
@@ -212,13 +213,40 @@ def main():
     # magician1.throw_fireball(hunter1)
     # print(hunter1)
 
-    print(magician1, hunter1)
+
+    # print(magician1, hunter1)
+    magician_wins_counter = 0
+    hunter_wins_counter = 0
     for i in range(2):
+        magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
+        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=15, _current_fatigue=0, max_fatigue=100)
         while not hunter1.dead() and not magician1.dead():
             magician1.throw_fireball(hunter1)
-            print(hunter1)
+            magician1.regenerate()
+            if not hunter1.dead():
+                hunter1.multi_attack(magician1)
+                hunter1.regenerate()
+        if hunter1.dead():
+            magician_wins_counter += 1
+        else:
+            hunter_wins_counter += 1
+        print(f'------{hunter1.dead()=}  {magician1.dead()=}')
+        magician1 = Magician("Magician", max_health=100, _current_health=100, attackpower=10, max_mana_level=100, _current_mana_level=100, spellpower=20)
+        hunter1 = Hunter("Hunter", max_health=100, _current_health=100, attackpower=15, _current_fatigue=0, max_fatigue=100)
+        while not hunter1.dead() and not magician1.dead():
             hunter1.multi_attack(magician1)
-            print(magician1)
+            hunter1.regenerate()
+            if not magician1.dead():
+                magician1.throw_fireball(hunter1)
+                magician1.regenerate()
+        if hunter1.dead():
+            magician_wins_counter += 1
+        else:
+            hunter_wins_counter += 1
+        print(f'------{hunter1.dead()=}  {magician1.dead()=}')
+    print(magician_wins_counter, magician_wins_counter)
 
+    print(magician1)
+    print(hunter1)
 
 main()
