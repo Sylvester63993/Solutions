@@ -75,7 +75,7 @@ class Character:
         random.random()
         if random.random() > .7:
             self._current_health -= spellpower * 2
-            print ("Critical strike on", self.name, "for", (spellpower * 2), "damage (2x damage)")
+            print("Critical strike on", self.name, "for", (spellpower * 2), "damage (2x damage)")
         else:
             self._current_health -= spellpower
             print("Someone hit with a fireball for", spellpower, "damage")
@@ -116,7 +116,7 @@ class Character:
         other.get_hit2(self)
 
     def dead(self):
-        return self._current_health <= 0 #True hvis død
+        return self._current_health <= 0  # True hvis død
 
 class Healer(Character):
     def __init__(self, name, max_health, _current_health, healpower):
@@ -183,6 +183,7 @@ class Hunter(Character):
         if self._current_fatigue < 0:
             self._current_fatigue = 0
 
+
 def main():
     char1 = Character('Warrior', 100, 100, 15)
     char2 = Character('Warlock', 100, 100, 20)
@@ -218,5 +219,6 @@ def main():
             print(hunter1)
             hunter1.multi_attack(magician1)
             print(magician1)
+
 
 main()
