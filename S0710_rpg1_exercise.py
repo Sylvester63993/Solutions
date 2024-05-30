@@ -249,4 +249,5 @@ def main():
     print(magician1)
     print(hunter1)
 
+
 main()
