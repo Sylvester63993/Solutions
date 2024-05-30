@@ -242,7 +242,7 @@ def main():
             magician_wins_counter += 1
         else:
             hunter_wins_counter += 1
-        # print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
+        print(f'------{hunter1.dead()=}  {magician1.dead()=}------')
         print("End of Battle: ", magician1)
         print("End of Battle: ", hunter1)
 
