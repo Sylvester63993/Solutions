@@ -154,8 +154,8 @@ class Magician(Character):
             other.get_fireballed2(self)
             # print(self.name, "throws fireball at", other.name, "for", self.spellpower, "damage")
 
-    def regenerate_mana(self):
-        self._current_mana_level += 10
+    def regenerate_mana(self, mana_reg_increment=10):
+        self._current_mana_level += mana_reg_increment
         if self._current_mana_level > self.max_mana_level:
             self._current_mana_level = self.max_mana_level
 
