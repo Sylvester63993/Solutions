@@ -112,7 +112,6 @@ class Dog(Animal):
                 puppy_weight = ((other.weight+self.weight) / 2) * 1.1
                 puppy_tail_length = ((other.tail_length+self.tail_length) / 2) * 1.05
 
-
             random_number = random.random()
             puppy_hunts_sheep = random_number > 0.5
 
