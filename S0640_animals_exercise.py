@@ -88,6 +88,7 @@ class Dog(Animal):
 
     def __add__(self, other):
         return self.mate(other)
+
     def wag_tail(self):
         print(f'Hunden {self.name} logrer med sin {self.tail_length} {self.tail_length_unit} lange hale')
 
@@ -141,5 +142,6 @@ def main():
     print(new_dog2)
     print(dog)
     print(dog2)
-main()
 
+
+main()
