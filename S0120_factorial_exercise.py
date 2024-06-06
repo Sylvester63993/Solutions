@@ -44,6 +44,9 @@ def factorial(number):
 
 
 # Here starts the main program. From the main program you can call your functions.
+factorial_input = 6
+factorial_result = factorial(factorial_input)
+print(factorial_result)
 factorial_input = 7
 factorial_result = factorial(factorial_input)
 print(factorial_result)
