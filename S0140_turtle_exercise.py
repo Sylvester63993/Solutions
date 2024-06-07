@@ -156,7 +156,7 @@ def tegn_sejt_mønster(my_turtle, points, size, angle):
 tom = turtle.Turtle()  # create an object named tom of type Turtle
 
 # square function test
-square(tom, 50)
+# square(tom, 50)
 # many_squares(tom, 3, 50, 60)
 # spiral_pattern(my_turtle=tom, sides=10, length_incre=10, length_start=10, angle=90)
 # own_pattern(my_turtle=tom, sides=10, length_start=20, angle=90)
