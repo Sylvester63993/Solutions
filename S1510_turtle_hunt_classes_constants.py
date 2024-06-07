@@ -98,16 +98,21 @@ class PlayerName1(turtle.Turtle):
         prey_pos = positions[0]
         hunter_positions = positions[1:]
 
-        for hunter_position in hunter_positions:
-            print(distance(hunter_position, prey_pos))
-            closest_hunter = min(distance(hunter_position, prey_pos))
+        closest_hunter_pos = positions[1]
+        for hunter_pos in hunter_positions:
+            if distance(hunter_pos, prey_pos) < distance(closest_hunter_pos, prey_pos):
+                closest_hunter_pos = hunter_pos
+
+        # for hunter_pos in hunter_positions:
+        #     print(distance(hunter_pos, prey_pos))
+        #     closest_hunter_pos = min(distance(hunter_pos, prey_pos))
 
 
         # Find the closest hunter
         # closest_hunter = min(hunter_positions, key=lambda x: distance(prey_pos, x))
 
         # Calculate the direction to the closest hunter
-        dir_to_hunter = direction(closest_hunter, prey_pos)
+        dir_to_hunter = direction(closest_hunter_pos, prey_pos)
         degree = dir_to_hunter - self.orientation
 
         self.orientation += degree
