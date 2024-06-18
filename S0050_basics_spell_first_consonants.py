@@ -3,7 +3,7 @@
 def spell_first_consonants(text, letter_limit):
     """
     Spells/prints the first letter_limit letters of text.
-    Prints only consonants (a, e, i, o, u, y do not get printed). """
+    Prints only consonants (a, e, i, o, u, y do not get printed).  """
     vowels = ["a", "e", "i", "o", "u", "y"]
     vowels_included = text[0:letter_limit]
     vowels_excluded = ""
