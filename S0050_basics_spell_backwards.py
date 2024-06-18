@@ -1,4 +1,4 @@
-# Opgave 4: Forandre koden i funktionen spell_backwards() sådan at den gør hvad der står i dens dokumentation.
+# Opgave 4: Forandre koden i funktionen spell_backwards() sådan at den gør, hvad der står i dens dokumentation.
 
 def spell(text):
     for letter in text:
