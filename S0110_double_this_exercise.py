@@ -24,7 +24,7 @@ Det betyder, at programmet sluttede uden en fejlmeddelelse.
 Når dit program er færdigt, skal du skubbe det til dit github-repository.
 Send derefter denne Teams-meddelelse til din lærer: <filename> færdig
 Fortsæt derefter med den næste fil.
-"""
+ """
 
 
 #  Write your function below this line.
