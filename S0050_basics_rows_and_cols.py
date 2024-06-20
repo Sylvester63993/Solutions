@@ -1,4 +1,4 @@
-"""Valgfri on loops/løkker"""
+"""Valgfri opgave om loops/løkker"""
 
 # Opgave 1: Tilføj koden i den næste celle sådan at der udskrives "A1 A2 A3 B1 ... D4 D5".
 
