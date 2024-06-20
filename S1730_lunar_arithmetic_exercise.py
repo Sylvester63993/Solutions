@@ -24,7 +24,7 @@ Del 4:
 
 Når dit program er færdigt, skal du skubbe det til dit github-repository.
 Send derefter denne Teams-meddelelse til din lærer: <filename> færdig
-Fortsæt derefter med den næste fil."""
+Fortsæt derefter med den næste fil. """
 
 
 
