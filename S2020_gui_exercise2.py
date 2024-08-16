@@ -34,9 +34,11 @@ def empty_entry():
     entry_4.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
 
 
+# padding værdier sættes
 padx = 8
 pady = 4
 
+# hovedvindue oprettes
 main_window = tk.Tk()
 main_window.title('my first GUI')
 main_window.geometry("500x500")
