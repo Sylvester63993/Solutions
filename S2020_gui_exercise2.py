@@ -52,13 +52,13 @@ main_window.geometry("500x500")
 labelframe_1 = tk.LabelFrame(main_window, text="Container")
 labelframe_1.grid(row=0, column=0, padx=pady, pady=pady)
 
-# frames created
+# frames created and positioned
 frame_1 = tk.Frame(labelframe_1)
 frame_1.grid(row=0, column=0, padx=padx, pady=pady)
 frame_2 = tk.Frame(labelframe_1)
 frame_2.grid(row=1, column=0, padx=padx, pady=pady)
 
-# labels created
+# labels created and positioned
 label_1 = tk.Label(frame_1, text="Id")
 label_1.grid(row=0, column=0, padx=padx, pady=pady)
 label_2 = tk.Label(frame_1, text="Weight")
@@ -68,7 +68,7 @@ label_3.grid(row=0, column=2, padx=padx, pady=pady)
 label_4 = tk.Label(frame_1, text="Weather")
 label_4.grid(row=0, column=3, padx=padx, pady=pady)
 
-# entries created
+# entries created and positioned
 entry_1 = tk.Entry(frame_1, width=4, justify="left")
 entry_1.grid(row=1, column=0, padx=padx, pady=pady)
 entry_1.insert(0, "This is an entry. Edit me!")
@@ -82,7 +82,7 @@ entry_4 = tk.Entry(frame_1, width=14, justify="left")
 entry_4.grid(row=1, column=3, padx=padx, pady=pady)
 entry_4.insert(0, "This is an entry. Edit me!")
 
-# buttons created
+# buttons created and positioned
 button_1 = tk.Button(frame_2, text="Create")
 button_1.grid(row=2, column=0, padx=padx, pady=pady)
 button_2 = tk.Button(frame_2, text="Update")
