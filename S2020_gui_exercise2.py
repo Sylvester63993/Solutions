@@ -38,7 +38,7 @@ def empty_entry():
 padx = 8
 pady = 4
 
-# hovedvindue oprettes
+# hovedvindue oprettes, navngives og størrelse defineres
 main_window = tk.Tk()
 main_window.title('my first GUI')
 main_window.geometry("500x500")
