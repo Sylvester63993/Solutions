@@ -37,14 +37,14 @@ def empty_entry():
     entry_3.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
     entry_4.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
 
-def read_table(tree):  # fill tree with test data
-    count = 0  # Use counter to keep track of odd and even rows, because these will be colored differently. (2)
-    for record in test_data_list:
-        if count % 2 == 0:  # even
-            tree.insert(parent='', index='end', text='', values=record, tags=('evenrow',))  # Insert one row into the data table
-        else:  # odd
-            tree.insert(parent='', index='end', text='', values=record, tags=('oddrow',))  # Insert one row into the data table
-        count += 1
+# def read_table(tree):  # fill tree with test data
+#     count = 0  # Use counter to keep track of odd and even rows, because these will be colored differently. (2)
+#     for record in test_data_list:
+#         if count % 2 == 0:  # even
+#             tree.insert(parent='', index='end', text='', values=record, tags=('evenrow',))  # Insert one row into the data table
+#         else:  # odd
+#             tree.insert(parent='', index='end', text='', values=record, tags=('oddrow',))  # Insert one row into the data table
+#         count += 1
 
 
 # padding værdier sættes
@@ -59,19 +59,19 @@ oddrow = "#ddeedd"  # color of odd row in treeview (1)
 evenrow = "#cce0cc"  # color of even row in treeview
 
 # add test data by hard coding a list of tuples
-test_data_list = []
-test_data_list.append(("1", "hello", 7000))
-test_data_list.append(("2", "data!", 3000))
-test_data_list.append(("3", "tests", 3000))
-test_data_list.append(("4", "users", 8000))
-test_data_list.append(("1", "hello", 6000))
-test_data_list.append(("2", "data!", 2000))
-test_data_list.append(("3", "tests", 1000))
-test_data_list.append(("4", "users", 3000))
-test_data_list.append(("1", "hello", 4000))
-test_data_list.append(("2", "data!", 5000))
-test_data_list.append(("3", "tests", 9000))
-test_data_list.append(("4", "users", 7000))
+# test_data_list = []
+# test_data_list.append(("1", "hello", 7000))
+# test_data_list.append(("2", "data!", 3000))
+# test_data_list.append(("3", "tests", 3000))
+# test_data_list.append(("4", "users", 8000))
+# test_data_list.append(("1", "hello", 6000))
+# test_data_list.append(("2", "data!", 2000))
+# test_data_list.append(("3", "tests", 1000))
+# test_data_list.append(("4", "users", 3000))
+# test_data_list.append(("1", "hello", 4000))
+# test_data_list.append(("2", "data!", 5000))
+# test_data_list.append(("3", "tests", 9000))
+# test_data_list.append(("4", "users", 7000))
 
 # hovedvindue oprettes, navngives og størrelse defineres
 main_window = tk.Tk()
@@ -162,7 +162,7 @@ tree_1.heading("col3", text="Destination", anchor=tk.CENTER)
 # tree_1.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors (3)
 # tree_1.tag_configure('evenrow', background=evenrow)
 
-read_table(tree_1)  # read the test data into the treeview
+# read_table(tree_1)  # read the test data into the treeview
 
 if __name__ == "__main__":
     main_window.mainloop()
