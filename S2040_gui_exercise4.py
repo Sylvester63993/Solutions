@@ -53,18 +53,11 @@ evenrow = "#cce0cc"  # color of even row in treeview
 
 # add test data by hard coding a list of tuples
 test_data_list = []
-test_data_list.append(("1", "hello", 7000))
-test_data_list.append(("2", "data!", 3000))
-test_data_list.append(("3", "tests", 3000))
-test_data_list.append(("4", "users", 8000))
-test_data_list.append(("1", "hello", 6000))
-test_data_list.append(("2", "data!", 2000))
-test_data_list.append(("3", "tests", 1000))
-test_data_list.append(("4", "users", 3000))
-test_data_list.append(("1", "hello", 4000))
-test_data_list.append(("2", "data!", 5000))
-test_data_list.append(("3", "tests", 9000))
-test_data_list.append(("4", "users", 7000))
+test_data_list.append(("1", 1000, "Oslo"))
+test_data_list.append(("2", 3000, "Chicago"))
+test_data_list.append(("3", 3000, "Milano"))
+test_data_list.append(("4", 8000, "Amsterdam"))
+
 
 # hovedvindue oprettes, navngives og størrelse defineres
 main_window = tk.Tk()
