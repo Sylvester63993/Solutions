@@ -37,15 +37,51 @@ def empty_entry():
     entry_3.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
     entry_4.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
 
+def read_table(tree):  # fill tree with test data
+    count = 0  # Use counter to keep track of odd and even rows, because these will be colored differently. (2)
+    for record in test_data_list:
+        if count % 2 == 0:  # even
+            tree.insert(parent='', index='end', text='', values=record, tags=('evenrow',))  # Insert one row into the data table
+        else:  # odd
+            tree.insert(parent='', index='end', text='', values=record, tags=('oddrow',))  # Insert one row into the data table
+        count += 1
+
 
 # padding værdier sættes
 padx = 8
 pady = 4
+# værdier for treeview
+rowheight = 24
+treeview_background = "#eeeeee"
+treeview_foreground = "black"
+treeview_selected = "#773333"
+oddrow = "#ddeedd"  # color of odd row in treeview (1)
+evenrow = "#cce0cc"  # color of even row in treeview
+
+# add test data by hard coding a list of tuples
+test_data_list = []
+test_data_list.append(("1", "hello", 7000))
+test_data_list.append(("2", "data!", 3000))
+test_data_list.append(("3", "tests", 3000))
+test_data_list.append(("4", "users", 8000))
+test_data_list.append(("1", "hello", 6000))
+test_data_list.append(("2", "data!", 2000))
+test_data_list.append(("3", "tests", 1000))
+test_data_list.append(("4", "users", 3000))
+test_data_list.append(("1", "hello", 4000))
+test_data_list.append(("2", "data!", 5000))
+test_data_list.append(("3", "tests", 9000))
+test_data_list.append(("4", "users", 7000))
 
 # hovedvindue oprettes, navngives og størrelse defineres
 main_window = tk.Tk()
 main_window.title('my first GUI')
 main_window.geometry("900x500")
+
+style = ttk.Style()  # Configure treeview style and colors
+style.theme_use('default')
+style.configure("Treeview", background=treeview_background, foreground=treeview_foreground, rowheight=rowheight, fieldbackground=treeview_background)
+style.map('Treeview', background=[('selected', treeview_selected)])
 
 # Create a label frame
 # A label frame is used like a frame but its borders are visible
@@ -111,6 +147,22 @@ tree_1_scrollbar.grid(row=0, column=0, padx=padx, pady=pady, sticky='ns')  # pla
 tree_1 = ttk.Treeview(frame_1, yscrollcommand=tree_1_scrollbar.set, selectmode="browse")  # define the treeview, connect it with the scrollbar
 tree_1.grid(row=0, column=0, padx=0, pady=pady)  # place the treeview
 tree_1_scrollbar.config(command=tree_1.yview)  # connect the scrollbar with the treeview
+
+tree_1['columns'] = ("col1", "col2", "col3")  # Define treeview columns
+tree_1.column("#0", width=0, stretch=tk.NO)
+tree_1.column("col1", anchor=tk.E, width=90)
+tree_1.column("col2", anchor=tk.W, width=130)
+tree_1.column("col3", anchor=tk.W, width=180)
+
+tree_1.heading("#0", text="", anchor=tk.W) # Create treeview column headings
+tree_1.heading("col1", text="Id", anchor=tk.CENTER)
+tree_1.heading("col2", text="Weight", anchor=tk.CENTER)
+tree_1.heading("col3", text="Destination", anchor=tk.CENTER)
+
+# tree_1.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors (3)
+# tree_1.tag_configure('evenrow', background=evenrow)
+
+read_table(tree_1)  # read the test data into the treeview
 
 if __name__ == "__main__":
     main_window.mainloop()
