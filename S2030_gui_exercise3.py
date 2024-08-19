@@ -8,7 +8,7 @@ Bruge det, du har lært i GUI-eksempelfilerne, og byg den GUI, der er afbildet i
 
 Genbrug din kode fra "GUI step 2".
 
-GUI-strukturen bør være som følger:
+GUI-strukturen bør være som følger :
     main window
         labelframe
             frame
