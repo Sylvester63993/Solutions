@@ -39,6 +39,15 @@ def read_table(tree):  # fill tree with test data
             tree.insert(parent='', index='end', text='', values=record, tags=('oddrow',))  # Insert one row into the data table
         count += 1
 
+def edit_record(event, tree):  # Copy data from selected row into entry box. Parameter event is mandatory but we don't use it. (1)
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    entry_1.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_1.insert(0, values[0])  # write data into entry box
+    entry_2.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_2.insert(0, values[1])  # write data into entry box
+    entry_3.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_3.insert(0, values[2])  # write data into entry box
 
 # padding værdier sættes
 padx = 8
@@ -147,6 +156,8 @@ tree_1.heading("col3", text="Destination", anchor=tk.CENTER)
 
 tree_1.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors (3)
 tree_1.tag_configure('evenrow', background=evenrow)
+
+tree_1.bind("<ButtonRelease-1>", lambda event: edit_record(event, tree_1))  # Define function to be called, when an item is selected. (2)
 
 read_table(tree_1)  # read the test data into the treeview
 
