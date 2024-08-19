@@ -62,40 +62,40 @@ frame_1.grid(row=0, column=0, padx=padx, pady=pady)
 frame_2 = tk.Frame(labelframe_1)
 frame_2.grid(row=1, column=0, padx=padx, pady=pady)
 frame_3 = tk.Frame(labelframe_1, padx=padx, pady=pady)
-frame_3.grid(row=3, column=0, padx=padx)
+frame_3.grid(row=2, column=0, padx=padx)
 
 # labels created and positioned
-label_1 = tk.Label(frame_1, text="Id")
+label_1 = tk.Label(frame_2, text="Id")
 label_1.grid(row=0, column=0, padx=padx, pady=pady)
-label_2 = tk.Label(frame_1, text="Weight")
+label_2 = tk.Label(frame_2, text="Weight")
 label_2.grid(row=0, column=1, padx=padx, pady=pady)
-label_3 = tk.Label(frame_1, text="Destination")
+label_3 = tk.Label(frame_2, text="Destination")
 label_3.grid(row=0, column=2, padx=padx, pady=pady)
-label_4 = tk.Label(frame_1, text="Weather")
+label_4 = tk.Label(frame_2, text="Weather")
 label_4.grid(row=0, column=3, padx=padx, pady=pady)
 
 # entries created and positioned
-entry_1 = tk.Entry(frame_1, width=4, justify="left")
+entry_1 = tk.Entry(frame_2, width=4, justify="left")
 entry_1.grid(row=1, column=0, padx=padx, pady=pady)
 entry_1.insert(0, "This is an entry. Edit me!")
-entry_2 = tk.Entry(frame_1, width=10, justify="left")
+entry_2 = tk.Entry(frame_2, width=10, justify="left")
 entry_2.grid(row=1, column=1, padx=padx, pady=pady)
 entry_2.insert(0, "This is an entry. Edit me!")
-entry_3 = tk.Entry(frame_1, width=20, justify="left")
+entry_3 = tk.Entry(frame_2, width=20, justify="left")
 entry_3.grid(row=1, column=2, padx=padx, pady=pady)
 entry_3.insert(0, "This is an entry. Edit me!")
-entry_4 = tk.Entry(frame_1, width=14, justify="left")
+entry_4 = tk.Entry(frame_2, width=14, justify="left")
 entry_4.grid(row=1, column=3, padx=padx, pady=pady)
 entry_4.insert(0, "This is an entry. Edit me!")
 
 # buttons created and positioned
-button_1 = tk.Button(frame_2, text="Create")
+button_1 = tk.Button(frame_3, text="Create")
 button_1.grid(row=2, column=0, padx=padx, pady=pady)
-button_2 = tk.Button(frame_2, text="Update")
+button_2 = tk.Button(frame_3, text="Update")
 button_2.grid(row=2, column=1, padx=padx, pady=pady)
-button_3 = tk.Button(frame_2, text="Delete")
+button_3 = tk.Button(frame_3, text="Delete")
 button_3.grid(row=2, column=2, padx=padx, pady=pady)
-button_4 = tk.Button(frame_2, text="Clear Entry Boxes", command=empty_entry)  # button number 4 set to clear all entries
+button_4 = tk.Button(frame_3, text="Clear Entry Boxes", command=empty_entry)  # button number 4 set to clear all entries
 button_4.grid(row=2, column=3, padx=padx, pady=pady)
 
 # Create a data table (Treeview) and its scrollbar.
@@ -107,9 +107,9 @@ button_4.grid(row=2, column=3, padx=padx, pady=pady)
 # https://tkdocs.com/shipman/scrollbar.html
 # https://www.tutorialspoint.com/python/tk_scrollbar.htm
 tree_1_scrollbar = tk.Scrollbar(frame_1)  # define the scrollbar
-tree_1_scrollbar.grid(row=5, column=6, padx=padx, pady=pady, sticky='ns')  # place the scrollbar
+tree_1_scrollbar.grid(row=0, column=0, padx=padx, pady=pady, sticky='ns')  # place the scrollbar
 tree_1 = ttk.Treeview(frame_1, yscrollcommand=tree_1_scrollbar.set, selectmode="browse")  # define the treeview, connect it with the scrollbar
-tree_1.grid(row=5, column=5, padx=0, pady=pady)  # place the treeview
+tree_1.grid(row=0, column=0, padx=0, pady=pady)  # place the treeview
 tree_1_scrollbar.config(command=tree_1.yview)  # connect the scrollbar with the treeview
 
 if __name__ == "__main__":
