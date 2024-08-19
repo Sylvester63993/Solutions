@@ -25,10 +25,10 @@ from tkinter import ttk
 # function which deletes all entries
 def empty_entry():
     print("All entry boxes cleared!")
-    entry_1.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_2.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_3.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_4.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_id.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_weight.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_destination.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_weather.delete(0, tk.END)  # Delete text in the entry box, beginning with the first character (0) and ending with the last character (tk.END)
 
 def read_table(tree):  # fill tree with test data
     count = 0  # Use counter to keep track of odd and even rows, because these will be colored differently. (2)
@@ -42,12 +42,13 @@ def read_table(tree):  # fill tree with test data
 def edit_record(event, tree):  # Copy data from selected row into entry box. Parameter event is mandatory but we don't use it. (1)
     index_selected = tree.focus()  # Index of selected tuple
     values = tree.item(index_selected, 'values')  # Values of selected tuple
-    entry_1.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_1.insert(0, values[0])  # write data into entry box
-    entry_2.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_2.insert(0, values[1])  # write data into entry box
-    entry_3.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_3.insert(0, values[2])  # write data into entry box
+    entry_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_id.insert(0, values[0])  # write data into entry box
+    entry_weight.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_weight.insert(0, values[1])  # write data into entry box
+    entry_destination.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_destination.insert(0, values[2])  # write data into entry box
+
 
 # padding værdier sættes
 padx = 8
@@ -106,18 +107,18 @@ label_4 = tk.Label(frame_2, text="Weather")
 label_4.grid(row=0, column=3, padx=padx, pady=pady)
 
 # entries created and positioned
-entry_1 = tk.Entry(frame_2, width=4, justify="left")
-entry_1.grid(row=1, column=0, padx=padx, pady=pady)
-entry_1.insert(0, "This is an entry. Edit me!")
-entry_2 = tk.Entry(frame_2, width=10, justify="left")
-entry_2.grid(row=1, column=1, padx=padx, pady=pady)
-entry_2.insert(0, "This is an entry. Edit me!")
-entry_3 = tk.Entry(frame_2, width=20, justify="left")
-entry_3.grid(row=1, column=2, padx=padx, pady=pady)
-entry_3.insert(0, "This is an entry. Edit me!")
-entry_4 = tk.Entry(frame_2, width=14, justify="left")
-entry_4.grid(row=1, column=3, padx=padx, pady=pady)
-entry_4.insert(0, "This is an entry. Edit me!")
+entry_id = tk.Entry(frame_2, width=4, justify="left")
+entry_id.grid(row=1, column=0, padx=padx, pady=pady)
+entry_id.insert(0, "This is an entry. Edit me!")
+entry_weight = tk.Entry(frame_2, width=10, justify="left")
+entry_weight.grid(row=1, column=1, padx=padx, pady=pady)
+entry_weight.insert(0, "This is an entry. Edit me!")
+entry_destination = tk.Entry(frame_2, width=20, justify="left")
+entry_destination.grid(row=1, column=2, padx=padx, pady=pady)
+entry_destination.insert(0, "This is an entry. Edit me!")
+entry_weather = tk.Entry(frame_2, width=14, justify="left")
+entry_weather.grid(row=1, column=3, padx=padx, pady=pady)
+entry_weather.insert(0, "This is an entry. Edit me!")
 
 # buttons created and positioned
 button_1 = tk.Button(frame_3, text="Create")
@@ -149,7 +150,7 @@ tree_1.column("col1", anchor=tk.E, width=90)
 tree_1.column("col2", anchor=tk.W, width=130)
 tree_1.column("col3", anchor=tk.W, width=180)
 
-tree_1.heading("#0", text="", anchor=tk.W) # Create treeview column headings
+tree_1.heading("#0", text="", anchor=tk.W)  # Create treeview column headings
 tree_1.heading("col1", text="Id", anchor=tk.CENTER)
 tree_1.heading("col2", text="Weight", anchor=tk.CENTER)
 tree_1.heading("col3", text="Destination", anchor=tk.CENTER)
