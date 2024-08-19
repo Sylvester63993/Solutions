@@ -93,8 +93,7 @@ button_2 = tk.Button(frame_2, text="Update")
 button_2.grid(row=2, column=1, padx=padx, pady=pady)
 button_3 = tk.Button(frame_2, text="Delete")
 button_3.grid(row=2, column=2, padx=padx, pady=pady)
-# button number 4 set to clear all entries
-button_4 = tk.Button(frame_2, text="Clear Entry Boxes", command=empty_entry)
+button_4 = tk.Button(frame_2, text="Clear Entry Boxes", command=empty_entry)  # button number 4 set to clear all entries
 button_4.grid(row=2, column=3, padx=padx, pady=pady)
 
 if __name__ == "__main__":
