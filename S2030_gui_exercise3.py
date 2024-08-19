@@ -45,7 +45,7 @@ pady = 4
 # hovedvindue oprettes, navngives og størrelse defineres
 main_window = tk.Tk()
 main_window.title('my first GUI')
-main_window.geometry("500x500")
+main_window.geometry("900x500")
 
 # Create a label frame
 # A label frame is used like a frame but its borders are visible
@@ -61,6 +61,8 @@ frame_1 = tk.Frame(labelframe_1)
 frame_1.grid(row=0, column=0, padx=padx, pady=pady)
 frame_2 = tk.Frame(labelframe_1)
 frame_2.grid(row=1, column=0, padx=padx, pady=pady)
+frame_3 = tk.Frame(labelframe_1, padx=padx, pady=pady)
+frame_3.grid(row=3, column=0, padx=padx)
 
 # labels created and positioned
 label_1 = tk.Label(frame_1, text="Id")
@@ -95,6 +97,20 @@ button_3 = tk.Button(frame_2, text="Delete")
 button_3.grid(row=2, column=2, padx=padx, pady=pady)
 button_4 = tk.Button(frame_2, text="Clear Entry Boxes", command=empty_entry)  # button number 4 set to clear all entries
 button_4.grid(row=2, column=3, padx=padx, pady=pady)
+
+# Create a data table (Treeview) and its scrollbar.
+# Treeviews present data (for example from a database) in a table.
+# You can find all possible options of ttk.Treeview() in the following documentations:
+# https://docs.python.org/3/library/tkinter.ttk.html#treeview
+# Additionaly, create a scrollbar and connect it to the treeview
+# You can find all possible options of tk.Scrollbar() in the following documentations:
+# https://tkdocs.com/shipman/scrollbar.html
+# https://www.tutorialspoint.com/python/tk_scrollbar.htm
+tree_1_scrollbar = tk.Scrollbar(frame_1)  # define the scrollbar
+tree_1_scrollbar.grid(row=5, column=6, padx=padx, pady=pady, sticky='ns')  # place the scrollbar
+tree_1 = ttk.Treeview(frame_1, yscrollcommand=tree_1_scrollbar.set, selectmode="browse")  # define the treeview, connect it with the scrollbar
+tree_1.grid(row=5, column=5, padx=0, pady=pady)  # place the treeview
+tree_1_scrollbar.config(command=tree_1.yview)  # connect the scrollbar with the treeview
 
 if __name__ == "__main__":
     main_window.mainloop()
