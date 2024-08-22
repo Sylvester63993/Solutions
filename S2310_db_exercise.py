@@ -36,7 +36,7 @@ Fortsæt derefter med den næste fil.
 
 from sqlalchemy.orm import declarative_base, Session  # install sqlalchemy with the command "pip install SQLAlchemy" in a terminal.
 from sqlalchemy import Column, String, Integer  # the library sqlalchemy helps us to work with a database
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 
 # The next 2 lines are needed _before_ data classes / sql tables are defined
 Database = 'sqlite:///S2311_my_first_sql_database.db'  # first part: database type, second part: file path
@@ -52,6 +52,9 @@ class Customer(Base):
     address = Column(String)
     age = Column(Integer)
 
+    def __repr__(self):  # Only for testing/debugging purposes.
+        return f"Customer({self.id=}    {self.name=}    {self.address=}    {self.address=})"
+
 
 class Product(Base):
     # this class declaration does 2 important things at once:
@@ -63,6 +66,23 @@ class Product(Base):
     price = Column(Integer)
     brand = Column(String)
 
+    def __repr__(self):  # Only for testing/debugging purposes.
+        return f"Product({self.id=}    {self.product_number=}    {self.price=}    {self.brand=})"
+
+
+def select_all(classparam):  # return a list of all records in classparams table
+    with Session(engine) as session:
+        records = session.scalars(select(classparam))
+        result = []
+        for record in records:
+            result.append(record)
+    return result
+
+def get_record(classparam, record_id):  # return the record in classparams table with a certain id   https://docs.sqlalchemy.org/en/14/tutorial/data_select.html
+    with Session(engine) as session:
+        # in the background this creates the sql query "select * from persons where id=record_id" when called with classparam=Person
+        record = session.scalars(select(classparam).where(classparam.id == record_id)).first()
+    return record
 
 def create_test_data():  # Optional. Used to test data base functions before gui is ready.
     with Session(engine) as session:
@@ -76,3 +96,5 @@ def create_test_data():  # Optional. Used to test data base functions before gui
 # The next 2 lines are needed _after_ data classes / sql tables were defined
 engine = create_engine(Database, echo=False, future=True)  # define engine
 Base.metadata.create_all(engine)  # establish connection to database (and create if it does not exist yet)
+
+create_test_data()  # write some test data into the database
