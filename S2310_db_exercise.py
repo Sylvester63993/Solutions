@@ -89,8 +89,8 @@ class Product(Base):
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to Product
-        customer = Customer(id=tuple_[0], name=tuple_[1], address=tuple_[2], age=tuple_[3])
-        return customer
+        product = Product(id=tuple_[0], name=tuple_[1], address=tuple_[2], age=tuple_[3])
+        return product
 
     def valid(self):  # is this object a valid record of a person?
         try:
@@ -100,7 +100,7 @@ class Product(Base):
         return value >= 0
 
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to Person
+    def convert_from_tuple(tuple_):  # Convert tuple to Product
         product = Product(id=tuple_[0], product_name=tuple_[1], price=tuple_[2], brand=tuple_[3])
         return product
 
@@ -140,5 +140,6 @@ Base.metadata.create_all(engine)  # establish connection to database (and create
 # create_test_data()  # write some test data into the database
 
 print(select_all(Customer))
-print(Customer.convert_from_tuple((1, "name", "addresse", 21)))
 print(get_record(Customer, 61))
+print(Customer.convert_from_tuple((1, "name", "addresse", 21)))
+# print(Customer.convert_to_tuple((2)))
