@@ -58,6 +58,11 @@ class Customer(Base):
     def convert_to_tuple(self):  # Convert Customer to tuple
         return self.id, self.name, self.address, self.age
 
+    @staticmethod
+    def convert_from_tuple(tuple_):  # Convert tuple to Customer
+        customer = Customer(id=tuple_[0], name=tuple_[1], address=tuple_[2], age=tuple_[3])
+        return customer
+
     def valid(self):  # is this object a valid record of a person?
         try:
             value = int(self.age)
@@ -81,6 +86,11 @@ class Product(Base):
 
     def convert_to_tuple(self):  # Convert Product to tuple
         return self.id, self.product_number, self.price, self.brand
+
+    @staticmethod
+    def convert_from_tuple(tuple_):  # Convert tuple to Product
+        customer = Customer(id=tuple_[0], name=tuple_[1], address=tuple_[2], age=tuple_[3])
+        return customer
 
     def valid(self):  # is this object a valid record of a person?
         try:
@@ -112,14 +122,23 @@ def get_record(classparam, record_id):  # return the record in classparams table
 def create_test_data():  # Optional. Used to test data base functions before gui is ready.
     with Session(engine) as session:
         new_items = []
-        new_items.append(Customer(id=1, name="John", address="Stræde 10", age=50))
-        new_items.append(Product(id=20, product_name="xyz tablet", price=200, brand="Samsung"))
+        new_items.append(Customer(id=61, name="John", address="Vej 123", age=50))
+        # new_items.append(Product(id=20, product_name="tablet", price=200, brand="Samsung"))
         session.add_all(new_items)
         session.commit()
 
+
+# https://docs.sqlalchemy.org/en/14/tutorial/engine.html   The start of any SQLAlchemy application is an object called the Engine.
+# This object acts as a central source of connections to a particular database, providing both a factory as well as a holding space
+# called a connection pool for these database connections. The engine is typically a global object created just once for a particular
+# database server, and is configured using a URL string which will describe how it should connect to the database host or backend.
 
 # The next 2 lines are needed _after_ data classes / sql tables were defined
 engine = create_engine(Database, echo=False, future=True)  # define engine
 Base.metadata.create_all(engine)  # establish connection to database (and create if it does not exist yet)
 
-create_test_data()  # write some test data into the database
+# create_test_data()  # write some test data into the database
+
+print(select_all(Customer))
+print(Customer.convert_from_tuple((1, "name", "addresse", 21)))
+print(get_record(Customer, 61))
