@@ -53,7 +53,17 @@ class Customer(Base):
     age = Column(Integer)
 
     def __repr__(self):  # Only for testing/debugging purposes.
-        return f"Customer({self.id=}    {self.name=}    {self.address=}    {self.address=})"
+        return f"Customer({self.id=}    {self.name=}    {self.address=}    {self.age=})"
+
+    def convert_to_tuple(self):  # Convert Customer to tuple
+        return self.id, self.name, self.address, self.age
+
+    def valid(self):  # is this object a valid record of a person?
+        try:
+            value = int(self.age)
+        except ValueError:
+            return False
+        return value >= 0
 
 
 class Product(Base):
@@ -68,6 +78,21 @@ class Product(Base):
 
     def __repr__(self):  # Only for testing/debugging purposes.
         return f"Product({self.id=}    {self.product_number=}    {self.price=}    {self.brand=})"
+
+    def convert_to_tuple(self):  # Convert Product to tuple
+        return self.id, self.product_number, self.price, self.brand
+
+    def valid(self):  # is this object a valid record of a person?
+        try:
+            value = int(self.price)
+        except ValueError:
+            return False
+        return value >= 0
+
+    @staticmethod
+    def convert_from_tuple(tuple_):  # Convert tuple to Person
+        product = Product(id=tuple_[0], product_name=tuple_[1], price=tuple_[2], brand=tuple_[3])
+        return product
 
 
 def select_all(classparam):  # return a list of all records in classparams table
