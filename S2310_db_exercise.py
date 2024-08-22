@@ -52,7 +52,8 @@ class Customer(Base):
     address = Column(String)
     age = Column(Integer)
 
-class Products(Base):
+
+class Product(Base):
     # this class declaration does 2 important things at once:
     # 1. as usual, it declares a class we can store data in, inside our python program.
     # 2. it creates a table in a sql database with the specified columns
@@ -61,3 +62,17 @@ class Products(Base):
     product_number = Column(Integer)
     price = Column(Integer)
     brand = Column(String)
+
+
+def create_test_data():  # Optional. Used to test data base functions before gui is ready.
+    with Session(engine) as session:
+        new_items = []
+        new_items.append(Customer(id=1, name="John", address="Stræde 10", age=50))
+        new_items.append(Product(id=20, product_name="xyz tablet", price=200, brand="Samsung"))
+        session.add_all(new_items)
+        session.commit()
+
+
+# The next 2 lines are needed _after_ data classes / sql tables were defined
+engine = create_engine(Database, echo=False, future=True)  # define engine
+Base.metadata.create_all(engine)  # establish connection to database (and create if it does not exist yet)
