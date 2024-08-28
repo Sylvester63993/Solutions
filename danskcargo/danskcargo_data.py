@@ -30,77 +30,54 @@ class Container(Base):
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Container
-        container = Container(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
+        container = Aircraft(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
         return container
 
-    class Container(Base):
-        __tablename__ = "container"
+class Aircraft(Base):
+        __tablename__ = "aircraft"
         id = Column(Integer, primary_key=True)
-        weight = Column(Integer)
-        destination = Column(String)
+        max_cargo_weight = Column(Integer)
+        registration = Column(String)
 
         def __repr__(self):  # Optional. Only for test purposes.
-            return f"Container({self.id=:4}    {self.weight=:5}    {self.destination=})"
+            return f"Aircraft({self.id=:4}    {self.max_cargo_weight=:5}    {self.registration=})"
 
-        def convert_to_tuple(self):  # Convert type Container to a tuple
-            return self.id, self.weight, self.destination
+        def convert_to_tuple(self):  # Convert type Aircraft to a tuple
+            return self.id, self.max_cargo_weight, self.registration
 
         def valid(self):
             try:
-                value = int(self.weight)
+                value = int(self.max_cargo_weight)
             except ValueError:
                 return False
             return value >= 0
 
         @staticmethod
-        def convert_from_tuple(tuple_):  # Convert tuple to type Container
-            container = Container(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
-            return container
+        def convert_from_tuple(tuple_):  # Convert tuple to type Aircraft
+            aircraft = Aircraft(id=tuple_[0], max_cargo_weight=tuple_[1], registration=tuple_[2])
+            return aircraft
 
-class Container(Base):
-    __tablename__ = "container"
+class Transport(Base):
+    __tablename__ = "transport"
     id = Column(Integer, primary_key=True)
-    weight = Column(Integer)
-    destination = Column(String)
+    date = Column(Date)
+    container_id = Column(Integer, ForeignKey("container.id"), nullable=False)
+    aircraft_id = Column(Integer, ForeignKey("aircraft.id"), nullable=False)
 
     def __repr__(self):  # Optional. Only for test purposes.
-        return f"Container({self.id=:4}    {self.weight=:5}    {self.destination=})"
+        return f"Transport({self.id=:4}    {self.date=:5}    {self.container_id=}    {self.aircraft_id=})"
 
-    def convert_to_tuple(self):  # Convert type Container to a tuple
-        return self.id, self.weight, self.destination
+    def convert_to_tuple(self):  # Convert type Transport to a tuple
+        return self.id, self.date, self.container_id, self.aircraft_id
 
     def valid(self):
         try:
-            value = int(self.weight)
+            value = int(self.container_id)
         except ValueError:
             return False
         return value >= 0
 
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Container
-        container = Container(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
-        return container
-
-class Container(Base):
-    __tablename__ = "container"
-    id = Column(Integer, primary_key=True)
-    weight = Column(Integer)
-    destination = Column(String)
-
-    def __repr__(self):  # Optional. Only for test purposes.
-        return f"Container({self.id=:4}    {self.weight=:5}    {self.destination=})"
-
-    def convert_to_tuple(self):  # Convert type Container to a tuple
-        return self.id, self.weight, self.destination
-
-    def valid(self):
-        try:
-            value = int(self.weight)
-        except ValueError:
-            return False
-        return value >= 0
-
-    @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Container
-        container = Container(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
-        return container
+    def convert_from_tuple(tuple_):  # Convert tuple to type Transport
+        transport = Transport(id=tuple_[0], date=tuple_[1], container_id=tuple_[2], aircraft_id=tuple_[3])
+        return transport

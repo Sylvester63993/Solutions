@@ -47,24 +47,24 @@ def read_table(tree, class_):  # fill tree from database
             count += 1
 
 def create_container(tree, record):  # add new tuple to database
-    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    container = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Container
     dcsql.create_record(container)  # Update database
     clear_container_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+    refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
 
 
 def update_container(tree, record):  # update tuple in database
-    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    container = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Container
     dcsql.update_container(container)  # Update database
     clear_container_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+    refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
 
 
 def delete_container(tree, record):  # delete tuple in database
-    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    container = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Container
     dcsql.delete_soft_container(container)  # Update database
     clear_container_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+    refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
 
 
 def edit_container(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
@@ -170,7 +170,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
-    refresh_treeview(tree_container, dcd.Container)  # Load data from database
+    refresh_treeview(tree_container, dcd.Aircraft)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
 
