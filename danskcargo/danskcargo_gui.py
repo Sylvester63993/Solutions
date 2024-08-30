@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
-
+from tkinter import messagebox
 import danskcargo_data as dcd
 import danskcargo_sql as dcsql
+import danskcargo_func as dcf
+
 
 # region global constants
 padx = 8  # Horizontal distance to neighboring objects
@@ -16,9 +18,6 @@ evenrow = "#cccccc"  # color of even row in treeview
 # endregion global constants
 
 # region container functions
-# endregion container functions
-
-# region common functions
 def read_container_entries():  # Read content of entry boxes
     return entry_container_id.get(), entry_container_weight.get(), entry_container_destination.get(),
 
@@ -35,6 +34,124 @@ def write_container_entries(values):  # Fill entry boxes
     entry_container_weight.insert(0, values[1])
     entry_container_destination.insert(0, values[2])
 
+
+def edit_container(_, tree):  # Copy selected tuple into entry boxes. First parameter is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_container_entries()  # Clear entry boxes
+    write_container_entries(values)  # Fill entry boxes
+
+
+def create_container(tree, record):  # add new tuple to database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.create_record(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+
+def update_container(tree, record):  # update tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.update_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+
+def delete_container(tree, record):  # delete tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.delete_soft_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+# endregion container functions
+
+# region aircraft functions
+    def read_aircraft_entries():  # Read content of entry boxes
+        return entry_aircraft_id.get(), entry_aircraft_max_cargo_weight.get(), entry_aircraft_registration.get(),
+
+    def clear_aircraft_entries():  # Clear entry boxes
+        entry_aircraft_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+        entry_aircraft_max_cargo_weight.delete(0, tk.END)
+        entry_aircraft_registration.delete(0, tk.END)
+        # entry_aircraft_weather.delete(0, tk.END)
+
+    def write_aircraft_entries(values):  # Fill entry boxes
+        entry_aircraft_id.insert(0, values[0])
+        entry_aircraft_max_cargo_weight.insert(0, values[1])
+        entry_aircraft_registration.insert(0, values[2])
+
+    def edit_aircraft(_, tree):  # Copy selected tuple into entry boxes. First parameter is mandatory but we don't use it.
+        index_selected = tree.focus()  # Index of selected tuple
+        values = tree.item(index_selected, 'values')  # Values of selected tuple
+        clear_aircraft_entries()  # Clear entry boxes
+        write_aircraft_entries(values)  # Fill entry boxes
+
+    def create_aircraft(tree, record):  # add new tuple to database
+        aircraft = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Aircraft
+        dcsql.create_record(aircraft)  # Update database
+        clear_aircraft_entries()  # Clear entry boxes
+        refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
+
+    def update_aircraft(tree, record):  # update tuple in database
+        aircraft = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Aircraft
+        dcsql.update_aircraft(aircraft)  # Update database
+        clear_aircraft_entries()  # Clear entry boxes
+        refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
+
+    def delete_aircraft(tree, record):  # delete tuple in database
+        aircraft = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Aircraft
+        dcsql.delete_soft_aircraft(aircraft)  # Update database
+        clear_aircraft_entries()  # Clear entry boxes
+        refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
+# endregion aircraft functions
+
+# region transport functions
+def read_transport_entries():  # Read content of entry boxes
+    return entry_transport_id.get(), entry_transport_date.get(), entry_transport_container_id.get(), entry_transport_aircraft_id.get()
+
+
+def clear_transport_entries():  # Clear entry boxes
+    entry_transport_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_transport_date.delete(0, tk.END)
+    entry_transport_container_id.delete(0, tk.END)
+    entry_transport_aircraft_id.delete(0, tk.END)
+
+
+def write_transport_entries(values):  # Fill entry boxes
+    entry_transport_id.insert(0, values[0])
+    entry_transport_date.insert(0, values[1])
+    entry_transport_container_id.insert(0, values[2])
+
+
+def edit_transport(_, tree):  # Copy selected tuple into entry boxes. First parameter is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_transport_entries()  # Clear entry boxes
+    write_transport_entries(values)  # Fill entry boxes
+
+
+def create_transport(tree, record):  # add new tuple to database
+    transport = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.create_record(transport)  # Update database
+    clear_transport_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+
+def update_transport(tree, record):  # update tuple in database
+    transport = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.update_transport(transport)  # Update database
+    clear_transport_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+
+def delete_transport(tree, record):  # delete tuple in database
+    transport = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.delete_soft_transport(transport)  # Update database
+    clear_transport_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+# endregion transport functions
+
+# region common functions
+
+
 def read_table(tree, class_):  # fill tree from database
     count = 0  # Used to keep track of odd and even rows, because these will be colored differently.
     result = dcsql.select_all(class_)  # Read all containers from database
@@ -45,33 +162,6 @@ def read_table(tree, class_):  # fill tree from database
             else:  # odd
                tree.insert(parent='', index='end', iid=str(count), text='', values=record.convert_to_tuple(), tags=('oddrow',))  # Insert one row into the data table
             count += 1
-
-def create_container(tree, record):  # add new tuple to database
-    container = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Container
-    dcsql.create_record(container)  # Update database
-    clear_container_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
-
-
-def update_container(tree, record):  # update tuple in database
-    container = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Container
-    dcsql.update_container(container)  # Update database
-    clear_container_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
-
-
-def delete_container(tree, record):  # delete tuple in database
-    container = dcd.Aircraft.convert_from_tuple(record)  # Convert tuple to Container
-    dcsql.delete_soft_container(container)  # Update database
-    clear_container_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
-
-
-def edit_container(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
-    index_selected = tree.focus()  # Index of selected tuple
-    values = tree.item(index_selected, 'values')  # Values of selected tuple
-    clear_container_entries()  # Clear entry boxes
-    write_container_entries(values)  # Fill entry boxes
 
 
 def empty_treeview(tree):  # Clear treeview table
