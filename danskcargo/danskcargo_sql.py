@@ -26,6 +26,10 @@ def create_test_data():  # Optional. Used to test database functions before gui 
         new_items.append(Aircraft(weight=700, destination="Helsinki"))
         new_items.append(Aircraft(weight=1800, destination="Helsinki"))
         new_items.append(Aircraft(weight=1000, destination="Helsinki"))
+        new_items.append(Aircraft(max_cargo_weight=2000, registration="OY-CBS"))
+        new_items.append(Aircraft(max_cargo_weight=3000, registration="OY-THR"))
+        a_date = date(day=10, month=12, year=2022)
+        new_items.append(Transport(date=a_date, container_id=2, aircraft_id=1))
         session.add_all(new_items)
         session.commit()
 
