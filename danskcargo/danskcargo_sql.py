@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, select, update, delete
 
-from danskcargo_data import Aircraft, Base
+from danskcargo_data import Container, Aircraft, Transport, Base
+
+from datetime import date
 
 # add the following 7 lines to make foreign key constraints work  https://docs.sqlalchemy.org/en/14/dialects/sqlite.html#sqlite-foreign-keys
 from sqlalchemy.engine import Engine
