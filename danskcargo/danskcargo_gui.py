@@ -313,7 +313,7 @@ tree_aircraft.tag_configure('oddrow', background=oddrow)  # Create tags for rows
 tree_aircraft.tag_configure('evenrow', background=evenrow)
 tree_aircraft.bind("<ButtonRelease-1>", lambda event: edit_aircraft(event, tree_aircraft))  # Define function to be called, when an item is selected.
 
-# Define Frame which contains labels, entries and buttons
+# Define Frame which contains labels, entries & buttons
 controls_frame_aircraft = tk.Frame(frame_aircraft)
 controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
 
