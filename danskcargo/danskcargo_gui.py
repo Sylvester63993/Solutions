@@ -339,10 +339,10 @@ label_aircraft_registration.grid(row=0, column=2, padx=padx, pady=pady)
 entry_aircraft_registration = tk.Entry(edit_frame_aircraft, width=20)
 entry_aircraft_registration.grid(row=1, column=2, padx=padx, pady=pady)
 # label and entry for aircraft registration
-label_aircraft_weather = tk.Label(edit_frame_aircraft, text="Weather")
-label_aircraft_weather.grid(row=0, column=3, padx=padx, pady=pady)
-entry_aircraft_weather = tk.Entry(edit_frame_aircraft, width=14)
-entry_aircraft_weather.grid(row=1, column=3, padx=padx, pady=pady)
+# label_aircraft_weather = tk.Label(edit_frame_aircraft, text="Weather")
+# label_aircraft_weather.grid(row=0, column=3, padx=padx, pady=pady)
+# entry_aircraft_weather = tk.Entry(edit_frame_aircraft, width=14)
+# entry_aircraft_weather.grid(row=1, column=3, padx=padx, pady=pady)
 
 # Define Frame which contains buttons
 button_frame_aircraft = tk.Frame(controls_frame_aircraft)
@@ -360,7 +360,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 
 # region transport widgets
 frame_transport = tk.LabelFrame(main_window, text="Transport")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
-frame_transport.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+frame_transport.grid(row=0, column=2, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
 # Define data table (Treeview) and its scrollbar. Put them in a Frame.
 tree_frame_transport = tk.Frame(frame_transport)  # https://www.tutorialspoint.com/python/tk_frame.htm
 tree_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
