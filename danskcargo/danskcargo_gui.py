@@ -204,7 +204,7 @@ def refresh_treeview(tree, class_):  # Refresh treeview table
 # region common widgets
 main_window = tk.Tk()  # Define the main window
 main_window.title('AspIT S2: DanskCargo')  # Text shown in the top window bar
-main_window.geometry("500x500")  # window size
+main_window.geometry("1200x500")  # window size
 
 style = ttk.Style()  # Add style
 style.theme_use('default')  # Pick theme
