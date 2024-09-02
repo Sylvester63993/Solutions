@@ -288,7 +288,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 
 # region aircraft widgets
 frame_aircraft = tk.LabelFrame(main_window, text="Aircraft")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
-frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+frame_aircraft.grid(row=0, column=1, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
 # Define data table (Treeview) and its scrollbar. Put them in a Frame.
 tree_frame_aircraft = tk.Frame(frame_aircraft)  # https://www.tutorialspoint.com/python/tk_frame.htm
 tree_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
