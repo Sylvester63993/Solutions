@@ -319,7 +319,7 @@ controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
 
 # Define Frame which contains labels, entries and buttons
 controls_frame_aircraft = tk.Frame(frame_aircraft)
-controls_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
+controls_frame_aircraft.grid(row=1, column=0, padx=padx, pady=pady)
 
 # Define Frame which contains labels (text fields) and entries (input fields)
 edit_frame_aircraft = tk.Frame(controls_frame_aircraft)  # Add tuple entry boxes
@@ -397,12 +397,12 @@ controls_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
 
 # Define Frame which contains labels (text fields) and entries (input fields)
 edit_frame_transport = tk.Frame(controls_frame_transport)  # Add tuple entry boxes
-edit_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
+edit_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
 # label and entry for transport id
 label_transport_id = tk.Label(edit_frame_transport, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
-label_transport_id.grid(row=0, column=0, padx=padx, pady=pady)
+label_transport_id.grid(row=0, column=1, padx=padx, pady=pady)
 entry_transport_id = tk.Entry(edit_frame_transport, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
-entry_transport_id.grid(row=1, column=0, padx=padx, pady=pady)
+entry_transport_id.grid(row=1, column=1, padx=padx, pady=pady)
 # label and entry for transport date
 label_transport_date = tk.Label(edit_frame_transport, text="Date")
 label_transport_date.grid(row=0, column=1, padx=padx, pady=pady)
