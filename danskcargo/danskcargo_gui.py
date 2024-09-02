@@ -286,6 +286,150 @@ button_clear_boxes = tk.Button(button_frame_container, text="Clear Entry Boxes",
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion container widgets
 
+# region aircraft widgets
+frame_aircraft = tk.LabelFrame(main_window, text="Container")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
+frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+# Define data table (Treeview) and its scrollbar. Put them in a Frame.
+tree_frame_aircraft = tk.Frame(frame_aircraft)  # https://www.tutorialspoint.com/python/tk_frame.htm
+tree_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
+tree_scroll_aircraft = tk.Scrollbar(tree_frame_aircraft)
+tree_scroll_aircraft.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
+tree_aircraft = ttk.Treeview(tree_frame_aircraft, yscrollcommand=tree_scroll_aircraft.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
+tree_aircraft.grid(row=0, column=0, padx=0, pady=pady)
+tree_scroll_aircraft.config(command=tree_aircraft.yview)
+
+# Define the data table's formatting and content
+tree_aircraft['columns'] = ("id", "weight", "destination")  # Define columns
+tree_aircraft.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
+tree_aircraft.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
+tree_aircraft.column("weight", anchor=tk.E, width=80)
+tree_aircraft.column("destination", anchor=tk.W, width=200)
+tree_aircraft.heading("#0", text="", anchor=tk.W)  # Create column headings
+tree_aircraft.heading("id", text="Id", anchor=tk.CENTER)
+tree_aircraft.heading("weight", text="Weight", anchor=tk.CENTER)
+tree_aircraft.heading("destination", text="Destination", anchor=tk.CENTER)
+tree_aircraft.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
+tree_aircraft.tag_configure('evenrow', background=evenrow)
+tree_aircraft.bind("<ButtonRelease-1>", lambda event: edit_aircraft(event, tree_aircraft))  # Define function to be called, when an item is selected.
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_aircraft = tk.Frame(frame_aircraft)
+controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_aircraft = tk.Frame(frame_aircraft)
+controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_aircraft = tk.Frame(controls_frame_aircraft)  # Add tuple entry boxes
+edit_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for aircraft id
+label_aircraft_id = tk.Label(edit_frame_aircraft, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_aircraft_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_aircraft_id = tk.Entry(edit_frame_aircraft, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_aircraft_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for aircraft weight
+label_aircraft_weight = tk.Label(edit_frame_aircraft, text="Weight")
+label_aircraft_weight.grid(row=0, column=1, padx=padx, pady=pady)
+entry_aircraft_weight = tk.Entry(edit_frame_aircraft, width=8, justify="right")
+entry_aircraft_weight.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for aircraft destination
+label_aircraft_destination = tk.Label(edit_frame_aircraft, text="Destination")
+label_aircraft_destination.grid(row=0, column=2, padx=padx, pady=pady)
+entry_aircraft_destination = tk.Entry(edit_frame_aircraft, width=20)
+entry_aircraft_destination.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for aircraft destination
+label_aircraft_weather = tk.Label(edit_frame_aircraft, text="Weather")
+label_aircraft_weather.grid(row=0, column=3, padx=padx, pady=pady)
+entry_aircraft_weather = tk.Entry(edit_frame_aircraft, width=14)
+entry_aircraft_weather.grid(row=1, column=3, padx=padx, pady=pady)
+
+# Define Frame which contains buttons
+button_frame_aircraft = tk.Frame(controls_frame_aircraft)
+button_frame_aircraft.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_aircraft = tk.Button(button_frame_aircraft, text="Create", command=lambda: create_aircraft(tree_aircraft, read_aircraft_entries()))
+button_create_aircraft.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_aircraft = tk.Button(button_frame_aircraft, text="Update", command=lambda: update_aircraft(tree_aircraft, read_aircraft_entries()))
+button_update_aircraft.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_aircraft = tk.Button(button_frame_aircraft, text="Delete", command=lambda: delete_aircraft(tree_aircraft, read_aircraft_entries()))
+button_delete_aircraft.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = tk.Button(button_frame_aircraft, text="Clear Entry Boxes", command=clear_aircraft_entries)
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
+# endregion aircraft widgets
+
+# region transport widgets
+frame_transport = tk.LabelFrame(main_window, text="Container")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
+frame_transport.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+# Define data table (Treeview) and its scrollbar. Put them in a Frame.
+tree_frame_transport = tk.Frame(frame_transport)  # https://www.tutorialspoint.com/python/tk_frame.htm
+tree_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
+tree_scroll_transport = tk.Scrollbar(tree_frame_transport)
+tree_scroll_transport.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
+tree_transport = ttk.Treeview(tree_frame_transport, yscrollcommand=tree_scroll_transport.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
+tree_transport.grid(row=0, column=0, padx=0, pady=pady)
+tree_scroll_transport.config(command=tree_transport.yview)
+
+# Define the data table's formatting and content
+tree_transport['columns'] = ("id", "weight", "destination")  # Define columns
+tree_transport.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
+tree_transport.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
+tree_transport.column("weight", anchor=tk.E, width=80)
+tree_transport.column("destination", anchor=tk.W, width=200)
+tree_transport.heading("#0", text="", anchor=tk.W)  # Create column headings
+tree_transport.heading("id", text="Id", anchor=tk.CENTER)
+tree_transport.heading("weight", text="Weight", anchor=tk.CENTER)
+tree_transport.heading("destination", text="Destination", anchor=tk.CENTER)
+tree_transport.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
+tree_transport.tag_configure('evenrow', background=evenrow)
+tree_transport.bind("<ButtonRelease-1>", lambda event: edit_transport(event, tree_transport))  # Define function to be called, when an item is selected.
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_transport = tk.Frame(frame_transport)
+controls_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_transport = tk.Frame(frame_transport)
+controls_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_transport = tk.Frame(controls_frame_transport)  # Add tuple entry boxes
+edit_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for transport id
+label_transport_id = tk.Label(edit_frame_transport, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_transport_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_transport_id = tk.Entry(edit_frame_transport, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_transport_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for transport weight
+label_transport_weight = tk.Label(edit_frame_transport, text="Weight")
+label_transport_weight.grid(row=0, column=1, padx=padx, pady=pady)
+entry_transport_weight = tk.Entry(edit_frame_transport, width=8, justify="right")
+entry_transport_weight.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for transport destination
+label_transport_destination = tk.Label(edit_frame_transport, text="Destination")
+label_transport_destination.grid(row=0, column=2, padx=padx, pady=pady)
+entry_transport_destination = tk.Entry(edit_frame_transport, width=20)
+entry_transport_destination.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for transport destination
+label_transport_weather = tk.Label(edit_frame_transport, text="Weather")
+label_transport_weather.grid(row=0, column=3, padx=padx, pady=pady)
+entry_transport_weather = tk.Entry(edit_frame_transport, width=14)
+entry_transport_weather.grid(row=1, column=3, padx=padx, pady=pady)
+
+# Define Frame which contains buttons
+button_frame_transport = tk.Frame(controls_frame_transport)
+button_frame_transport.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_transport = tk.Button(button_frame_transport, text="Create", command=lambda: create_transport(tree_transport, read_transport_entries()))
+button_create_transport.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_transport = tk.Button(button_frame_transport, text="Update", command=lambda: update_transport(tree_transport, read_transport_entries()))
+button_update_transport.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_transport = tk.Button(button_frame_transport, text="Delete", command=lambda: delete_transport(tree_transport, read_transport_entries()))
+button_delete_transport.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = tk.Button(button_frame_transport, text="Clear Entry Boxes", command=clear_transport_entries)
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
+# endregion transport widgets
+
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
     refresh_treeview(tree_container, dcd.Aircraft)  # Load data from database
