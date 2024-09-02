@@ -306,7 +306,7 @@ tree_aircraft.column("max_cargo_weight", anchor=tk.E, width=80)
 tree_aircraft.column("registration", anchor=tk.W, width=200)
 tree_aircraft.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_aircraft.heading("id", text="Id", anchor=tk.CENTER)
-tree_aircraft.heading("max_cargo_weight", text="Max Cargo Weight", anchor=tk.CENTER)
+tree_aircraft.heading("max_cargo_weight", text="Max.Carg.Wgt", anchor=tk.CENTER)
 tree_aircraft.heading("registration", text="Registration", anchor=tk.CENTER)
 tree_aircraft.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
 tree_aircraft.tag_configure('evenrow', background=evenrow)
