@@ -289,6 +289,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # region aircraft widgets
 frame_aircraft = tk.LabelFrame(main_window, text="Aircraft")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
 frame_aircraft.grid(row=0, column=1, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+
 # Define data table (Treeview) and its scrollbar. Put them in a Frame.
 tree_frame_aircraft = tk.Frame(frame_aircraft)  # https://www.tutorialspoint.com/python/tk_frame.htm
 tree_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
@@ -302,8 +303,8 @@ tree_scroll_aircraft.config(command=tree_aircraft.yview)
 tree_aircraft['columns'] = ("id", "max_cargo_weight", "registration")  # Define columns
 tree_aircraft.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
 tree_aircraft.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
-tree_aircraft.column("max_cargo_weight", anchor=tk.E, width=80)
-tree_aircraft.column("registration", anchor=tk.W, width=200)
+tree_aircraft.column("max_cargo_weight", anchor=tk.E, width=100)
+tree_aircraft.column("registration", anchor=tk.W, width=100)
 tree_aircraft.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_aircraft.heading("id", text="Id", anchor=tk.CENTER)
 tree_aircraft.heading("max_cargo_weight", text="Max.Carg.Wgt", anchor=tk.CENTER)
@@ -318,7 +319,7 @@ controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
 
 # Define Frame which contains labels, entries and buttons
 controls_frame_aircraft = tk.Frame(frame_aircraft)
-controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
+controls_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
 
 # Define Frame which contains labels (text fields) and entries (input fields)
 edit_frame_aircraft = tk.Frame(controls_frame_aircraft)  # Add tuple entry boxes
