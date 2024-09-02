@@ -30,7 +30,7 @@ class Container(Base):
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Container
-        container = Aircraft(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
+        container = Container(id=tuple_[0], weight=tuple_[1], destination=tuple_[2])
         return container
 
 class Aircraft(Base):
