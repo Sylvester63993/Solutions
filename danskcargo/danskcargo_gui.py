@@ -380,8 +380,8 @@ tree_transport.column("aircraft_id", anchor=tk.E, width=70)
 tree_transport.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_transport.heading("id", text="Id", anchor=tk.CENTER)
 tree_transport.heading("date", text="Date", anchor=tk.CENTER)
-tree_transport.heading("container_id", text="Container ID", anchor=tk.CENTER)
-tree_transport.heading("aircraft_id", text="Aircraft ID", anchor=tk.CENTER)
+tree_transport.heading("container_id", text="Container Id", anchor=tk.CENTER)
+tree_transport.heading("aircraft_id", text="Aircraft Id", anchor=tk.CENTER)
 tree_transport.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
 tree_transport.tag_configure('evenrow', background=evenrow)
 tree_transport.bind("<ButtonRelease-1>", lambda event: edit_transport(event, tree_transport))  # Define function to be called, when an item is selected.
