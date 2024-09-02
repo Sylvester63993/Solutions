@@ -287,7 +287,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion container widgets
 
 # region aircraft widgets
-frame_aircraft = tk.LabelFrame(main_window, text="Container")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
+frame_aircraft = tk.LabelFrame(main_window, text="Aircraft")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
 frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
 # Define data table (Treeview) and its scrollbar. Put them in a Frame.
 tree_frame_aircraft = tk.Frame(frame_aircraft)  # https://www.tutorialspoint.com/python/tk_frame.htm
@@ -299,15 +299,15 @@ tree_aircraft.grid(row=0, column=0, padx=0, pady=pady)
 tree_scroll_aircraft.config(command=tree_aircraft.yview)
 
 # Define the data table's formatting and content
-tree_aircraft['columns'] = ("id", "weight", "destination")  # Define columns
+tree_aircraft['columns'] = ("id", "max_cargo_weight", "registration")  # Define columns
 tree_aircraft.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
 tree_aircraft.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
-tree_aircraft.column("weight", anchor=tk.E, width=80)
-tree_aircraft.column("destination", anchor=tk.W, width=200)
+tree_aircraft.column("max_cargo_weight", anchor=tk.E, width=80)
+tree_aircraft.column("registration", anchor=tk.W, width=200)
 tree_aircraft.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_aircraft.heading("id", text="Id", anchor=tk.CENTER)
-tree_aircraft.heading("weight", text="Weight", anchor=tk.CENTER)
-tree_aircraft.heading("destination", text="Destination", anchor=tk.CENTER)
+tree_aircraft.heading("max_cargo_weight", text="Max Cargo Weight", anchor=tk.CENTER)
+tree_aircraft.heading("registration", text="Registration", anchor=tk.CENTER)
 tree_aircraft.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
 tree_aircraft.tag_configure('evenrow', background=evenrow)
 tree_aircraft.bind("<ButtonRelease-1>", lambda event: edit_aircraft(event, tree_aircraft))  # Define function to be called, when an item is selected.
@@ -328,17 +328,17 @@ label_aircraft_id = tk.Label(edit_frame_aircraft, text="Id")  # https://www.tuto
 label_aircraft_id.grid(row=0, column=0, padx=padx, pady=pady)
 entry_aircraft_id = tk.Entry(edit_frame_aircraft, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
 entry_aircraft_id.grid(row=1, column=0, padx=padx, pady=pady)
-# label and entry for aircraft weight
-label_aircraft_weight = tk.Label(edit_frame_aircraft, text="Weight")
-label_aircraft_weight.grid(row=0, column=1, padx=padx, pady=pady)
-entry_aircraft_weight = tk.Entry(edit_frame_aircraft, width=8, justify="right")
-entry_aircraft_weight.grid(row=1, column=1, padx=padx, pady=pady)
-# label and entry for aircraft destination
-label_aircraft_destination = tk.Label(edit_frame_aircraft, text="Destination")
-label_aircraft_destination.grid(row=0, column=2, padx=padx, pady=pady)
-entry_aircraft_destination = tk.Entry(edit_frame_aircraft, width=20)
-entry_aircraft_destination.grid(row=1, column=2, padx=padx, pady=pady)
-# label and entry for aircraft destination
+# label and entry for aircraft max_cargo_weight
+label_aircraft_max_cargo_weight = tk.Label(edit_frame_aircraft, text="Max Cargo Weight")
+label_aircraft_max_cargo_weight.grid(row=0, column=1, padx=padx, pady=pady)
+entry_aircraft_max_cargo_weight = tk.Entry(edit_frame_aircraft, width=8, justify="right")
+entry_aircraft_max_cargo_weight.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for aircraft registration
+label_aircraft_registration = tk.Label(edit_frame_aircraft, text="Registration")
+label_aircraft_registration.grid(row=0, column=2, padx=padx, pady=pady)
+entry_aircraft_registration = tk.Entry(edit_frame_aircraft, width=20)
+entry_aircraft_registration.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for aircraft registration
 label_aircraft_weather = tk.Label(edit_frame_aircraft, text="Weather")
 label_aircraft_weather.grid(row=0, column=3, padx=padx, pady=pady)
 entry_aircraft_weather = tk.Entry(edit_frame_aircraft, width=14)
@@ -359,7 +359,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion aircraft widgets
 
 # region transport widgets
-frame_transport = tk.LabelFrame(main_window, text="Container")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
+frame_transport = tk.LabelFrame(main_window, text="Transport")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
 frame_transport.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
 # Define data table (Treeview) and its scrollbar. Put them in a Frame.
 tree_frame_transport = tk.Frame(frame_transport)  # https://www.tutorialspoint.com/python/tk_frame.htm
@@ -371,15 +371,17 @@ tree_transport.grid(row=0, column=0, padx=0, pady=pady)
 tree_scroll_transport.config(command=tree_transport.yview)
 
 # Define the data table's formatting and content
-tree_transport['columns'] = ("id", "weight", "destination")  # Define columns
+tree_transport['columns'] = ("id", "date", "container_id", "aircraft_id")  # Define columns
 tree_transport.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
 tree_transport.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
-tree_transport.column("weight", anchor=tk.E, width=80)
-tree_transport.column("destination", anchor=tk.W, width=200)
+tree_transport.column("date", anchor=tk.E, width=80)
+tree_transport.column("container_id", anchor=tk.E, width=70)
+tree_transport.column("aircraft_id", anchor=tk.E, width=70)
 tree_transport.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_transport.heading("id", text="Id", anchor=tk.CENTER)
-tree_transport.heading("weight", text="Weight", anchor=tk.CENTER)
-tree_transport.heading("destination", text="Destination", anchor=tk.CENTER)
+tree_transport.heading("date", text="Date", anchor=tk.CENTER)
+tree_transport.heading("container_id", text="Container ID", anchor=tk.CENTER)
+tree_transport.heading("aircraft_id", text="Aircraft ID", anchor=tk.CENTER)
 tree_transport.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
 tree_transport.tag_configure('evenrow', background=evenrow)
 tree_transport.bind("<ButtonRelease-1>", lambda event: edit_transport(event, tree_transport))  # Define function to be called, when an item is selected.
@@ -400,17 +402,17 @@ label_transport_id = tk.Label(edit_frame_transport, text="Id")  # https://www.tu
 label_transport_id.grid(row=0, column=0, padx=padx, pady=pady)
 entry_transport_id = tk.Entry(edit_frame_transport, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
 entry_transport_id.grid(row=1, column=0, padx=padx, pady=pady)
-# label and entry for transport weight
-label_transport_weight = tk.Label(edit_frame_transport, text="Weight")
-label_transport_weight.grid(row=0, column=1, padx=padx, pady=pady)
-entry_transport_weight = tk.Entry(edit_frame_transport, width=8, justify="right")
-entry_transport_weight.grid(row=1, column=1, padx=padx, pady=pady)
-# label and entry for transport destination
-label_transport_destination = tk.Label(edit_frame_transport, text="Destination")
-label_transport_destination.grid(row=0, column=2, padx=padx, pady=pady)
-entry_transport_destination = tk.Entry(edit_frame_transport, width=20)
-entry_transport_destination.grid(row=1, column=2, padx=padx, pady=pady)
-# label and entry for transport destination
+# label and entry for transport date
+label_transport_date = tk.Label(edit_frame_transport, text="Date")
+label_transport_date.grid(row=0, column=1, padx=padx, pady=pady)
+entry_transport_date = tk.Entry(edit_frame_transport, width=8, justify="right")
+entry_transport_date.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for transport container_id
+label_transport_container_id = tk.Label(edit_frame_transport, text="Container ID")
+label_transport_container_id.grid(row=0, column=2, padx=padx, pady=pady)
+entry_transport_container_id = tk.Entry(edit_frame_transport, width=20)
+entry_transport_container_id.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for transport container_id
 label_transport_weather = tk.Label(edit_frame_transport, text="Weather")
 label_transport_weather.grid(row=0, column=3, padx=padx, pady=pady)
 entry_transport_weather = tk.Entry(edit_frame_transport, width=14)
