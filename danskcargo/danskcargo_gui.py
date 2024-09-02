@@ -291,4 +291,3 @@ if __name__ == "__main__":  # Executed when invoked directly. We use this so mai
     refresh_treeview(tree_container, dcd.Aircraft)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
-
