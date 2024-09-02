@@ -129,11 +129,40 @@ def edit_transport(_, tree):  # Copy selected tuple into entry boxes. First para
     write_transport_entries(values)  # Fill entry boxes
 
 
+# def create_transport(tree, record):  # add new tuple to database
+#     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
+#     dcsql.create_record(transport)  # Update database
+#     clear_transport_entries()  # Clear entry boxes
+#     refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
+
 def create_transport(tree, record):  # add new tuple to database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    dcsql.create_record(transport)  # Update database
-    clear_transport_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    if destination_ok:
+        if capacity_ok:
+            dcsql.create_record(transport)  # Update database
+            clear_transport_entries()  # Clear entry boxes
+            refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
+        else:
+            messagebox.showwarning("", "Not enough capacity on aircraft!")
+    else:
+        messagebox.showwarning("", "Aircraft already has another destination!")
+
+
+def create_update(tree, record):  # add new tuple to database
+    transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    if destination_ok:
+        if capacity_ok:
+            dcsql.update_record(transport)  # Update database
+            clear_transport_entries()  # Clear entry boxes
+            refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
+        else:
+            messagebox.showwarning("", "Not enough capacity on aircraft!")
+    else:
+        messagebox.showwarning("", "Aircraft already has another destination!")
 
 
 def update_transport(tree, record):  # update tuple in database
