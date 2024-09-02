@@ -396,7 +396,7 @@ controls_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
 
 # Define Frame which contains labels (text fields) and entries (input fields)
 edit_frame_transport = tk.Frame(controls_frame_transport)  # Add tuple entry boxes
-edit_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
+edit_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
 # label and entry for transport id
 label_transport_id = tk.Label(edit_frame_transport, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
 label_transport_id.grid(row=0, column=0, padx=padx, pady=pady)
