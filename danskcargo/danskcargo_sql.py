@@ -80,6 +80,27 @@ def delete_soft_container(container):
         session.commit()  # makes changes permanent in database
 # endregion container
 
+# region aircraft
+def update_aircraft(aircraft):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
+    # update a record in the aircraft table
+    with Session(engine) as session:
+        session.execute(update(Aircraft).where(Aircraft.id == aircraft.id).values(max_cargo_weight=aircraft.max_cargo_weight, registration=aircraft.registration))
+        session.commit()  # makes changes permanent in database
+
+
+def delete_hard_aircraft(aircraft):
+    # delete a record in the aircraft table
+    with Session(engine) as session:
+        session.execute(delete(Aircraft).where(Aircraft.id == aircraft.id))
+        session.commit()  # makes changes permanent in database
+
+
+def delete_soft_aircraft(aircraft):
+    # soft delete a record in the aircraft table by setting its max_cargo_weight to -1 (see also method "valid" in the aircraft class)
+    with Session(engine) as session:
+        session.execute(update(Aircraft).where(Aircraft.id == aircraft.id).values(max_cargo_weight=-1, registration=aircraft.registration))
+        session.commit()  # makes changes permanent in database
+# endregion aircraft
 
 if __name__ == "__main__":  # Executed when invoked directly
 # The next 2 lines are needed _after_ data classes / sql tables were defined
