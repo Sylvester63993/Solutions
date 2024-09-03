@@ -145,6 +145,8 @@ def create_transport(tree, record):  # add new tuple to database
             clear_transport_entries()  # Clear entry boxes
             refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
         else:
+            global INTERNAL_ERROR_CODE
+            INTERNAL_ERROR_CODE = 1
             messagebox.showwarning("", "Not enough capacity on aircraft!")
     else:
         messagebox.showwarning("", "Aircraft already has another destination!")
@@ -167,14 +169,24 @@ def create_update(tree, record):  # add new tuple to database
 
 def update_transport(tree, record):  # update tuple in database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    dcsql.update_transport(transport)  # Update database
-    clear_transport_entries()  # Clear entry boxes
-    refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    if destination_ok:
+        if capacity_ok:
+            dcsql.update_transport(transport)  # Update database
+            clear_transport_entries()  # Clear entry boxes
+            refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
+        else:
+            global INTERNAL_ERROR_CODE
+            INTERNAL_ERROR_CODE = 1
+            messagebox.showwarning("", "Not enough capacity on aircraft!")
+    else:
+        messagebox.showwarning("", "Aircraft already has another destination!")
 
 
 def delete_transport(tree, record):  # delete tuple in database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    dcsql.delete_soft_transport(transport)  # Update database
+    dcsql.delete_hard_transport(transport)  # Update database
     clear_transport_entries()  # Clear entry boxes
     refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
 # endregion transport functions
@@ -414,10 +426,10 @@ label_transport_container_id.grid(row=0, column=2, padx=padx, pady=pady)
 entry_transport_container_id = tk.Entry(edit_frame_transport, width=20)
 entry_transport_container_id.grid(row=1, column=2, padx=padx, pady=pady)
 # label and entry for transport container_id
-label_transport_weather = tk.Label(edit_frame_transport, text="Weather")
-label_transport_weather.grid(row=0, column=3, padx=padx, pady=pady)
-entry_transport_weather = tk.Entry(edit_frame_transport, width=14)
-entry_transport_weather.grid(row=1, column=3, padx=padx, pady=pady)
+label_transport_aircraft_id = tk.Label(edit_frame_transport, text="Weather")
+label_transport_aircraft_id.grid(row=0, column=3, padx=padx, pady=pady)
+entry_transport_aircraft_id = tk.Entry(edit_frame_transport, width=14)
+entry_transport_aircraft_id.grid(row=1, column=3, padx=padx, pady=pady)
 
 # Define Frame which contains buttons
 button_frame_transport = tk.Frame(controls_frame_transport)
@@ -435,6 +447,8 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
-    refresh_treeview(tree_container, dcd.Aircraft)  # Load data from database
+    refresh_treeview(tree_container, dcd.Container)  # Load data from database
+    refresh_treeview(tree_aircraft, dcd.Aircraft)  # Load data from database
+    refresh_treeview(tree_transport, dcd.Transport)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
