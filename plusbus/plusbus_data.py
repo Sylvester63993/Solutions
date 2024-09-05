@@ -69,7 +69,7 @@ class Booking(Base):
     def __repr__(self):  # Optional. Only for test purposes.
         return f"Rejse({self.id=:4}    {self.kunde_id=:5}    {self.rejse_id=}    {self.pladser=})"
 
-    def convert_to_tuple(self):  # Convert type Rejse to a tuple
+    def convert_to_tuple(self):  # Convert type Booking to a tuple
         return self.id, self.kunde_id, self.rejse_id, self.pladser
     
     
