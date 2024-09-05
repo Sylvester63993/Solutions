@@ -61,14 +61,15 @@ class Rejse(Base):
 
 class Booking(Base):
     __tablename__ = "booking"
-    kunde_id = Column(Integer, primary_key=True)
-    rejse_id = Column(String)
+    id = Column(Integer, primary_key=True)
+    kunde_id = Column(Integer, ForeignKey("kunde.id"), nullable=False)
+    rejse_id = Column(Integer, ForeignKey("rejse.id"), nullable=False)
     pladser = Column(Integer)
     
     def __repr__(self):  # Optional. Only for test purposes.
-        return f"Rejse({self.kunde_id=:4}    {self.rejse_id=:5}    {self.pladser=})"
+        return f"Rejse({self.id=:4}    {self.kunde_id=:5}    {self.rejse_id=}    {self.pladser=})"
 
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
-        return self.kunde_id, self.rejse_id, self.pladser
+        return self.id, self.kunde_id, self.rejse_id, self.pladser
     
     
