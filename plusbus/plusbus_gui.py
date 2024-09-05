@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 
-# Derudover importer dine egne filer:
+# Importering af egne filer og forkortelse af filnavne:
 import plusbus_data as pbd
 import plusbus_sql as pbsql
 
@@ -42,5 +42,8 @@ style.map('Treeview', background=[('selected', treeview_selected)])  # Define co
 # endregion kunde widgets
 
 # region main program
+if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
+    main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
+
 
