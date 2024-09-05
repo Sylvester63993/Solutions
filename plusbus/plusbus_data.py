@@ -13,7 +13,7 @@ class Kunde(Base):
     __tablename__ = "kunde"
     id = Column(Integer, primary_key=True)
     efternavn = Column(String)
-    kontakt= Column(String)
+    kontakt = Column(String)
 
     def __repr__(self):  # Optional. Only for test purposes.
         return f"Kunde({self.id=:4}    {self.efternavn=:5}    {self.kontakt=})"
@@ -21,12 +21,12 @@ class Kunde(Base):
     def convert_to_tuple(self):  # Convert type Kunde to a tuple
         return self.id, self.efternavn, self.kontakt
 
-    def valid(self):
-        try:
-            value = int(self.efternavn)
-        except ValueError:
-            return False
-        return value >= 0
+    # def valid(self):
+    #     try:
+    #         value = int(self.efternavn)
+    #     except ValueError:
+    #         return False
+    #     return value >= 0
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Kunde
@@ -38,6 +38,8 @@ class Rejse(Base):
     __tablename__ = "rejse"
     id = Column(Integer, primary_key=True)
     rute = Column(String)
+    dato = Column(Date)
+    pladskapacitet = Column(Integer)
 
     def __repr__(self):  # Optional. Only for test purposes.
         return f"Rejse({self.id=:4}    {self.rute=:5})"
