@@ -42,10 +42,10 @@ class Rejse(Base):
     pladskapacitet = Column(Integer)
 
     def __repr__(self):  # Optional. Only for test purposes.
-        return f"Rejse({self.id=:4}    {self.rute=:5})"
+        return f"Rejse({self.id=:4}    {self.rute=:5}    {self.dato=}    {self.pladskapacitet=})"
 
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
-        return self.id, self.rute
+        return self.id, self.rute, self.dato, self.pladskapacitet
 
     def valid(self):
         try:
