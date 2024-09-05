@@ -69,15 +69,6 @@ tree_kunde.tag_configure('evenrow', background=evenrow)
 controls_frame_kunde = tk.Frame(labelframe_kunde)
 controls_frame_kunde.grid(row=3, column=0, padx=padx, pady=pady)
 
-# Define data table (Treeview) and its scrollbar. Put them in a Frame.
-tree_frame_kunde = tk.Frame(labelframe_kunde)  # https://www.tutorialspoint.com/python/tk_frame.htm
-tree_frame_kunde.grid(row=0, column=0, padx=padx, pady=pady)
-tree_scroll_kunde = tk.Scrollbar(tree_frame_kunde)
-tree_scroll_kunde.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
-tree_kunde = ttk.Treeview(tree_frame_kunde, yscrollcommand=tree_scroll_kunde.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
-tree_kunde.grid(row=0, column=0, padx=0, pady=pady)
-tree_scroll_kunde.config(command=tree_kunde.yview)
-
 # Define Frame which contains labels (text fields) and entries (input fields)
 edit_frame_kunde = tk.Frame(controls_frame_kunde)  # Add tuple entry boxes
 edit_frame_kunde.grid(row=0, column=0, padx=padx, pady=pady)
