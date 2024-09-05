@@ -105,7 +105,6 @@ button_delete_kunde = tk.Button(button_frame_kunde, text="Delete")
 button_delete_kunde.grid(row=0, column=3, padx=padx, pady=pady)
 button_clear_boxes = tk.Button(button_frame_kunde, text="Clear Entry Boxes")
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
-
 # endregion kunde widgets
 
 # region main program
