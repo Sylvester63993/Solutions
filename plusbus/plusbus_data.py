@@ -47,16 +47,28 @@ class Rejse(Base):
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
         return self.id, self.rute, self.dato, self.pladskapacitet
 
-    def valid(self):
-        try:
-            value = int(self.rute)
-        except ValueError:
-            return False
-        return value >= 0
+    # def valid(self):
+    #     try:
+    #         value = int(self.rute)
+    #     except ValueError:
+    #         return False
+    #     return value >= 0
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
         rejse = Rejse(id=tuple_[0], rute=tuple_[1])
         return rejse
+
+class Booking(Base):
+    __tablename__ = "booking"
+    kunde_id = Column(Integer, primary_key=True)
+    rejse_id = Column(String)
+    pladser = Column(Integer)
+    
+    def __repr__(self):  # Optional. Only for test purposes.
+        return f"Rejse({self.kunde_id=:4}    {self.rejse_id=:5}    {self.pladser=})"
+
+    def convert_to_tuple(self):  # Convert type Rejse to a tuple
+        return self.kunde_id, self.rejse_id, self.pladser
     
     
