@@ -92,6 +92,20 @@ label_kunde_weather = tk.Label(edit_frame_kunde, text="N/A")
 label_kunde_weather.grid(row=0, column=3, padx=padx, pady=pady)
 entry_kunde_weather = tk.Entry(edit_frame_kunde, width=14)
 entry_kunde_weather.grid(row=1, column=3, padx=padx, pady=pady)
+
+# Define Frame which contains buttons
+button_frame_kunde = tk.Frame(controls_frame_kunde)
+button_frame_kunde.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_kunde = tk.Button(button_frame_kunde, text="Create")
+button_create_kunde.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_kunde = tk.Button(button_frame_kunde, text="Update")
+button_update_kunde.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_kunde = tk.Button(button_frame_kunde, text="Delete")
+button_delete_kunde.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = tk.Button(button_frame_kunde, text="Clear Entry Boxes")
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
+
 # endregion kunde widgets
 
 # region main program
