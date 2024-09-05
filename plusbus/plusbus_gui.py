@@ -77,6 +77,30 @@ tree_scroll_kunde.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
 tree_kunde = ttk.Treeview(tree_frame_kunde, yscrollcommand=tree_scroll_kunde.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
 tree_kunde.grid(row=0, column=0, padx=0, pady=pady)
 tree_scroll_kunde.config(command=tree_kunde.yview)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_kunde = tk.Frame(controls_frame_kunde)  # Add tuple entry boxes
+edit_frame_kunde.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for kunde id
+label_kunde_id = tk.Label(edit_frame_kunde, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_kunde_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_kunde_id = tk.Entry(edit_frame_kunde, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_kunde_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for kunde efternavn
+label_kunde_efternavn = tk.Label(edit_frame_kunde, text="Efternavn")
+label_kunde_efternavn.grid(row=0, column=1, padx=padx, pady=pady)
+entry_kunde_efternavn = tk.Entry(edit_frame_kunde, width=8, justify="right")
+entry_kunde_efternavn.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for kunde kontakt
+label_kunde_kontakt = tk.Label(edit_frame_kunde, text="Kontakt")
+label_kunde_kontakt.grid(row=0, column=2, padx=padx, pady=pady)
+entry_kunde_kontakt = tk.Entry(edit_frame_kunde, width=20)
+entry_kunde_kontakt.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for kunde kontakt
+label_kunde_weather = tk.Label(edit_frame_kunde, text="N/A")
+label_kunde_weather.grid(row=0, column=3, padx=padx, pady=pady)
+entry_kunde_weather = tk.Entry(edit_frame_kunde, width=14)
+entry_kunde_weather.grid(row=1, column=3, padx=padx, pady=pady)
 # endregion kunde widgets
 
 # region main program
