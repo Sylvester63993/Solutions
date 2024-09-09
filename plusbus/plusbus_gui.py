@@ -43,6 +43,23 @@ def edit_kunde(event, tree):  # Copy selected tuple into entry boxes. Parameter 
 # endregion kunde functions
 
 # region common functions
+def read_table(tree, class_):  # fill tree from database
+    count = 0  # Used to keep track of odd and even rows, because these will be colored differently.
+    result = pbsql.select_all(class_)  # Read all kunder(customers) from database
+    for record in result:
+        if record.valid():  # this condition excludes soft deleted records from being shown in the data table
+            if count % 2 == 0:  # even
+               tree.insert(parent='', index='end', iid=str(count), text='', values=record.convert_to_tuple(), tags=('evenrow',))  # Insert one row into the data table
+            else:  # odd
+               tree.insert(parent='', index='end', iid=str(count), text='', values=record.convert_to_tuple(), tags=('oddrow',))  # Insert one row into the data table
+            count += 1
+
+def empty_treeview(tree):  # Clear treeview table
+    tree.delete(*tree.get_children())
+
+def refresh_treeview(tree, class_):  # Refresh treeview table
+    empty_treeview(tree)  # Clear treeview table
+    read_table(tree, class_)  # Fill treeview from database
 # endregion common functions
 
 # region common widgets
@@ -132,7 +149,9 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
+    refresh_treeview(tree_kunde, pbd.Kunde)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
+
 
 
