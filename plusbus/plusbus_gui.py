@@ -61,7 +61,7 @@ style.map('Treeview', background=[('selected', treeview_selected)])  # Define co
 # endregion common widgets
 
 # region kunde widgets
-# Define Labelframe which contains all container related GUI objects (data table, labels, buttons, ...)
+# Define Labelframe which contains all kunde related GUI objects (data table, labels, buttons, ...)
 labelframe_kunde = tk.LabelFrame(main_window, text="Kunde")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
 labelframe_kunde.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
 
@@ -86,6 +86,7 @@ tree_kunde.heading("efternavn", text="Efternavn", anchor=tk.CENTER)
 tree_kunde.heading("kontakt", text="Kontakt", anchor=tk.CENTER)
 tree_kunde.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
 tree_kunde.tag_configure('evenrow', background=evenrow)
+tree_kunde.bind("<ButtonRelease-1>", lambda event: edit_kunde(event, tree_kunde))  # Define function to be called, when an item is selected.
 
 # Define Frame which contains labels, entries and buttons
 controls_frame_kunde = tk.Frame(labelframe_kunde)
