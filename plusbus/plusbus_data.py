@@ -21,12 +21,9 @@ class Kunde(Base):
     def convert_to_tuple(self):  # Convert type Kunde to a tuple
         return self.id, self.efternavn, self.kontakt
 
-    # def valid(self):
-    #     try:
-    #         value = int(self.efternavn)
-    #     except ValueError:
-    #         return False
-    #     return value >= 0
+    def valid(self):
+        return self.efternavn != "#deleted"
+
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Kunde
@@ -47,12 +44,12 @@ class Rejse(Base):
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
         return self.id, self.rute, self.dato, self.pladskapacitet
 
-    # def valid(self):
-    #     try:
-    #         value = int(self.rute)
-    #     except ValueError:
-    #         return False
-    #     return value >= 0
+    def valid(self):
+        try:
+            value = int(self.pladskapacitet)
+        except ValueError:
+            return False
+        return value >= 0
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Rejse

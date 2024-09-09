@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 
-
 # Importering af egne filer og forkortelse af filnavne:
 import plusbus_data as pbd
 import plusbus_sql as pbsql
