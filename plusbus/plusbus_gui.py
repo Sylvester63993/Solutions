@@ -18,6 +18,28 @@ evenrow = "#cccccc"  # color of even row in treeview
 # endregion global constants
 
 # region kunde functions
+def read_kunde_entries():  # Read content of entry boxes
+    return entry_kunde_id.get(), entry_kunde_efternavn.get(), entry_kunde_kontakt.get(),
+
+
+def clear_kunde_entries():  # Clear entry boxes
+    entry_kunde_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_kunde_efternavn.delete(0, tk.END)
+    entry_kunde_kontakt.delete(0, tk.END)
+    entry_kunde_weather.delete(0, tk.END)
+
+
+def write_kunde_entries(values):  # Fill entry boxes
+    entry_kunde_id.insert(0, values[0])
+    entry_kunde_efternavn.insert(0, values[1])
+    entry_kunde_kontakt.insert(0, values[2])
+
+
+def edit_kunde(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_kunde_entries()  # Clear entry boxes
+    write_kunde_entries(values)  # Fill entry boxes
 # endregion kunde functions
 
 # region common functions
