@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, update, delete
 from plusbus_data import Kunde, Base
 
 # add the following 7 lines to make foreign key constraints work  https://docs.sqlalchemy.org/en/14/dialects/sqlite.html#sqlite-foreign-keys
