@@ -25,7 +25,7 @@ def clear_kunde_entries():  # Clear entry boxes
     entry_kunde_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
     entry_kunde_efternavn.delete(0, tk.END)
     entry_kunde_kontakt.delete(0, tk.END)
-    entry_kunde_weather.delete(0, tk.END)
+    # entry_kunde_weather.delete(0, tk.END)
 
 
 def write_kunde_entries(values):  # Fill entry boxes
@@ -39,6 +39,27 @@ def edit_kunde(event, tree):  # Copy selected tuple into entry boxes. Parameter 
     values = tree.item(index_selected, 'values')  # Values of selected tuple
     clear_kunde_entries()  # Clear entry boxes
     write_kunde_entries(values)  # Fill entry boxes
+
+
+def create_kunde(tree, record):  # add new tuple to database
+    kunde = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    pbsql.create_record(kunde)  # Update database
+    clear_kunde_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+
+
+def update_kunde(tree, record):  # update tuple in database
+    kunde = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    pbsql.update_kunde(kunde)  # Update database
+    clear_kunde_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+
+
+def delete_kunde(tree, record):  # delete tuple in database
+    kunde = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    pbsql.delete_soft_kunde(kunde)  # Update database
+    clear_kunde_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
 # endregion kunde functions
 
 # region common functions
@@ -136,11 +157,11 @@ entry_kunde_weather.grid(row=1, column=3, padx=padx, pady=pady)
 button_frame_kunde = tk.Frame(controls_frame_kunde)
 button_frame_kunde.grid(row=1, column=0, padx=padx, pady=pady)
 # Define buttons
-button_create_kunde = tk.Button(button_frame_kunde, text="Create")  # , command=lambda: create_kunde(tree_kunde, read_kunde_entries()))
+button_create_kunde = tk.Button(button_frame_kunde, text="Create", command=lambda: create_kunde(tree_kunde, read_kunde_entries()))
 button_create_kunde.grid(row=0, column=1, padx=padx, pady=pady)
-button_update_kunde = tk.Button(button_frame_kunde, text="Update")  # , command=lambda: update_kunde(tree_kunde, read_kunde_entries()))
+button_update_kunde = tk.Button(button_frame_kunde, text="Update", command=lambda: update_kunde(tree_kunde, read_kunde_entries()))
 button_update_kunde.grid(row=0, column=2, padx=padx, pady=pady)
-button_delete_kunde = tk.Button(button_frame_kunde, text="Delete")  # , command=lambda: delete_kunde(tree_kunde, read_kunde_entries()))
+button_delete_kunde = tk.Button(button_frame_kunde, text="Delete", command=lambda: delete_kunde(tree_kunde, read_kunde_entries()))
 button_delete_kunde.grid(row=0, column=3, padx=padx, pady=pady)
 button_clear_boxes = tk.Button(button_frame_kunde, text="Clear Entry Boxes", command=clear_kunde_entries)
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)

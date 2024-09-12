@@ -12,6 +12,7 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
 
+
 Database = 'sqlite:///plusbus.db'  # first part: database type, second part: file path
 
 def create_test_data():  # Optional. Used to test database functions before gui is ready.
@@ -41,6 +42,27 @@ def get_record(classparam, record_id):  # https://docs.sqlalchemy.org/en/14/tuto
     with Session(engine) as session:
         record = session.scalars(select(classparam).where(classparam.id == record_id)).first()  # very useful for converting into our data class
     return record
+
+
+def create_record(record):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
+    # create a record in the database
+    with Session(engine) as session:
+        record.id = None
+        session.add(record)
+        session.commit()  # makes changes permanent in database
+
+
+def delete_hard_kunde(kunde):
+    # delete a record in the kunde table
+    with Session(engine) as session:
+        session.execute(delete(Kunde).where(Kunde.id == kunde.id))
+        session.commit()  # makes changes permanent in database
+
+def delete_soft_kunde(kunde):
+    # soft delete a record in the kunde table by setting its efternavn to -1 (see also method "valid" in the kunde class)
+    with Session(engine) as session:
+        session.execute(update(Kunde).where(Kunde.id == kunde.id).values(efternavn="#deleted", kontakt=kunde.kontakt))
+        session.commit()  # makes changes permanent in database
 
 
 if __name__ == "__main__":  # Executed when invoked directly
