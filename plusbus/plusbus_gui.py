@@ -62,6 +62,53 @@ def delete_kunde(tree, record):  # delete tuple in database
     refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
 # endregion kunde functions
 
+# region rejse functions
+def read_rejse_entries():  # Read content of entry boxes
+    return entry_rejse_id.get(), entry_rejse_rute.get(), entry_rejse_dato.get(), entry_rejse_pladskapacitet.get()
+
+
+def clear_rejse_entries():  # Clear entry boxes
+    entry_rejse_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_rejse_rute.delete(0, tk.END)
+    entry_rejse_dato.delete(0, tk.END)
+    entry_rejse_pladskapacitet.delete(0, tk.END)
+
+
+def write_rejse_entries(values):  # Fill entry boxes
+    entry_rejse_id.insert(0, values[0])
+    entry_rejse_rute.insert(0, values[1])
+    entry_rejse_dato.insert(0, values[2])
+    entry_rejse_dato.insert(0, values[3])
+
+
+def edit_rejse(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_rejse_entries()  # Clear entry boxes
+    write_rejse_entries(values)  # Fill entry boxes
+
+
+def create_rejse(tree, record):  # add new tuple to database
+    rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
+    pbsql.create_record(rejse)  # Update database
+    clear_rejse_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
+
+
+def update_rejse(tree, record):  # update tuple in database
+    rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
+    pbsql.update_rejse(rejse)  # Update database
+    clear_rejse_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
+
+
+def delete_rejse(tree, record):  # delete tuple in database
+    rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
+    pbsql.delete_soft_rejse(rejse)  # Update database
+    clear_rejse_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
+# endregion rejse functions
+
 # region common functions
 def read_table(tree, class_):  # fill tree from database
     count = 0  # Used to keep track of odd and even rows, because these will be colored differently.
@@ -166,6 +213,69 @@ button_delete_kunde.grid(row=0, column=3, padx=padx, pady=pady)
 button_clear_boxes = tk.Button(button_frame_kunde, text="Clear Entry Boxes", command=clear_kunde_entries)
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion kunde widgets
+
+# region rejse widgets
+labelframe_rejse = tk.LabelFrame(main_window, text="Rejse")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
+labelframe_rejse.grid(row=0, column=1, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+
+# Define data table (Treeview) and its scrollbar. Put them in a Frame.
+tree_frame_rejse = tk.Frame(labelframe_rejse)  # https://www.tutorialspoint.com/python/tk_frame.htm
+tree_frame_rejse.grid(row=0, column=0, padx=padx, pady=pady)
+tree_scroll_rejse = tk.Scrollbar(tree_frame_rejse)
+tree_scroll_rejse.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
+tree_rejse = ttk.Treeview(tree_frame_rejse, yscrollcommand=tree_scroll_rejse.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
+tree_rejse.grid(row=0, column=0, padx=0, pady=pady)
+tree_scroll_rejse.config(command=tree_rejse.yview)
+
+# Define the data table's formatting and content
+tree_rejse['columns'] = ("id", "rute", "dato", "pladskapacitet")  # Define columns
+tree_rejse.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
+tree_rejse.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
+tree_rejse.column("rute", anchor=tk.E, width=100)
+tree_rejse.column("dato", anchor=tk.W, width=100)
+tree_rejse.column("pladskapacitet", anchor=tk.W, width=100)
+tree_rejse.heading("#0", text="", anchor=tk.W)  # Create column headings
+tree_rejse.heading("id", text="Id", anchor=tk.CENTER)
+tree_rejse.heading("rute", text="Rute", anchor=tk.CENTER)
+tree_rejse.heading("dato", text="Dato", anchor=tk.CENTER)
+tree_rejse.heading("pladskapacitet", text="Pladskapacitet", anchor=tk.CENTER)
+tree_rejse.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
+tree_rejse.tag_configure('evenrow', background=evenrow)
+tree_rejse.bind("<ButtonRelease-1>", lambda event: edit_rejse(event, tree_rejse))  # Define function to be called, when an item is selected.
+
+# Define Frame which contains labels, entries & buttons
+controls_frame_rejse = tk.Frame(labelframe_rejse)
+controls_frame_rejse.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_rejse = tk.Frame(labelframe_rejse)
+controls_frame_rejse.grid(row=1, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_rejse = tk.Frame(controls_frame_rejse)  # Add tuple entry boxes
+edit_frame_rejse.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for rejse id
+label_rejse_id = tk.Label(edit_frame_rejse, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_rejse_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_rejse_id = tk.Entry(edit_frame_rejse, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_rejse_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for rejse rute
+label_rejse_rute = tk.Label(edit_frame_rejse, text="Max Cargo Weight")
+label_rejse_rute.grid(row=0, column=1, padx=padx, pady=pady)
+entry_rejse_rute = tk.Entry(edit_frame_rejse, width=8, justify="right")
+entry_rejse_rute.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for rejse dato
+label_rejse_dato = tk.Label(edit_frame_rejse, text="Dato")
+label_rejse_dato.grid(row=0, column=2, padx=padx, pady=pady)
+entry_rejse_dato = tk.Entry(edit_frame_rejse, width=20)
+entry_rejse_dato.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for rejse kapacitet
+# label_rejse_weather = tk.Label(edit_frame_rejse, text="Weather")
+# label_rejse_weather.grid(row=0, column=3, padx=padx, pady=pady)
+# entry_rejse_weather = tk.Entry(edit_frame_rejse, width=14)
+# entry_rejse_weather.grid(row=1, column=3, padx=padx, pady=pady)
+
+# endregion rejse widgets
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
