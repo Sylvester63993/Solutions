@@ -50,7 +50,14 @@ def create_record(record):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_dat
         record.id = None
         session.add(record)
         session.commit()  # makes changes permanent in database
+        
 
+def update_kunde(kunde):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
+    # update a record in the kunde table
+    with Session(engine) as session:
+        session.execute(update(Kunde).where(Kunde.id == kunde.id).values(efternavn=kunde.efternavn, kontakt=kunde.kontakt))
+        session.commit()  # makes changes permanent in database
+        
 
 def delete_hard_kunde(kunde):
     # delete a record in the kunde table
@@ -59,7 +66,7 @@ def delete_hard_kunde(kunde):
         session.commit()  # makes changes permanent in database
 
 def delete_soft_kunde(kunde):
-    # soft delete a record in the kunde table by setting its efternavn to -1 (see also method "valid" in the kunde class)
+    # soft delete a record in the kunde table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the kunde class)
     with Session(engine) as session:
         session.execute(update(Kunde).where(Kunde.id == kunde.id).values(efternavn="#deleted", kontakt=kunde.kontakt))
         session.commit()  # makes changes permanent in database
@@ -69,7 +76,7 @@ if __name__ == "__main__":  # Executed when invoked directly
 # The next 2 lines are needed _after_ data classes / sql tables were defined
     engine = create_engine(Database, echo=False, future=True)  
     Base.metadata.create_all(engine)
-    # create_test_data()
+    #  create_test_data()
     print(select_all(Kunde))
     print(get_record(Kunde, 2))
 else:  # Executed when imported
