@@ -351,7 +351,7 @@ label_aircraft_registration = tk.Label(edit_frame_aircraft, text="Registration")
 label_aircraft_registration.grid(row=0, column=2, padx=padx, pady=pady)
 entry_aircraft_registration = tk.Entry(edit_frame_aircraft, width=20)
 entry_aircraft_registration.grid(row=1, column=2, padx=padx, pady=pady)
-# label and entry for aircraft registration
+# label and entry for aircraft weather
 # label_aircraft_weather = tk.Label(edit_frame_aircraft, text="Weather")
 # label_aircraft_weather.grid(row=0, column=3, padx=padx, pady=pady)
 # entry_aircraft_weather = tk.Entry(edit_frame_aircraft, width=14)
