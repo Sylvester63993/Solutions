@@ -111,19 +111,19 @@ def delete_rejse(tree, record):  # delete tuple in database
 
 # region booking functions
 def read_booking_entries():  # Read content of entry boxes
-    return entry_booking_id.get(), entry_booking_kunde_id.get(), entry_booking_rejse_id.get(), entry_booking_pladser.get(),
+    return entry_booking_id.get(), entry_booking_booking_id.get(), entry_booking_rejse_id.get(), entry_booking_pladser.get(),
 
 
 def clear_booking_entries():  # Clear entry boxes
     entry_booking_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_booking_kunde_id.delete(0, tk.END)
+    entry_booking_booking_id.delete(0, tk.END)
     entry_booking_rejse_id.delete(0, tk.END)
     entry_booking_pladser.delete(0, tk.END)
 
 
 def write_booking_entries(values):  # Fill entry boxes
     entry_booking_id.insert(0, values[0])
-    entry_booking_kunde_id.insert(0, values[1])
+    entry_booking_booking_id.insert(0, values[1])
     entry_booking_rejse_id.insert(0, values[2])
     entry_booking_pladser.insert(0, values[3])
 
