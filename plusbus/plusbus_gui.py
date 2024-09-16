@@ -109,6 +109,53 @@ def delete_rejse(tree, record):  # delete tuple in database
     refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
 # endregion rejse functions
 
+# region booking functions
+def read_booking_entries():  # Read content of entry boxes
+    return entry_booking_id.get(), entry_booking_kunde_id.get(), entry_booking_rejse_id.get(), entry_booking_pladser.get(),
+
+
+def clear_booking_entries():  # Clear entry boxes
+    entry_booking_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_booking_kunde_id.delete(0, tk.END)
+    entry_booking_rejse_id.delete(0, tk.END)
+    entry_booking_pladser.delete(0, tk.END)
+
+
+def write_booking_entries(values):  # Fill entry boxes
+    entry_booking_id.insert(0, values[0])
+    entry_booking_kunde_id.insert(0, values[1])
+    entry_booking_rejse_id.insert(0, values[2])
+    entry_booking_pladser.insert(0, values[3])
+
+
+def edit_booking(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_booking_entries()  # Clear entry boxes
+    write_booking_entries(values)  # Fill entry boxes
+
+
+def create_booking(tree, record):  # add new tuple to database
+    booking = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    pbsql.create_record(booking)  # Update database
+    clear_booking_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+
+
+def update_booking(tree, record):  # update tuple in database
+    booking = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    pbsql.update_booking(booking)  # Update database
+    clear_booking_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+
+
+def delete_booking(tree, record):  # delete tuple in database
+    booking = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    pbsql.delete_soft_booking(booking)  # Update database
+    clear_booking_entries()  # Clear entry boxes
+    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+# endregion booking functions
+
 # region common functions
 def read_table(tree, class_):  # fill tree from database
     count = 0  # Used to keep track of odd and even rows, because these will be colored differently.
