@@ -255,25 +255,25 @@ controls_frame_rejse.grid(row=1, column=0, padx=padx, pady=pady)
 edit_frame_rejse = tk.Frame(controls_frame_rejse)  # Add tuple entry boxes
 edit_frame_rejse.grid(row=0, column=0, padx=padx, pady=pady)
 # label and entry for rejse id
-label_rejse_id = tk.Label(edit_frame_rejse, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_rejse_id = tk.Label(edit_frame_rejse, text="Id", justify="left")  # https://www.tutorialspoint.com/python/tk_label.htm
 label_rejse_id.grid(row=0, column=0, padx=padx, pady=pady)
 entry_rejse_id = tk.Entry(edit_frame_rejse, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
 entry_rejse_id.grid(row=1, column=0, padx=padx, pady=pady)
 # label and entry for rejse rute
-label_rejse_rute = tk.Label(edit_frame_rejse, text="Max Cargo Weight")
+label_rejse_rute = tk.Label(edit_frame_rejse, text="Rute")
 label_rejse_rute.grid(row=0, column=1, padx=padx, pady=pady)
-entry_rejse_rute = tk.Entry(edit_frame_rejse, width=8, justify="right")
+entry_rejse_rute = tk.Entry(edit_frame_rejse, width=16, justify="right")
 entry_rejse_rute.grid(row=1, column=1, padx=padx, pady=pady)
 # label and entry for rejse dato
 label_rejse_dato = tk.Label(edit_frame_rejse, text="Dato")
 label_rejse_dato.grid(row=0, column=2, padx=padx, pady=pady)
-entry_rejse_dato = tk.Entry(edit_frame_rejse, width=20)
+entry_rejse_dato = tk.Entry(edit_frame_rejse, width=10)
 entry_rejse_dato.grid(row=1, column=2, padx=padx, pady=pady)
-# label and entry for rejse kapacitet
-# label_rejse_weather = tk.Label(edit_frame_rejse, text="Weather")
-# label_rejse_weather.grid(row=0, column=3, padx=padx, pady=pady)
-# entry_rejse_weather = tk.Entry(edit_frame_rejse, width=14)
-# entry_rejse_weather.grid(row=1, column=3, padx=padx, pady=pady)
+# label and entry for rejse pladskapacitet
+label_rejse_pladskapacitet = tk.Label(edit_frame_rejse, text="Pladskapacitet")
+label_rejse_pladskapacitet.grid(row=0, column=3, padx=padx, pady=pady)
+entry_rejse_pladskapacitet = tk.Entry(edit_frame_rejse, width=14)
+entry_rejse_pladskapacitet.grid(row=1, column=3, padx=padx, pady=pady)
 
 # endregion rejse widgets
 
