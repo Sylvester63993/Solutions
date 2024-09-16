@@ -195,10 +195,10 @@ label_kunde_kontakt.grid(row=0, column=2, padx=padx, pady=pady)
 entry_kunde_kontakt = tk.Entry(edit_frame_kunde, width=20)
 entry_kunde_kontakt.grid(row=1, column=2, padx=padx, pady=pady)
 # label and entry for kunde kontakt
-label_kunde_weather = tk.Label(edit_frame_kunde, text="N/A")
-label_kunde_weather.grid(row=0, column=3, padx=padx, pady=pady)
-entry_kunde_weather = tk.Entry(edit_frame_kunde, width=14)
-entry_kunde_weather.grid(row=1, column=3, padx=padx, pady=pady)
+# label_kunde_weather = tk.Label(edit_frame_kunde, text="N/A")
+# label_kunde_weather.grid(row=0, column=3, padx=padx, pady=pady)
+# entry_kunde_weather = tk.Entry(edit_frame_kunde, width=14)
+# entry_kunde_weather.grid(row=1, column=3, padx=padx, pady=pady)
 
 # Define Frame which contains buttons
 button_frame_kunde = tk.Frame(controls_frame_kunde)
@@ -255,7 +255,7 @@ controls_frame_rejse.grid(row=1, column=0, padx=padx, pady=pady)
 edit_frame_rejse = tk.Frame(controls_frame_rejse)  # Add tuple entry boxes
 edit_frame_rejse.grid(row=0, column=0, padx=padx, pady=pady)
 # label and entry for rejse id
-label_rejse_id = tk.Label(edit_frame_rejse, text="Id", justify="left")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_rejse_id = tk.Label(edit_frame_rejse, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
 label_rejse_id.grid(row=0, column=0, padx=padx, pady=pady)
 entry_rejse_id = tk.Entry(edit_frame_rejse, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
 entry_rejse_id.grid(row=1, column=0, padx=padx, pady=pady)
@@ -275,7 +275,94 @@ label_rejse_pladskapacitet.grid(row=0, column=3, padx=padx, pady=pady)
 entry_rejse_pladskapacitet = tk.Entry(edit_frame_rejse, width=14)
 entry_rejse_pladskapacitet.grid(row=1, column=3, padx=padx, pady=pady)
 
+# Define Frame which contains buttons
+button_frame_rejse = tk.Frame(controls_frame_rejse)
+button_frame_rejse.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_rejse = tk.Button(button_frame_rejse, text="Create", command=lambda: create_rejse(tree_rejse, read_rejse_entries()))
+button_create_rejse.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_rejse = tk.Button(button_frame_rejse, text="Update", command=lambda: update_rejse(tree_rejse, read_rejse_entries()))
+button_update_rejse.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_rejse = tk.Button(button_frame_rejse, text="Delete", command=lambda: delete_rejse(tree_rejse, read_rejse_entries()))
+button_delete_rejse.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = tk.Button(button_frame_rejse, text="Clear Entry Boxes", command=clear_rejse_entries)
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion rejse widgets
+
+# region booking widgets
+labelframe_booking = tk.LabelFrame(main_window, text="Booking")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
+labelframe_booking.grid(row=0, column=2, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
+
+# Define data table (Treeview) and its scrollbar. Put them in a Frame.
+tree_frame_booking = tk.Frame(labelframe_booking)  # https://www.tutorialspoint.com/python/tk_frame.htm
+tree_frame_booking.grid(row=0, column=0, padx=padx, pady=pady)
+tree_scroll_booking = tk.Scrollbar(tree_frame_booking)
+tree_scroll_booking.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
+tree_booking = ttk.Treeview(tree_frame_booking, yscrollcommand=tree_scroll_booking.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
+tree_booking.grid(row=0, column=0, padx=0, pady=pady)
+tree_scroll_booking.config(command=tree_booking.yview)
+
+# Define the data table's formatting and content
+tree_booking['columns'] = ("id", "kunde_id", "rejse_id", "pladskapacitet")  # Define columns
+tree_booking.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
+tree_booking.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
+tree_booking.column("kunde_id", anchor=tk.E, width=100)
+tree_booking.column("rejse_id", anchor=tk.W, width=100)
+tree_booking.column("pladskapacitet", anchor=tk.W, width=100)
+tree_booking.heading("#0", text="", anchor=tk.W)  # Create column headings
+tree_booking.heading("id", text="Id", anchor=tk.CENTER)
+tree_booking.heading("kunde_id", text="Kunde_id", anchor=tk.CENTER)
+tree_booking.heading("rejse_id", text="Dato", anchor=tk.CENTER)
+tree_booking.heading("pladskapacitet", text="Pladskapacitet", anchor=tk.CENTER)
+tree_booking.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
+tree_booking.tag_configure('evenrow', background=evenrow)
+tree_booking.bind("<ButtonRelease-1>", lambda event: edit_booking(event, tree_booking))  # Define function to be called, when an item is selected.
+
+# Define Frame which contains labels, entries & buttons
+controls_frame_booking = tk.Frame(labelframe_booking)
+controls_frame_booking.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_booking = tk.Frame(labelframe_booking)
+controls_frame_booking.grid(row=1, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_booking = tk.Frame(controls_frame_booking)  # Add tuple entry boxes
+edit_frame_booking.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for booking id
+label_rejse_id = tk.Label(edit_frame_booking, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_rejse_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_rejse_id = tk.Entry(edit_frame_booking, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_rejse_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for booking kunde_id
+label_booking_kunde_id = tk.Label(edit_frame_booking, text="Kunde_id")
+label_booking_kunde_id.grid(row=0, column=1, padx=padx, pady=pady)
+entry_booking_kunde_id = tk.Entry(edit_frame_booking, width=16, justify="right")
+entry_booking_kunde_id.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for booking rejse_id
+label_booking_rejse_id = tk.Label(edit_frame_booking, text="Dato")
+label_booking_rejse_id.grid(row=0, column=2, padx=padx, pady=pady)
+entry_booking_rejse_id = tk.Entry(edit_frame_booking, width=10)
+entry_booking_rejse_id.grid(row=1, column=2, padx=padx, pady=pady)
+# label and entry for booking pladskapacitet
+label_booking_pladskapacitet = tk.Label(edit_frame_booking, text="Pladskapacitet")
+label_booking_pladskapacitet.grid(row=0, column=3, padx=padx, pady=pady)
+entry_booking_pladskapacitet = tk.Entry(edit_frame_booking, width=14)
+entry_booking_pladskapacitet.grid(row=1, column=3, padx=padx, pady=pady)
+
+# Define Frame which contains buttons
+button_frame_booking = tk.Frame(controls_frame_booking)
+button_frame_booking.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_booking = tk.Button(button_frame_booking, text="Create", command=lambda: create_booking(tree_booking, read_booking_entries()))
+button_create_booking.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_booking = tk.Button(button_frame_booking, text="Update", command=lambda: update_booking(tree_booking, read_booking_entries()))
+button_update_booking.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_booking = tk.Button(button_frame_booking, text="Delete", command=lambda: delete_booking(tree_booking, read_booking_entries()))
+button_delete_booking.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = tk.Button(button_frame_booking, text="Clear Entry Boxes", command=clear_booking_entries)
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
+# endregion booking widgets
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
