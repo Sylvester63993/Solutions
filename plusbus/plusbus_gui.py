@@ -111,19 +111,19 @@ def delete_rejse(tree, record):  # delete tuple in database
 
 # region booking functions
 def read_booking_entries():  # Read content of entry boxes
-    return entry_booking_id.get(), entry_booking_booking_id.get(), entry_booking_rejse_id.get(), entry_booking_pladser.get(),
+    return entry_booking_id.get(), entry_booking_kunde_id.get(), entry_booking_rejse_id.get(), entry_booking_pladser.get(),
 
 
 def clear_booking_entries():  # Clear entry boxes
     entry_booking_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
-    entry_booking_booking_id.delete(0, tk.END)
+    entry_booking_kunde_id.delete(0, tk.END)
     entry_booking_rejse_id.delete(0, tk.END)
     entry_booking_pladser.delete(0, tk.END)
 
 
 def write_booking_entries(values):  # Fill entry boxes
     entry_booking_id.insert(0, values[0])
-    entry_booking_booking_id.insert(0, values[1])
+    entry_booking_kunde_id.insert(0, values[1])
     entry_booking_rejse_id.insert(0, values[2])
     entry_booking_pladser.insert(0, values[3])
 
@@ -377,25 +377,25 @@ controls_frame_booking.grid(row=1, column=0, padx=padx, pady=pady)
 edit_frame_booking = tk.Frame(controls_frame_booking)  # Add tuple entry boxes
 edit_frame_booking.grid(row=0, column=0, padx=padx, pady=pady)
 # label and entry for booking id
-label_rejse_id = tk.Label(edit_frame_booking, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
-label_rejse_id.grid(row=0, column=0, padx=padx, pady=pady)
-entry_rejse_id = tk.Entry(edit_frame_booking, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
-entry_rejse_id.grid(row=1, column=0, padx=padx, pady=pady)
+label_booking_id = tk.Label(edit_frame_booking, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_booking_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_booking_id = tk.Entry(edit_frame_booking, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_booking_id.grid(row=1, column=0, padx=padx, pady=pady)
 # label and entry for booking kunde_id
-label_booking_kunde_id = tk.Label(edit_frame_booking, text="Kunde_id")
+label_booking_kunde_id = tk.Label(edit_frame_booking, text="Kunde Id")
 label_booking_kunde_id.grid(row=0, column=1, padx=padx, pady=pady)
 entry_booking_kunde_id = tk.Entry(edit_frame_booking, width=16, justify="right")
 entry_booking_kunde_id.grid(row=1, column=1, padx=padx, pady=pady)
-# label and entry for booking rejse_id
-label_booking_rejse_id = tk.Label(edit_frame_booking, text="Dato")
+# label and entry for booking booking_id
+label_booking_rejse_id = tk.Label(edit_frame_booking, text="Rejse Id")
 label_booking_rejse_id.grid(row=0, column=2, padx=padx, pady=pady)
 entry_booking_rejse_id = tk.Entry(edit_frame_booking, width=10)
 entry_booking_rejse_id.grid(row=1, column=2, padx=padx, pady=pady)
 # label and entry for booking pladskapacitet
-label_booking_pladskapacitet = tk.Label(edit_frame_booking, text="Pladskapacitet")
-label_booking_pladskapacitet.grid(row=0, column=3, padx=padx, pady=pady)
-entry_booking_pladskapacitet = tk.Entry(edit_frame_booking, width=14)
-entry_booking_pladskapacitet.grid(row=1, column=3, padx=padx, pady=pady)
+label_booking_pladser = tk.Label(edit_frame_booking, text="Pladser")
+label_booking_pladser.grid(row=0, column=3, padx=padx, pady=pady)
+entry_booking_pladser = tk.Entry(edit_frame_booking, width=14)
+entry_booking_pladser.grid(row=1, column=3, padx=padx, pady=pady)
 
 # Define Frame which contains buttons
 button_frame_booking = tk.Frame(controls_frame_booking)
