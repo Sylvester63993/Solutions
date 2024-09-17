@@ -78,7 +78,7 @@ def delete_soft_kunde(kunde):
 def update_rejse(rejse):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
     # update a record in the rejse table
     with Session(engine) as session:
-        session.execute(update(Rejse).where(Rejse.id == rejse.id).values(pladskapacitet=rejse.pladskapacitet, kontakt=rejse.kontakt))
+        session.execute(update(Rejse).where(Rejse.id == rejse.id).values(rute=rejse.rute, dato=rejse.dato, pladskapacitet=rejse.pladskapacitet))
         session.commit()  # makes changes permanent in database
 
 
@@ -92,7 +92,7 @@ def delete_hard_rejse(rejse):
 def delete_soft_rejse(rejse):
     # soft delete a record in the rejse table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the rejse class)
     with Session(engine) as session:
-        session.execute(update(Rejse).where(Rejse.id == rejse.id).values(pladskapacitet=-1, kontakt=rejse.kontakt))
+        session.execute(update(Rejse).where(Rejse.id == rejse.id).values(rute=rejse.rute, dato=rejse.dato, pladskapacitet=-1))
         session.commit()  # makes changes permanent in database
 # endregion rejse
 
@@ -100,7 +100,7 @@ def delete_soft_rejse(rejse):
 def update_booking(booking):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
     # update a record in the booking table
     with Session(engine) as session:
-        session.execute(update(Booking).where(Booking.id == booking.id).values(efternavn=booking.efternavn, kontakt=booking.kontakt))
+        session.execute(update(Booking).where(Booking.id == booking.id).values(kunde_id=booking.kunde_id, rejse_id=booking.rejse_id, pladser=booking.pladser))
         session.commit()  # makes changes permanent in database
 
 
@@ -112,9 +112,9 @@ def delete_hard_booking(booking):
 
 
 def delete_soft_booking(booking):
-    # soft delete a record in the booking table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the booking class)
+    # soft delete a record in the booking table by setting its attribute "efternavn" to "-1" (see also method "valid" in the booking class)
     with Session(engine) as session:
-        session.execute(update(Booking).where(Booking.id == booking.id).values(efternavn="#deleted", kontakt=booking.kontakt))
+        session.execute(update(Booking).where(Booking.id == booking.id).values(kunde_id=-1, rejse_id=booking.rejse_id, pladser=booking.pladser))
         session.commit()  # makes changes permanent in database
 # endregion booking
 
