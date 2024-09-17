@@ -90,7 +90,7 @@ def delete_hard_rejse(rejse):
 
 
 def delete_soft_rejse(rejse):
-    # soft delete a  record in the rejse table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the rejse class)
+    # soft delete a record in the rejse table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the rejse class)
     with Session(engine) as session:
         session.execute(update(Rejse).where(Rejse.id == rejse.id).values(pladskapacitet=-1, kontakt=rejse.kontakt))
         session.commit()  # makes changes permanent in database
