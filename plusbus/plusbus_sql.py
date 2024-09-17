@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, select, update, delete
-from plusbus_data import Kunde, Base
+from plusbus_data import Kunde, Rejse, Booking, Base
 
 # add the following 7 lines to make foreign key constraints work  https://docs.sqlalchemy.org/en/14/dialects/sqlite.html#sqlite-foreign-keys
 from sqlalchemy.engine import Engine
@@ -22,6 +22,7 @@ def create_test_data():  # Optional. Used to test database functions before gui 
         new_items.append(Kunde(efternavn="Larsen", kontakt="larsen@mail.dk"))
         new_items.append(Kunde(efternavn="Hansen", kontakt="+4510203040"))
         new_items.append(Kunde(efternavn="Jørgensen", kontakt="11 22 33 44"))
+        new_items.append(Rejse(id=1, rute="København-Berlin", dato="05032024", pladskapacitet=100))
         session.add_all(new_items)
         session.commit()
 
@@ -51,13 +52,13 @@ def create_record(record):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_dat
         session.add(record)
         session.commit()  # makes changes permanent in database
         
-
+# region kunde
 def update_kunde(kunde):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
     # update a record in the kunde table
     with Session(engine) as session:
         session.execute(update(Kunde).where(Kunde.id == kunde.id).values(efternavn=kunde.efternavn, kontakt=kunde.kontakt))
         session.commit()  # makes changes permanent in database
-        
+
 
 def delete_hard_kunde(kunde):
     # delete a record in the kunde table
@@ -65,11 +66,57 @@ def delete_hard_kunde(kunde):
         session.execute(delete(Kunde).where(Kunde.id == kunde.id))
         session.commit()  # makes changes permanent in database
 
+
 def delete_soft_kunde(kunde):
     # soft delete a record in the kunde table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the kunde class)
     with Session(engine) as session:
         session.execute(update(Kunde).where(Kunde.id == kunde.id).values(efternavn="#deleted", kontakt=kunde.kontakt))
         session.commit()  # makes changes permanent in database
+# endregion kunde
+
+# region rejse
+def update_rejse(rejse):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
+    # update a record in the rejse table
+    with Session(engine) as session:
+        session.execute(update(Rejse).where(Rejse.id == rejse.id).values(pladskapacitet=rejse.pladskapacitet, kontakt=rejse.kontakt))
+        session.commit()  # makes changes permanent in database
+
+
+def delete_hard_rejse(rejse):
+    # delete a record in the rejse table
+    with Session(engine) as session:
+        session.execute(delete(Rejse).where(Rejse.id == rejse.id))
+        session.commit()  # makes changes permanent in database
+
+
+def delete_soft_rejse(rejse):
+    # soft delete a record in the rejse table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the rejse class)
+    with Session(engine) as session:
+        session.execute(update(Rejse).where(Rejse.id == rejse.id).values(pladskapacitet=-1, kontakt=rejse.kontakt))
+        session.commit()  # makes changes permanent in database
+# endregion rejse
+
+# region booking
+def update_booking(booking):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
+    # update a record in the booking table
+    with Session(engine) as session:
+        session.execute(update(Booking).where(Booking.id == booking.id).values(efternavn=booking.efternavn, kontakt=booking.kontakt))
+        session.commit()  # makes changes permanent in database
+
+
+def delete_hard_booking(booking):
+    # delete a record in the booking table
+    with Session(engine) as session:
+        session.execute(delete(Booking).where(Booking.id == booking.id))
+        session.commit()  # makes changes permanent in database
+
+
+def delete_soft_booking(booking):
+    # soft delete a record in the booking table by setting its attribute "efternavn" to the string "#deleted" (see also method "valid" in the booking class)
+    with Session(engine) as session:
+        session.execute(update(Booking).where(Booking.id == booking.id).values(efternavn="#deleted", kontakt=booking.kontakt))
+        session.commit()  # makes changes permanent in database
+# endregion booking
 
 
 if __name__ == "__main__":  # Executed when invoked directly
@@ -79,6 +126,8 @@ if __name__ == "__main__":  # Executed when invoked directly
     #  create_test_data()
     print(select_all(Kunde))
     print(get_record(Kunde, 2))
+    print(select_all(Rejse))
+    print(get_record(Rejse, 1))
 else:  # Executed when imported
     engine = create_engine(Database, echo=False, future=True)  # https://docs.sqlalchemy.org/en/14/tutorial/engine.html   The start of any SQLAlchemy application is an object called the Engine. This object acts as a central source of connections to a particular database, providing both a factory as well as a holding space called a connection pool for these database connections. The engine is typically a global object created just once for a particular database server, and is configured using a URL string which will describe how it should connect to the database host or backend.
     Base.metadata.create_all(engine)

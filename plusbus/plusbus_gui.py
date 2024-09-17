@@ -350,17 +350,17 @@ tree_booking.grid(row=0, column=0, padx=0, pady=pady)
 tree_scroll_booking.config(command=tree_booking.yview)
 
 # Define the data table's formatting and content
-tree_booking['columns'] = ("id", "kunde_id", "rejse_id", "pladskapacitet")  # Define columns
+tree_booking['columns'] = ("id", "kunde_id", "rejse_id", "pladser")  # Define columns
 tree_booking.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
 tree_booking.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
 tree_booking.column("kunde_id", anchor=tk.E, width=100)
 tree_booking.column("rejse_id", anchor=tk.W, width=100)
-tree_booking.column("pladskapacitet", anchor=tk.W, width=100)
+tree_booking.column("pladser", anchor=tk.W, width=100)
 tree_booking.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_booking.heading("id", text="Id", anchor=tk.CENTER)
 tree_booking.heading("kunde_id", text="Kunde_id", anchor=tk.CENTER)
-tree_booking.heading("rejse_id", text="Dato", anchor=tk.CENTER)
-tree_booking.heading("pladskapacitet", text="Pladskapacitet", anchor=tk.CENTER)
+tree_booking.heading("rejse_id", text="Rejse_id", anchor=tk.CENTER)
+tree_booking.heading("pladser", text="Pladser", anchor=tk.CENTER)
 tree_booking.tag_configure('oddrow', background=oddrow)  # Create tags for rows in 2 different colors
 tree_booking.tag_configure('evenrow', background=evenrow)
 tree_booking.bind("<ButtonRelease-1>", lambda event: edit_booking(event, tree_booking))  # Define function to be called, when an item is selected.
@@ -414,6 +414,8 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
     refresh_treeview(tree_kunde, pbd.Kunde)  # Load data from database
+    refresh_treeview(tree_rejse, pbd.Rejse)  # Load data from database
+    refresh_treeview(tree_booking, pbd.Booking)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
 
