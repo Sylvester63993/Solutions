@@ -136,24 +136,24 @@ def edit_booking(event, tree):  # Copy selected tuple into entry boxes. Paramete
 
 
 def create_booking(tree, record):  # add new tuple to database
-    booking = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
     pbsql.create_record(booking)  # Update database
     clear_booking_entries()  # Clear entry boxes
-    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+    refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 
 
 def update_booking(tree, record):  # update tuple in database
-    booking = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
     pbsql.update_booking(booking)  # Update database
     clear_booking_entries()  # Clear entry boxes
-    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+    refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 
 
 def delete_booking(tree, record):  # delete tuple in database
-    booking = pbd.Kunde.convert_from_tuple(record)  # Convert tuple to Kunde
+    booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
     pbsql.delete_soft_booking(booking)  # Update database
     clear_booking_entries()  # Clear entry boxes
-    refresh_treeview(tree, pbd.Kunde)  # Refresh treeview table
+    refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 # endregion booking functions
 
 # region common functions

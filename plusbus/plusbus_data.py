@@ -68,5 +68,10 @@ class Booking(Base):
 
     def convert_to_tuple(self):  # Convert type Booking to a tuple
         return self.id, self.kunde_id, self.rejse_id, self.pladser
+
+    @staticmethod
+    def convert_from_tuple(tuple_):  # Convert tuple to type Booking
+        booking = Booking(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=tuple_[3])
+        return booking
     
     
