@@ -53,7 +53,7 @@ class Rejse(Base):
 
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
-        rejse = Rejse(id=tuple_[0], rute=tuple_[1])
+        rejse = Rejse(id=tuple_[0], rute=tuple_[1], dato=tuple_[2], pladskapacitet=tuple_[3])
         return rejse
 
 class Booking(Base):
