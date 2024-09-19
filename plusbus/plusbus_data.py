@@ -21,16 +21,15 @@ class Kunde(Base):
     def convert_to_tuple(self):  # Convert type Kunde to a tuple
         return self.id, self.efternavn, self.kontakt
 
-    def valid(self):
-        return self.efternavn != "#deleted"
-
-
     @staticmethod
     def convert_from_tuple(tuple_):  # Convert tuple to type Kunde
         kunde = Kunde(id=tuple_[0], efternavn=tuple_[1], kontakt=tuple_[2])
         return kunde
 
-    
+    def valid(self):
+        return self.efternavn != "#deleted"
+
+
 class Rejse(Base):
     __tablename__ = "rejse"
     id = Column(Integer, primary_key=True)
@@ -44,6 +43,11 @@ class Rejse(Base):
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
         return self.id, self.rute, self.dato, self.pladskapacitet
 
+    @staticmethod
+    def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
+        rejse = Rejse(id=tuple_[0], rute=tuple_[1], dato=tuple_[2], pladskapacitet=tuple_[3])
+        return rejse
+
     def valid(self):
         try:
             value = int(self.pladskapacitet)
@@ -51,10 +55,6 @@ class Rejse(Base):
             return False
         return value >= 0
 
-    @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
-        rejse = Rejse(id=tuple_[0], rute=tuple_[1], dato=tuple_[2], pladskapacitet=tuple_[3])
-        return rejse
 
 class Booking(Base):
     __tablename__ = "booking"
@@ -73,5 +73,12 @@ class Booking(Base):
     def convert_from_tuple(tuple_):  # Convert tuple to type Booking
         booking = Booking(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=tuple_[3])
         return booking
+
+    def valid(self):
+        try:
+            value = int(self.pladser)
+        except ValueError:
+            return False
+        return value >= 0
     
     
