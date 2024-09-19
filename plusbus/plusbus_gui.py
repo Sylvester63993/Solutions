@@ -78,7 +78,7 @@ def write_rejse_entries(values):  # Fill entry boxes
     entry_rejse_id.insert(0, values[0])
     entry_rejse_rute.insert(0, values[1])
     entry_rejse_dato.insert(0, values[2])
-    entry_rejse_dato.insert(0, values[3])
+    entry_rejse_pladskapacitet.insert(0, values[3])
 
 
 def edit_rejse(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
@@ -414,8 +414,8 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
     refresh_treeview(tree_kunde, pbd.Kunde)  # Load data from database
-    # refresh_treeview(tree_rejse, pbd.Rejse)  # Load data from database
-    # refresh_treeview(tree_booking, pbd.Booking)  # Load data from database
+    refresh_treeview(tree_rejse, pbd.Rejse)  # Load data from database
+    refresh_treeview(tree_booking, pbd.Booking)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
 

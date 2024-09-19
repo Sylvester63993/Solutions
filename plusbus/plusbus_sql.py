@@ -18,11 +18,11 @@ Database = 'sqlite:///plusbus.db'  # first part: database type, second part: fil
 def create_test_data():  # Optional. Used to test database functions before gui is ready.
     with Session(engine) as session:
         new_items = []
-        new_items.append(Kunde(efternavn="Nielsen", kontakt="nielsen@mail.dk"))
-        new_items.append(Kunde(efternavn="Larsen", kontakt="larsen@mail.dk"))
-        new_items.append(Kunde(efternavn="Hansen", kontakt="+4510203040"))
-        new_items.append(Kunde(efternavn="Jørgensen", kontakt="11 22 33 44"))
-        new_items.append(Rejse(id=1, rute="København-Berlin", dato="05032024", pladskapacitet=100))
+        new_items.append(Kunde(id=1, efternavn="Nielsen", kontakt="nielsen@mail.dk"))
+        new_items.append(Kunde(id=2,efternavn="Larsen", kontakt="larsen@mail.dk"))
+        new_items.append(Kunde(id=3,efternavn="Hansen", kontakt="+4510203040"))
+        new_items.append(Kunde(id=4,efternavn="Jørgensen", kontakt="11 22 33 44"))
+        new_items.append(Rejse(id=10, rute="København-Berlin", dato="05032024", pladskapacitet=100))
         session.add_all(new_items)
         session.commit()
 

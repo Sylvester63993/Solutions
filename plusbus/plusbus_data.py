@@ -50,7 +50,10 @@ class Rejse(Base):
 
     def valid(self):
         try:
+            # if self.pladskapacitet:
             value = int(self.pladskapacitet)
+            # else:
+                # value = 0
         except ValueError:
             return False
         return value >= 0
