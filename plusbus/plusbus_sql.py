@@ -23,6 +23,7 @@ def create_test_data():  # Optional. Used to test database functions before gui 
         new_items.append(Kunde(id=3,efternavn="Hansen", kontakt="+4510203040"))
         new_items.append(Kunde(id=4,efternavn="Jørgensen", kontakt="11 22 33 44"))
         new_items.append(Rejse(id=10, rute="København-Berlin", dato="05032024", pladskapacitet=100))
+        new_items.append(Booking(id=20, kunde_id=20, rejse_id=10, pladser=4))
         session.add_all(new_items)
         session.commit()
 
@@ -128,6 +129,8 @@ if __name__ == "__main__":  # Executed when invoked directly
     print(get_record(Kunde, 2))
     print(select_all(Rejse))
     print(get_record(Rejse, 1))
+    #  print(select_all(Booking))
+    #  print(get_record(Booking, 1))
 else:  # Executed when imported
     engine = create_engine(Database, echo=False, future=True)  # https://docs.sqlalchemy.org/en/14/tutorial/engine.html   The start of any SQLAlchemy application is an object called the Engine. This object acts as a central source of connections to a particular database, providing both a factory as well as a holding space called a connection pool for these database connections. The engine is typically a global object created just once for a particular database server, and is configured using a URL string which will describe how it should connect to the database host or backend.
     Base.metadata.create_all(engine)
