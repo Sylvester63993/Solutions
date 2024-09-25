@@ -91,7 +91,8 @@ def edit_rejse(event, tree):  # Copy selected tuple into entry boxes. Parameter 
 
 def create_rejse(tree, record):  # add new tuple to database
     rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
-    pbsql.create_record(rejse)  # Update database
+    if rejse.dato != "":
+        pbsql.create_record(rejse)  # Update database
     clear_rejse_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
 
