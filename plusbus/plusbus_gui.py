@@ -99,7 +99,8 @@ def create_rejse(tree, record):  # add new tuple to database
 
 def update_rejse(tree, record):  # update tuple in database
     rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
-    pbsql.update_rejse(rejse)  # Update database
+    if rejse.dato != "":  # temp hotfix
+        pbsql.update_rejse(rejse)  # Update database
     clear_rejse_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
 

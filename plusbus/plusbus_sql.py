@@ -22,8 +22,7 @@ def create_test_data():  # Optional. Used to test database functions before gui 
         new_items.append(Kunde(id=2,efternavn="Larsen", kontakt="larsen@mail.dk"))
         new_items.append(Kunde(id=3,efternavn="Hansen", kontakt="+4510203040"))
         new_items.append(Kunde(id=4,efternavn="Jørgensen", kontakt="11 22 33 44"))
-        new_items.append(Rejse(id=10, rute="København-Berlin", dato="05032024", pladskapacitet=100))
-        new_items.append(Booking(id=20, kunde_id=20, rejse_id=10, pladser=4))
+        # new_items.append(Rejse(id=10, rute="København-Berlin", dato="05032024" , pladskapacitet=100))
         session.add_all(new_items)
         session.commit()
 
@@ -124,7 +123,7 @@ if __name__ == "__main__":  # Executed when invoked directly
 # The next 2 lines are needed _after_ data classes / sql tables were defined
     engine = create_engine(Database, echo=False, future=True)  
     Base.metadata.create_all(engine)
-    #  create_test_data()
+    create_test_data()
     print(select_all(Kunde))
     print(get_record(Kunde, 2))
     print(select_all(Rejse))
