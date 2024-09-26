@@ -102,7 +102,7 @@ class Booking(Base):
                 # rejse = Rejse(id=id_, max_cargo_weight=max_cargo_weight, registration=tuple_[2])
                 return rejse
         except:
-            messagebox.showwarning("", "Entries could not be converted to rejse!")
+            messagebox.showwarning("", "Entries could not be converted to booking!")
 
     def valid(self):
         try:

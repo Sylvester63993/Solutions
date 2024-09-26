@@ -91,16 +91,16 @@ def edit_rejse(event, tree):  # Copy selected tuple into entry boxes. Parameter 
 
 def create_rejse(tree, record):  # add new tuple to database
     rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
-    if rejse.dato != "": # temp hotfix
-        pbsql.create_record(rejse)  # Update database
+    # if rejse.dato != "": # midlertidig hotfix
+    pbsql.create_record(rejse)  # Update database
     clear_rejse_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
 
 
 def update_rejse(tree, record):  # update tuple in database
     rejse = pbd.Rejse.convert_from_tuple(record)  # Convert tuple to Rejse
-    if rejse.dato != "":  # temp hotfix
-        pbsql.update_rejse(rejse)  # Update database
+    # if rejse.dato != "":  # midlertidig hotfix
+    pbsql.update_rejse(rejse)  # Update database
     clear_rejse_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Rejse)  # Refresh treeview table
 
@@ -144,21 +144,21 @@ def create_booking(tree, record):  # add new tuple to database
     clear_booking_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 
-def create_booking2(tree, record):  # add new tuple to database
-    booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
-    capacity_ok = pbf.capacity_available(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
-    destination_ok = pbf.max_one_destination(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
-    if destination_ok:
-        if capacity_ok:
-            pbsql.create_record(booking)  # Update database
-            clear_booking_entries()  # Clear entry boxes
-            refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
-        else:
-            global INTERNAL_ERROR_CODE
-            INTERNAL_ERROR_CODE = 1
-            messagebox.showwarning("", "Not enough capacity on rejse!")
-    else:
-        messagebox.showwarning("", "Rejse already has another destination!")
+# def create_booking2(tree, record):  # add new tuple to database
+#     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
+#     capacity_ok = pbf.capacity_available(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
+#     destination_ok = pbf.max_one_destination(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
+#     if destination_ok:
+#         if capacity_ok:
+#             pbsql.create_record(booking)  # Update database
+#             clear_booking_entries()  # Clear entry boxes
+#             refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
+#         else:
+#             global INTERNAL_ERROR_CODE
+#             INTERNAL_ERROR_CODE = 1
+#             messagebox.showwarning("", "Not enough capacity on rejse!")
+#     else:
+#         messagebox.showwarning("", "Rejse already has another destination!")
         
 def update_booking(tree, record):  # update tuple in database
     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
