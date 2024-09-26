@@ -57,6 +57,23 @@ class Aircraft(Base):
             aircraft = Aircraft(id=tuple_[0], max_cargo_weight=tuple_[1], registration=tuple_[2])
             return aircraft
 
+        @staticmethod
+        def convert_from_tuple(tuple_):  # Convert tuple to aircraft
+            try:
+                # if tuple_[0] != '':  # unnecessary precaution
+                #     id_ = int(tuple_[0])
+                # else:
+                #     id_ = 0
+                max_cargo_weight = int(tuple_[1])
+                if max_cargo_weight < 0:
+                    messagebox.showwarning("", "Max. Cargo Weight must not be negative!")
+                else:
+                    aircraft = Aircraft(id=tuple_[0], max_cargo_weight=max_cargo_weight, registration=tuple_[2])
+                    # aircraft = Aircraft(id=id_, max_cargo_weight=max_cargo_weight, registration=tuple_[2])
+                    return aircraft
+            except:
+                messagebox.showwarning("", "Entries could not be converted to aircraft!")
+
 class Transport(Base):
     __tablename__ = "transport"
     id = Column(Integer, primary_key=True)
@@ -78,6 +95,16 @@ class Transport(Base):
         return value >= 0
 
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Transport
-        transport = Transport(id=tuple_[0], date=tuple_[1], container_id=tuple_[2], aircraft_id=tuple_[3])
-        return transport
+    def convert_from_tuple(tuple_):  # Convert tuple to transport
+        try:
+            if tuple_[0] != '':
+                id_ = int(tuple_[0])
+            else:
+                id_ = 0
+            date = parser.parse(tuple_[1])
+            container_id = int(tuple_[2])
+            aircraft_id = int(tuple_[3])
+            transport = Transport(id=id_, date=date, container_id=container_id, aircraft_id=aircraft_id)
+            return transport
+        except:
+            messagebox.showwarning("", "Entries could not be converted to transport!")
