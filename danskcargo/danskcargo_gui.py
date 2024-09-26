@@ -388,8 +388,8 @@ tree_transport['columns'] = ("id", "date", "container_id", "aircraft_id")  # Def
 tree_transport.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
 tree_transport.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
 tree_transport.column("date", anchor=tk.E, width=80)
-tree_transport.column("container_id", anchor=tk.E, width=70)
-tree_transport.column("aircraft_id", anchor=tk.E, width=70)
+tree_transport.column("container_id", anchor=tk.E, width=90)
+tree_transport.column("aircraft_id", anchor=tk.E, width=90)
 tree_transport.heading("#0", text="", anchor=tk.W)  # Create column headings
 tree_transport.heading("id", text="Id", anchor=tk.CENTER)
 tree_transport.heading("date", text="Date", anchor=tk.CENTER)
@@ -412,9 +412,9 @@ edit_frame_transport = tk.Frame(controls_frame_transport)  # Add tuple entry box
 edit_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
 # label and entry for transport id
 label_transport_id = tk.Label(edit_frame_transport, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
-label_transport_id.grid(row=0, column=1, padx=padx, pady=pady)
+label_transport_id.grid(row=0, column=0, padx=padx, pady=pady)
 entry_transport_id = tk.Entry(edit_frame_transport, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
-entry_transport_id.grid(row=1, column=1, padx=padx, pady=pady)
+entry_transport_id.grid(row=1, column=0, padx=padx, pady=pady)
 # label and entry for transport date
 label_transport_date = tk.Label(edit_frame_transport, text="Date")
 label_transport_date.grid(row=0, column=1, padx=padx, pady=pady)
@@ -426,7 +426,7 @@ label_transport_container_id.grid(row=0, column=2, padx=padx, pady=pady)
 entry_transport_container_id = tk.Entry(edit_frame_transport, width=20)
 entry_transport_container_id.grid(row=1, column=2, padx=padx, pady=pady)
 # label and entry for transport container_id
-label_transport_aircraft_id = tk.Label(edit_frame_transport, text="Weather")
+label_transport_aircraft_id = tk.Label(edit_frame_transport, text="Aircraft ID")
 label_transport_aircraft_id.grid(row=0, column=3, padx=padx, pady=pady)
 entry_transport_aircraft_id = tk.Entry(edit_frame_transport, width=14)
 entry_transport_aircraft_id.grid(row=1, column=3, padx=padx, pady=pady)
