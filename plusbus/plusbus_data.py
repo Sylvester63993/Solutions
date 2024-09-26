@@ -88,9 +88,21 @@ class Booking(Base):
         return self.id, self.kunde_id, self.rejse_id, self.pladser
 
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Booking
-        booking = Booking(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=tuple_[3])
-        return booking
+    def convert_from_tuple(tuple_):  # Convert tuple to object-type rejse
+        try:
+            # if tuple_[0] != '':  # unnecessary precaution
+            #     id_ = int(tuple_[0])
+            # else:
+            #     id_ = 0
+            pladser = int(tuple_[3])
+            if pladser < 0:
+                messagebox.showwarning("", "Pladser kan ikke være en negativ værdi!")
+            else:
+                rejse = Rejse(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=pladser)
+                # rejse = Rejse(id=id_, max_cargo_weight=max_cargo_weight, registration=tuple_[2])
+                return rejse
+        except:
+            messagebox.showwarning("", "Entries could not be converted to rejse!")
 
     def valid(self):
         try:
