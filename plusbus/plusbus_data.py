@@ -43,10 +43,25 @@ class Rejse(Base):
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
         return self.id, self.rute, self.dato, self.pladskapacitet
 
+    # @staticmethod
+    # def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
+        # rejse = Rejse(id=tuple_[0], rute=tuple_[1], dato=tuple_[2], pladskapacitet=tuple_[3])
+        # return rejse
+
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
-        rejse = Rejse(id=tuple_[0], rute=tuple_[1], dato=tuple_[2], pladskapacitet=tuple_[3])
-        return rejse
+    def convert_from_tuple(tuple_):  # Convert tuple to type rejse
+        try:
+            if tuple_[0] != '':
+                id_ = int(tuple_[0])
+            else:
+                id_ = 0
+            rute = str(tuple_[1])
+            dato = parser.parse(tuple_[2])
+            pladskapacitet = int(tuple_[3])
+            rejse = Rejse(id=id_, rute=rute, dato=dato, pladskapacitet=pladskapacitet)
+            return rejse
+        except:
+            messagebox.showwarning("", "Entries could not be converted to rejse!")
 
     def valid(self):
         try:
