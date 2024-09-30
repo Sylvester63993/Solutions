@@ -19,6 +19,15 @@ def booked_cargo(aircraft, date_):
             weight += pbsql.get_record(pbd.Container, record.container_id).weight
     return weight
 
+def booked_seating(rejse):
+    # returns the already booked cargo on an aircraft at a certain date
+    with Session(pbsql.engine) as session:
+        records = session.scalars(select(pbd.Booking).where(pbd.Booking.rejse_id == rejse.id))
+        pladser = 0
+        for record in records:
+            pladser += pbsql.get_record(pbd.Kunde, record.rejse_id).pladser
+        return pladser
+
 
 def capacity_available(aircraft, date_, new_container):
     # do the already booked cargo plus the new container weigh less than the aircraft's maximum cargo weight?
@@ -27,16 +36,23 @@ def capacity_available(aircraft, date_, new_container):
     return aircraft.max_cargo_weight >= booked + new_container.weight
 
 
-def find_destination(aircraft, date_):
-    # return an aircraft's destination at a certain date in the transport table
-    with Session(pbsql.engine) as session:
-        records = session.scalars(select(pbd.Booking).where(pbd.Booking.aircraft_id == aircraft.id).where(extract('day', pbd.Booking.date) == date_.day).where(extract('month', pbd.Booking.date) == date_.month).where(extract('year', pbd.Booking.date) == date_.year))
-        for record in records:
-            return pbsql.get_record(pbd.Container, record.container_id).destination
-        return None
+def capacity_available2(rejse):
+    # do the already booked cargo plus the new container weigh less than the aircraft's maximum cargo weight?
+    booked = booked_seating(rejse)
+    # print(f'{aircraft.max_cargo_weight=} {booked=} {new_container.weight=}')
+    return rejse.pladskapacitet >= booked
 
 
-def max_one_destination(aircraft, date_, new_container):
-    # is the aircraft's destination at a certain date identical to the new container's destination?
-    destination = find_destination(aircraft, date_)
-    return destination is None or destination == new_container.destination  # returns also True if aircraft had no destination yet
+# def find_destination(aircraft, date_):
+#     # return an aircraft's destination at a certain date in the transport table
+#     with Session(pbsql.engine) as session:
+#         records = session.scalars(select(pbd.Booking).where(pbd.Booking.aircraft_id == aircraft.id).where(extract('day', pbd.Booking.date) == date_.day).where(extract('month', pbd.Booking.date) == date_.month).where(extract('year', pbd.Booking.date) == date_.year))
+#         for record in records:
+#             return pbsql.get_record(pbd.Container, record.container_id).destination
+#         return None
+
+
+# def max_one_destination(aircraft, date_, new_container):
+#     # is the aircraft's destination at a certain date identical to the new container's destination?
+#     destination = find_destination(aircraft, date_)
+#     return destination is None or destination == new_container.destination  # returns also True if aircraft had no destination yet
