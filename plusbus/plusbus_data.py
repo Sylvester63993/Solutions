@@ -98,9 +98,9 @@ class Booking(Base):
             if pladser < 0:
                 messagebox.showwarning("", "Pladser kan ikke være en negativ værdi!")
             else:
-                rejse = Rejse(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=pladser)
+                booking = Booking(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=pladser)
                 # rejse = Rejse(id=id_, max_cargo_weight=max_cargo_weight, registration=tuple_[2])
-                return rejse
+                return booking
         except:
             messagebox.showwarning("", "Entries could not be converted to booking!")
 
