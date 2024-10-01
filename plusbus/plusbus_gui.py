@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-
+from tkinter import messagebox
 # Importering af egne filer og forkortelse af filnavne:
 import plusbus_data as pbd
 import plusbus_sql as pbsql
@@ -144,21 +144,18 @@ def create_booking(tree, record):  # add new tuple to database
     clear_booking_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 
-# def create_booking2(tree, record):  # add new tuple to database
-#     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
-#     capacity_ok = pbf.capacity_available(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
-#     destination_ok = pbf.max_one_destination(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
-#     if destination_ok:
-#         if capacity_ok:
-#             pbsql.create_record(booking)  # Update database
-#             clear_booking_entries()  # Clear entry boxes
-#             refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
-#         else:
-#             global INTERNAL_ERROR_CODE
-#             INTERNAL_ERROR_CODE = 1
-#             messagebox.showwarning("", "Not enough capacity on rejse!")
-#     else:
-#         messagebox.showwarning("", "Rejse already has another destination!")
+def create_booking2(tree, record):  # add new tuple to database
+    booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
+    capacity_ok = pbf.capacity_available(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
+    if capacity_ok:
+        pbsql.create_record(booking)  # Update database
+        clear_booking_entries()  # Clear entry boxes
+        refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
+    else:
+        global INTERNAL_ERROR_CODE
+        INTERNAL_ERROR_CODE = 1
+        messagebox.showwarning("", "Pladskapacitet overskredet på denne rejse!")
+
         
 def update_booking(tree, record):  # update tuple in database
     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
