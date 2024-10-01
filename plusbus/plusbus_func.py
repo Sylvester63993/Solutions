@@ -19,7 +19,7 @@ def booked_cargo(aircraft, date_):
             weight += pbsql.get_record(pbd.Container, record.container_id).weight
     return weight
 
-def booked_seating(rejse):
+def booked_seats(rejse):
     # returns the already booked cargo on an aircraft at a certain date
     with Session(pbsql.engine) as session:
         records = session.scalars(select(pbd.Booking).where(pbd.Booking.rejse_id == rejse.id))
@@ -29,18 +29,18 @@ def booked_seating(rejse):
         return pladser
 
 
-def capacity_available(aircraft, date_, new_container):
-    # do the already booked cargo plus the new container weigh less than the aircraft's maximum cargo weight?
-    booked = booked_cargo(aircraft, date_)
-    # print(f'{aircraft.max_cargo_weight=} {booked=} {new_container.weight=}')
-    return aircraft.max_cargo_weight >= booked + new_container.weight
+# def capacity_available(aircraft, date_, new_container):
+#     # do the already booked cargo plus the new container weigh less than the aircraft's maximum cargo weight?
+#     booked = booked_cargo(aircraft, date_)
+#     # print(f'{aircraft.max_cargo_weight=} {booked=} {new_container.weight=}')
+#     return aircraft.max_cargo_weight >= booked + new_container.weight
 
 
-def seating_available(rejse):
+def capacity_available(rejse, new_booking):
     # do the already booked cargo plus the new container weigh less than the aircraft's maximum cargo weight?
-    booked = booked_seating(rejse)
+    booked = booked_seats(rejse)
     # print(f'{aircraft.max_cargo_weight=} {booked=} {new_container.weight=}')
-    return rejse.pladskapacitet >= booked
+    return rejse.pladskapacitet >= booked + new_booking.pladser
 
 
 # def find_destination(aircraft, date_):

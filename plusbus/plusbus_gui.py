@@ -138,15 +138,15 @@ def edit_booking(event, tree):  # Copy selected tuple into entry boxes. Paramete
     write_booking_entries(values)  # Fill entry boxes
 
 
-def create_booking(tree, record):  # add new tuple to database
+def create_booking_old(tree, record):  # add new tuple to database
     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
     pbsql.create_record(booking)  # Update database
     clear_booking_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 
-def create_booking2(tree, record):  # add new tuple to database
+def create_booking(tree, record):  # add new tuple to database
     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
-    capacity_ok = pbf.capacity_available(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking.date, pbsql.get_record(pbd.Kunde, booking.kunde_id))
+    capacity_ok = pbf.capacity_available(pbsql.get_record(pbd.Rejse, booking.rejse_id), booking)
     if capacity_ok:
         pbsql.create_record(booking)  # Update database
         clear_booking_entries()  # Clear entry boxes
