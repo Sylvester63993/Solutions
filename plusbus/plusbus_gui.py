@@ -166,7 +166,7 @@ def update_booking(tree, record):  # update tuple in database
 
 def delete_booking(tree, record):  # delete tuple in database
     booking = pbd.Booking.convert_from_tuple(record)  # Convert tuple to Booking
-    pbsql.delete_soft_booking(booking)  # Update database
+    pbsql.delete_hard_booking(booking)  # Update database
     clear_booking_entries()  # Clear entry boxes
     refresh_treeview(tree, pbd.Booking)  # Refresh treeview table
 # endregion booking functions
