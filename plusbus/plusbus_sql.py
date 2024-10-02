@@ -112,7 +112,7 @@ def delete_hard_booking(booking):
 
 
 def delete_soft_booking(booking):
-    # soft delete a record in the booking table by setting its attribute "pladser" to "-1" (see also method "valid" in the booking class)
+    # soft delete a record in the booking table by setting one of its attributes to "-1" (see also method "valid" in the booking class)
     with Session(engine) as session:
         session.execute(update(Booking).where(Booking.id == booking.id).values(kunde_id=booking.kunde_id, rejse_id=booking.rejse_id, pladser=-1))
         session.commit()  # makes changes permanent in database
