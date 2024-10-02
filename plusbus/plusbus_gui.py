@@ -26,7 +26,6 @@ def clear_kunde_entries():  # Clear entry boxes
     entry_kunde_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
     entry_kunde_efternavn.delete(0, tk.END)
     entry_kunde_kontakt.delete(0, tk.END)
-    # entry_kunde_weather.delete(0, tk.END)
 
 
 def write_kunde_entries(values):  # Fill entry boxes
@@ -256,11 +255,6 @@ label_kunde_kontakt = tk.Label(edit_frame_kunde, text="Kontakt")
 label_kunde_kontakt.grid(row=0, column=2, padx=padx, pady=pady)
 entry_kunde_kontakt = tk.Entry(edit_frame_kunde, width=20)
 entry_kunde_kontakt.grid(row=1, column=2, padx=padx, pady=pady)
-# label and entry for kunde kontakt
-# label_kunde_weather = tk.Label(edit_frame_kunde, text="N/A")
-# label_kunde_weather.grid(row=0, column=3, padx=padx, pady=pady)
-# entry_kunde_weather = tk.Entry(edit_frame_kunde, width=14)
-# entry_kunde_weather.grid(row=1, column=3, padx=padx, pady=pady)
 
 # Define Frame which contains buttons
 button_frame_kunde = tk.Frame(controls_frame_kunde)
