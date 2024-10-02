@@ -42,7 +42,7 @@ class Aircraft(Base):
         def __repr__(self):  # Optional. Only for test purposes.
             return f"Aircraft({self.id=:4}    {self.max_cargo_weight=:5}    {self.registration=})"
 
-        def convert_to_tuple(self):  # Convert type Aircraft to a tuple
+        def convert_to_tuple(self):  # Convert aircraft to a tuple
             return self.id, self.max_cargo_weight, self.registration
 
         def valid(self):
@@ -79,7 +79,7 @@ class Transport(Base):
     def __repr__(self):  # Optional. Only for test purposes.
         return f"Transport({self.id=:4}    {self.date=:5}    {self.container_id=}    {self.aircraft_id=})"
 
-    def convert_to_tuple(self):  # Convert type Transport to a tuple
+    def convert_to_tuple(self):  # Convert transport to a tuple
         return self.id, self.date, self.container_id, self.aircraft_id
 
     def valid(self):
