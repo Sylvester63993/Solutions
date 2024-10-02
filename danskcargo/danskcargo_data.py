@@ -53,11 +53,6 @@ class Aircraft(Base):
             return value >= 0
 
         @staticmethod
-        def convert_from_tuple(tuple_):  # Convert tuple to type Aircraft
-            aircraft = Aircraft(id=tuple_[0], max_cargo_weight=tuple_[1], registration=tuple_[2])
-            return aircraft
-
-        @staticmethod
         def convert_from_tuple(tuple_):  # Convert tuple to aircraft
             try:
                 if tuple_[0] != '':  # unnecessary precaution
