@@ -22,7 +22,7 @@ class Kunde(Base):
         return self.id, self.efternavn, self.kontakt
 
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type Kunde
+    def convert_from_tuple(tuple_):  # Convert tuple to kunde
         kunde = Kunde(id=tuple_[0], efternavn=tuple_[1], kontakt=tuple_[2])
         return kunde
 
@@ -43,13 +43,8 @@ class Rejse(Base):
     def convert_to_tuple(self):  # Convert type Rejse to a tuple
         return self.id, self.rute, self.dato, self.pladskapacitet
 
-    # @staticmethod
-    # def convert_from_tuple(tuple_):  # Convert tuple to type Rejse
-        # rejse = Rejse(id=tuple_[0], rute=tuple_[1], dato=tuple_[2], pladskapacitet=tuple_[3])
-        # return rejse
-
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to type rejse
+    def convert_from_tuple(tuple_):  # Convert tuple to rejse
         try:
             if tuple_[0] != '':
                 id_ = int(tuple_[0])
@@ -88,7 +83,7 @@ class Booking(Base):
         return self.id, self.kunde_id, self.rejse_id, self.pladser
 
     @staticmethod
-    def convert_from_tuple(tuple_):  # Convert tuple to object-type rejse
+    def convert_from_tuple(tuple_):  # Convert tuple to booking
         try:
             # if tuple_[0] != '':  # unnecessary precaution
             #     id_ = int(tuple_[0])
@@ -99,7 +94,6 @@ class Booking(Base):
                 messagebox.showwarning("", "Pladser kan ikke være en negativ værdi!")
             else:
                 booking = Booking(id=tuple_[0], kunde_id=tuple_[1], rejse_id=tuple_[2], pladser=pladser)
-                # rejse = Rejse(id=id_, max_cargo_weight=max_cargo_weight, registration=tuple_[2])
                 return booking
         except:
             messagebox.showwarning("", "Entries could not be converted to booking!")
