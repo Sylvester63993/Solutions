@@ -32,7 +32,9 @@ def wind_now(city, key=KEY):
         weather_report = "Unknown Location"
     return weather_report
 
+
 if __name__ == "__main__":  # Executed when invoked directly
     print(weather_now("Helsinki", KEY))
+    print("---------------------------------------------")
     print(wind_now("Helsinki", KEY))
     # print(weather_now("xxxxzzzyy", KEY))
