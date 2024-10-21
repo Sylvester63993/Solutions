@@ -18,7 +18,21 @@ def weather_now(city, key=KEY):
         weather_report = "Unknown Location"
     return weather_report
 
+def wind_now(city, key=KEY):
+    url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&APPID=" + key
+    response = requests.get(url)  # Some background information: https://www.w3schools.com/python/ref_requests_get.asp
+    wind = json.loads(response.text)  # https://www.w3schools.com/python/python_json.asp  Deserialize json into a hierarchy of dictionaries and lists
+    print(f'{wind=}')
+    print(f'{wind["wind"]=}')
+    print(f'{wind["wind"]["speed"]=}')
+    print(f'{int(wind["main"]["temp"])=}')
+    if wind["name"] == "Helsinki":
+        weather_report = str(int(wind["wind"]["speed"])) + "m/s, " + str(int(wind["wind"]["deg"])) + "°, " + str(int(wind["wind"]["gust"])) + "m/s"
+    else:
+        weather_report = "Unknown Location"
+    return weather_report
 
 if __name__ == "__main__":  # Executed when invoked directly
     print(weather_now("Helsinki", KEY))
+    print(wind_now("Helsinki", KEY))
     # print(weather_now("xxxxzzzyy", KEY))
