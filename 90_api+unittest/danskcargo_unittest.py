@@ -47,7 +47,7 @@ class TestEmptyEntries(unittest.TestCase):
 class TestSoftDelete(unittest.TestCase):
     def test_aircraft_max_cargo_soft_delete(self):
         # arrange
-        Database = 'sqlite:///danskcargo.db'  # first part: database type, second part: file path
+        Database = 'sqlite:///danskcargo2.db'  # first part: database type, second part: file path
         Base = declarative_base()  # creating the registry and declarative base classes - combined into one step. Base will serve as the base class for the ORM mapped classes we declare.
         engine = create_engine(Database, echo=False, future=True)  # https://docs.sqlalchemy.org/en/14/tutorial/engine.html   The start of any SQLAlchemy application is an object called the Engine. This object acts as a central source of connections to a particular database, providing both a factory as well as a holding space called a connection pool for these database connections. The engine is typically a global object created just once for a particular database server, and is configured using a URL string which will describe how it should connect to the database host or backend.
         Base.metadata.create_all(engine)
@@ -56,10 +56,12 @@ class TestSoftDelete(unittest.TestCase):
             new_items.append(dcd.Aircraft(max_cargo_weight=1000, registration="OY-THC"))
             session.add_all(new_items)
             session.commit()
+        dcsql.get_record(dcd.Aircraft, 1)
+        # der skal indlæses aircraft fra db'en med en func som ligner get_record fra tidligere opgaver i sql
         # act
-        dcg.delete_aircraft()
-        # assert
-
+        dcsql.delete_soft_aircraft(dcd.Aircraft)
+        # assert (check om max_cargo_weight = -1)
+        self.assertEqual(dcd.Aircraft.max_cargo_weight, -1)  # checker om max_cargo_weight er sat til -1 (soft deleted)
 
 
 if __name__ == '__main__':
