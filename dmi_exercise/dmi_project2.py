@@ -4,13 +4,15 @@ import tkinter
 import tkintermapview
 
 KEY = "bf39b989-b47c-4557-abfd-5b3b492aca36"
+start = "2020"
+end = "2021"
+bbox = "7,54,16,58"
 
-
-def fetch_data(key=KEY):
-    start = input("Indtast start kalenderår: ")
-    end = input("Indtast slut kalenderår: ")
+def fetch_data(start, end, bbox, key=KEY):
+    # start = input("Indtast start kalenderår: ")
+    # end = input("Indtast slut kalenderår: ")
     date = "datetime=" + start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
-    url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=10&bbox=7,54,16,58&" + date + "&api-key=" + key
+    url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=10&bbox=" + bbox + "&" + date + "&api-key=" + key
     response = requests.get(url)
     data = json.loads(response.text)
     print(f'{data=}')
@@ -32,7 +34,7 @@ def generate_map():
 
 
 if __name__ == "__main__":  # Executed when invoked directly
-    print(fetch_data(KEY))
+    print(fetch_data(start, end, bbox, KEY))
     # start = input("Indtast start kalenderår: ")
     # end = input("Indtast slut kalenderår: ")
     # date = start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
