@@ -30,14 +30,17 @@ def generate_map():
     map_widget = tkintermapview.TkinterMapView(root_tk, width=800, height=600, corner_radius=0)
     map_widget.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
+    # set current widget position and zoom
+    # map_widget.set_position(55.613133, 12.356829)  # Ishøj Bycenter, Denmark
+    map_widget.set_position(55.9396761, 9.5155848)  # Hele DK, zoom: 7
+    map_widget.set_zoom(7)
+
+    map_widget.fit_bounding_box((7, 54), (58, 16))
+
     root_tk.mainloop()
 
 
 if __name__ == "__main__":  # Executed when invoked directly
     print(fetch_data(start, end, bbox, KEY))
-    # start = input("Indtast start kalenderår: ")
-    # end = input("Indtast slut kalenderår: ")
-    # date = start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
-    # print(date)
     generate_map()
 
