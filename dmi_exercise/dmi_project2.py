@@ -16,7 +16,7 @@ def fetch_data(start, end, bbox, key=KEY):
     response = requests.get(url)
     data = json.loads(response.text)
     print(f'{data=}')
-    print(data)
+    # print(data)
     print("URL: " + url)
     print("Date: " + date)
 
@@ -31,11 +31,13 @@ def generate_map():
     map_widget.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     # set current widget position and zoom
-    # map_widget.set_position(55.613133, 12.356829)  # Ishøj Bycenter, Denmark
-    map_widget.set_position(55.9396761, 9.5155848)  # Hele DK, zoom: 7
-    map_widget.set_zoom(7)
+    # map_widget.set_position(55.613133, 12.356829, marker=True)  # Ishøj Bycenter, Denmark
+    # map_widget.set_position(55.9396761, 9.5155848)  # Hele DK, zoom: 7
+    # map_widget.set_zoom(7)
 
-    map_widget.fit_bounding_box((7, 54), (58, 16))
+    # Gadekæret sø: 55.6174754 12.3482867
+    # Jægerbuen sø: 55.6109373 12.3611426
+    map_widget.fit_bounding_box((55.6174754, 12.3482867), (55.6109373, 12.3611426))
 
     root_tk.mainloop()
 
