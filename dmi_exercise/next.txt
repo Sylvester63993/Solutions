@@ -1,0 +1,10 @@
+gem response.text til fil,
+    prøv write
+    prøv write lines
+    spørg AI
+
+læs data fra den gemte fil
+
+find koordinater i filen, brug fx json editor online, se sti
+
+brug koordinater til at skabe markører på kort.
