@@ -1,10 +1,11 @@
-gem response.text til fil,
+1) gem response.text til fil,
     prøv write
     prøv write lines
     spørg AI
 
-læs data fra den gemte fil
+2) læs data fra den gemte fil
 
-find koordinater i filen, brug fx json editor online, se sti
+3) find koordinater i filen
+    brug jsoneditoronline (se sti)
 
-brug koordinater til at skabe markører på kort.
+4) brug koordinater til at skabe markører på kort
