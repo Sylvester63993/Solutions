@@ -16,10 +16,17 @@ def fetch_data(start, end, bbox, key):
     print("URL: " + url)
     print("Date: " + date)
 
+# def save_data():
+
+# def show_data():
+
+# def tkinter_bbox():
+
+
 def generate_map():
     # create tkinter window
     root_tk = tkinter.Tk()
-    root_tk.geometry(f"{800}x{600}")
+    root_tk.geometry(f"{1024}x{768}")
     root_tk.title("map_view_example.py")
 
     # create map widget
@@ -27,13 +34,13 @@ def generate_map():
     map_widget.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     # set current widget position and zoom
-    map_widget.set_position(55.613133, 12.356829, marker=True)  # Ishøj Bycenter, Denmark
+    # map_widget.set_position(55.613133, 12.356829, marker=True)  # Ishøj Bycenter, Denmark
     # map_widget.set_position(55.9396761, 9.5155848)  # Hele DK, zoom: 7
     # map_widget.set_zoom(7)
 
-    # Gadekæret sø: (55.6174754), (12.3482867)
-    # Jægerbuen sø: 55.6109373 12.3611426
-    map_widget.fit_bounding_box((55.6147554, 12.3533761), (55.6114443, 12.3605906))
+    # set bounding box coordinates
+    map_widget.fit_bounding_box((55.6153880, 12.3520915), (55.6109571, 12.3611420))
+    # map_widget.fit_bounding_box((55.6082893, 12.3355657), (55.6031621, 12.3457366)) # BBox test
 
     root_tk.mainloop()
 
@@ -42,7 +49,7 @@ def main():
     KEY = "bf39b989-b47c-4557-abfd-5b3b492aca36"
     start = "2020"
     end = "2021"
-    bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark
+    bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [long, lat])
     print(fetch_data(start, end, bbox, KEY))
     generate_map()
 
