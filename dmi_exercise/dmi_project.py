@@ -20,11 +20,25 @@ def fetch_data(start, end, bbox, key):
 def save_data(data):
     myfile = "dmi_data.json"  # the name of the file. Note the / (slash) instead of a \ (backslash) in the file path!
 
-    # Writing to a file
+    # Writing to a file (.json)
     with open(myfile, "w") as myfile:  # 'w' stands for "write"
         json.dump(data, myfile, indent=4)
-        # file.writelines(json.dump(data, myfile, indent=4))
-        # json.dump(data)  # writes the whole list of strings at once
+
+def read_data():
+    myfile = "dmi_data.json"
+
+    # Reading file
+    with open(myfile, "r") as myfile:
+        data = json.load(myfile)
+
+        return data
+
+def print_coordinates(data): # AI generated
+    features = data.get("features", [])
+    for feature in features:
+        coordinates = feature.get("geometry", {}).get("coordinates", [])
+        if coordinates:
+            print(f'Koordinater: {coordinates}')
 
 # def show_data():
 
@@ -61,8 +75,15 @@ def main():
     data = fetch_data(start, end, bbox, KEY)
     print(data)
     save_data(data)
+    # data = read_data()
+    # data.features[0].geometry.cordinates[0]
+    # print(data.features[0].geometry.cordinates[0])
+    # print(data.features[1].geometry.coordinates[1])
 
     generate_map()
+
+    data = read_data()
+    print_coordinates(data)
 
 
 if __name__ == "__main__":  # Executed when invoked directly
