@@ -11,12 +11,20 @@ def fetch_data(start, end, bbox, key):
     url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=10&bbox=" + bbox + "&" + date + "&api-key=" + key
     response = requests.get(url)
     data = json.loads(response.text)
+    return data
     print(f'{data=}')
     # print(data)
     print("URL: " + url)
     print("Date: " + date)
 
-# def save_data():
+def save_data(data):
+    myfile = "dmi_data.json"  # the name of the file. Note the / (slash) instead of a \ (backslash) in the file path!
+
+    # Writing to a file
+    with open(myfile, "w") as myfile:  # 'w' stands for "write"
+        json.dump(data, myfile, indent=4)
+        # file.writelines(json.dump(data, myfile, indent=4))
+        # json.dump(data)  # writes the whole list of strings at once
 
 # def show_data():
 
@@ -34,9 +42,9 @@ def generate_map():
     map_widget.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     # set current widget position and zoom
-    # map_widget.set_position(55.613133, 12.356829, marker=True)  # Ishøj Bycenter, Denmark
+    map_widget.set_position(55.613133, 12.356829, marker=True)  # Ishøj Bycenter, Denmark
     # map_widget.set_position(55.9396761, 9.5155848)  # Hele DK, zoom: 7
-    # map_widget.set_zoom(7)
+    map_widget.set_zoom(7)
 
     # set bounding box coordinates
     map_widget.fit_bounding_box((55.6153880, 12.3520915), (55.6109571, 12.3611420))
@@ -50,7 +58,10 @@ def main():
     start = "2020"
     end = "2021"
     bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [long, lat])
-    print(fetch_data(start, end, bbox, KEY))
+    data = fetch_data(start, end, bbox, KEY)
+    print(data)
+    save_data(data)
+
     generate_map()
 
 
