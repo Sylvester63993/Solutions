@@ -8,11 +8,11 @@ def fetch_data(start, end, bbox, key):
     # start = input("Indtast start kalenderår: ")
     # end = input("Indtast slut kalenderår: ")
     date = "datetime=" + start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
-    url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=10&bbox=" + bbox + "&" + date + "&api-key=" + key
+    url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=100&bbox=" + bbox + "&" + date + "&api-key=" + key
     response = requests.get(url)
     data = json.loads(response.text)
     return data
-    print(f'{data=}')
+    # print(f'{data=}')
     # print(data)
     print("URL: " + url)
     print("Date: " + date)
@@ -33,36 +33,39 @@ def read_data():
 
         return data
 
-def print_coordinates(data): # AI generated
+def print_coordinates(data):  # AI generated
     features = data.get("features", [])
     for feature in features:
         coordinates = feature.get("geometry", {}).get("coordinates", [])
         if coordinates:
             print(f'Koordinater: {coordinates}')
 
-# def show_data():
+def get_coordinates(data):
+    features = data.get("features", [])
+    coordinates = []
+    for feature in features:
+        coord = feature.get("geometry", {}).get("coordinates", [])
+        if coord:
+            coordinates.append(coord)
+    return coordinates
 
-# def tkinter_bbox():
 
-
-def generate_map():
+def plot_coordinates_on_map(coordinates):  # AI generated
     # create tkinter window
     root_tk = tkinter.Tk()
     root_tk.geometry(f"{1024}x{768}")
     root_tk.title("map_view_example.py")
 
     # create map widget
-    map_widget = tkintermapview.TkinterMapView(root_tk, width=800, height=600, corner_radius=0)
+    map_widget = tkintermapview.TkinterMapView(root_tk, width=800, height=600)
     map_widget.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
+    map_widget.pack(fill="both", expand=True)
 
-    # set current widget position and zoom
-    map_widget.set_position(55.613133, 12.356829, marker=True)  # Ishøj Bycenter, Denmark
-    # map_widget.set_position(55.9396761, 9.5155848)  # Hele DK, zoom: 7
-    map_widget.set_zoom(7)
+    for coord in coordinates:
+        lat, lon = coord[1], coord[0]  # Reorder coordinates for latitude, longitude
+        map_widget.set_position(lat, lon, marker=True, marker_color_circle="yellow")  # marker_color_outline="yellow"
 
-    # set bounding box coordinates
-    map_widget.fit_bounding_box((55.6153880, 12.3520915), (55.6109571, 12.3611420))
-    # map_widget.fit_bounding_box((55.6082893, 12.3355657), (55.6031621, 12.3457366)) # BBox test
+    map_widget.set_zoom(7)  # Adjust zoom level as necessary
 
     root_tk.mainloop()
 
@@ -72,18 +75,22 @@ def main():
     start = "2020"
     end = "2021"
     bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [long, lat])
+    # bbox = "12.3520915,55.6153880,12.3520915,55.6153880"  # format: [long, lat]
     data = fetch_data(start, end, bbox, KEY)
     print(data)
     save_data(data)
-    # data = read_data()
-    # data.features[0].geometry.cordinates[0]
-    # print(data.features[0].geometry.cordinates[0])
-    # print(data.features[1].geometry.coordinates[1])
-
-    generate_map()
 
     data = read_data()
     print_coordinates(data)
+
+    # generate_map()
+    # plot_coordinates_on_map()
+
+    # Get coordinates from data
+    coordinates = get_coordinates(data)
+
+    # Plot coordinates on map
+    plot_coordinates_on_map(coordinates)
 
 
 if __name__ == "__main__":  # Executed when invoked directly
