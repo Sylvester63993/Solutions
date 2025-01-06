@@ -74,8 +74,13 @@ def main():
     KEY = "bf39b989-b47c-4557-abfd-5b3b492aca36"
     start = "2020"
     end = "2021"
-    bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [long, lat])
-    # bbox = "12.3520915,55.6153880,12.3520915,55.6153880"  # format: [long, lat]
+    # bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [lon, lat])
+    bbox = "12.2361824,55.6323748,12.3317978,55.6669539"
+
+    # Taastrup bbox
+    # top right: 55.6669539 12.3317978
+    # bottom left: 55.6323748 12.2361824
+
     data = fetch_data(start, end, bbox, KEY)
     print(data)
     save_data(data)
