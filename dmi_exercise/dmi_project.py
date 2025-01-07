@@ -4,11 +4,12 @@ import tkinter
 import tkintermapview
 
 
-def fetch_data(start, end, bbox, key):
+def fetch_data(start, end, bbox, limit, offset, key):
     # start = input("Indtast start kalenderår: ")
     # end = input("Indtast slut kalenderår: ")
     date = "datetime=" + start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
-    url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=100&bbox=" + bbox + "&" + date + "&api-key=" + key
+    url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=" + limit + "&offset=" + offset + "&bbox=" + bbox + "&" + date + "&api-key=" + key
+    # url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=100&bbox=" + bbox + "&" + date + "&api-key=" + key
     response = requests.get(url)
     data = json.loads(response.text)
     return data
@@ -76,12 +77,15 @@ def main():
     end = "2021"
     # bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [lon, lat])
     bbox = "12.2361824,55.6323748,12.3317978,55.6669539"
+    limit = "1000"
+    offset = "0"
 
     # Taastrup bbox
     # top right: 55.6669539 12.3317978
     # bottom left: 55.6323748 12.2361824
 
-    data = fetch_data(start, end, bbox, KEY)
+    # data = fetch_data(start, end, bbox, KEY)
+    data = fetch_data(start, end, bbox, limit, offset, KEY)
     print(data)
     save_data(data)
 
