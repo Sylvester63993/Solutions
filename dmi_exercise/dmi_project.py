@@ -5,8 +5,6 @@ import tkintermapview
 
 
 def fetch_data(start, end, bbox, limit, offset, key):
-    # start = input("Indtast start kalenderår: ")
-    # end = input("Indtast slut kalenderår: ")
     date = "datetime=" + start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
     print("Date: " + date)
     url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=" + limit + "&offset=" + offset + "&bbox=" + bbox + "&" + date + "&api-key=" + key
@@ -73,9 +71,9 @@ def plot_coordinates_on_map(coordinates):  # AI generated
 def main():
     KEY = "bf39b989-b47c-4557-abfd-5b3b492aca36"
     # start = input("Indtast start kalenderår: ")
-    start = "2023"
+    start = "2020"
     # end = input("Indtast slut kalenderår: ")
-    end = "2024"
+    end = "2021"
 
     # bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [lon, lat])
     bbox = "12.2361824,55.6323748,12.3317978,55.6669539"
