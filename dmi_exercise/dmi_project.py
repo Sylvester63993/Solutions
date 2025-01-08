@@ -8,15 +8,14 @@ def fetch_data(start, end, bbox, limit, offset, key):
     # start = input("Indtast start kalenderår: ")
     # end = input("Indtast slut kalenderår: ")
     date = "datetime=" + start + "-01-01T00:00:00%2B02:00/" + end + "-01-01T00:00:00%2B02:00"
+    print("Date: " + date)
     url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=" + limit + "&offset=" + offset + "&bbox=" + bbox + "&" + date + "&api-key=" + key
+    print("URL: " + url)
     # url = "https://dmigw.govcloud.dk/v2/lightningdata/collections/observation/items?limit=100&bbox=" + bbox + "&" + date + "&api-key=" + key
     response = requests.get(url)
     data = json.loads(response.text)
     return data
-    # print(f'{data=}')
-    # print(data)
-    print("URL: " + url)
-    print("Date: " + date)
+
 
 def save_data(data):
     myfile = "dmi_data.json"  # the name of the file. Note the / (slash) instead of a \ (backslash) in the file path!
@@ -83,20 +82,12 @@ def main():
     limit = "1000"
     offset = "0"
 
-    # Taastrup bbox
-    # top right: 55.6669539 12.3317978
-    # bottom left: 55.6323748 12.2361824
-
-    # data = fetch_data(start, end, bbox, KEY)
     data = fetch_data(start, end, bbox, limit, offset, KEY)
-    print(data)
+    # print(data)
     save_data(data)
 
     data = read_data()
     print_coordinates(data)
-
-    # generate_map()
-    # plot_coordinates_on_map()
 
     # Get coordinates from data
     coordinates = get_coordinates(data)
