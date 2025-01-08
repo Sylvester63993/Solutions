@@ -66,15 +66,18 @@ def plot_coordinates_on_map(coordinates):  # AI generated
         lat, lon = coord[1], coord[0]  # Reorder coordinates for latitude, longitude
         map_widget.set_position(lat, lon, marker=True, marker_color_circle="yellow")  # marker_color_outline="yellow"
 
-    map_widget.set_zoom(7)  # Adjust zoom level as necessary
+    map_widget.set_zoom(12)  # Adjust zoom level as necessary
 
     root_tk.mainloop()
 
 
 def main():
     KEY = "bf39b989-b47c-4557-abfd-5b3b492aca36"
-    start = "2020"
-    end = "2021"
+    # start = input("Indtast start kalenderår: ")
+    start = "2023"
+    # end = input("Indtast slut kalenderår: ")
+    end = "2024"
+
     # bbox = "7,54,16,58"  # DMIs bbox-koordinater for hele Danmark (format: [lon, lat])
     bbox = "12.2361824,55.6323748,12.3317978,55.6669539"
     limit = "1000"
