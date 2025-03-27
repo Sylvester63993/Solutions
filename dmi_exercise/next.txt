@@ -9,3 +9,8 @@
     brug jsoneditoronline (se sti)
 
 4) brug koordinater til at skabe markører på kort
+
+5) Jeg har haft GUI delen implementeret før, men det er ikke blevet gemt. Filen dmi_project_draft.py indeholder kode som skal implementeres i dmi_project.py.
+Udskift keyword nonlocal med global i koden for at få det til at fungere.
+Kald launch_gui() i main funktionen.
+Der skal til sidst måske ændres nogle labels inde i dmi_project_gui.py filen.
