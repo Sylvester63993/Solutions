@@ -80,6 +80,8 @@ def main():
     limit = "1000"
     offset = "0"
 
+
+    # fetch and process data
     data = fetch_data(start, end, bbox, limit, offset, KEY)
     # print(data)
     save_data(data)
